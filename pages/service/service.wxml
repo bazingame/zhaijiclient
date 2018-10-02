@@ -1,0 +1,45 @@
+<!--pages/service/service.wxml-->
+<view class='top'>
+  快递服务
+</view>
+<view class='selectway'>
+  <view style='{{bbs}}'>取</view>
+  <view style='{{bb}}'>寄</view>
+</view>
+<view class='heavy'>
+  <view >
+    <view style='border-bottom:{{b1}}px solid #000' bindtap='change' data-heavy="small">小件</view>
+  </view>
+  <view >
+    <view style='border-bottom:{{b2}}px solid #000' bindtap='change' data-heavy="middle">中件</view>
+  </view>
+  <view>
+    <view style='border-bottom:{{b3}}px solid #000' bindtap='change' data-heavy="big">大件</view>
+  </view>
+  
+</view>
+<view class='kg'>
+    <image src='img/smallbox.png' ></image>
+    <view>重量:{{kg}}kg</view>
+</view>
+<view class='send'>
+  <view>配送至</view>
+    <!--这里以后可以改成选择输入，但是暂时先用输入框-->
+    <input type='text' placeholder='请输入配送地址' class='address' data-name="{{address}}" value="{{address}}" bindinput='bindaddressinput' placeholder-class='placeholder' />
+  <view>快递平台</view>
+  <picker bindchange="bindindexPickerChange" value="{{index}}" range="{{array}}">
+    <view class="picker">
+      <text>{{array[index]}}</text>
+    </view>
+  </picker>
+  <view>取货号码</view>
+   <input type='text' placeholder='请输入取货号码' class='num' data-name="{{num}}" value="{{num}}" bindinput='bindnuminput' placeholder-class='placeholder' />
+    <view>运费险</view>
+    <picker bindchange="bindidxPickerChange" value="{{idx}}" range="{{baoxian}}">
+    <view class="picker">
+      <text>{{baoxian[idx]}}</text>
+    </view>
+  </picker>
+</view>
+
+  <button bindtap='goodssubmit'>提交订单</button>

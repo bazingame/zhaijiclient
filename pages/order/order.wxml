@@ -1,0 +1,29 @@
+<view class='top'>
+  订单
+</view>
+<view class='order' wx:for="{{order}}" >
+  <image src='./img/smallbox.png'></image>
+  <view>
+    <view class='kuaidi'>
+      {{order[index].kuaidi}}
+    </view>
+    <view class='time'>
+      {{order[index].time}}
+    </view>
+  </view>
+  <view >
+    <view class='flag'>
+      {{order[index].flag}}
+    </view>
+    <view class='price'>
+      {{order[index].price}}
+    </view>
+  </view>
+  <view class='bar'></view>
+  <view style='float:left'>
+    配送人：{{order[index].people}}
+  </view>
+  <button data-order="{{order[index]}}" style='float:right' bindtap='orderDetail'>去评论</button>
+  
+</view>
+

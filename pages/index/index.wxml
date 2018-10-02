@@ -1,0 +1,15 @@
+<!--登录数据缓存，判断缓存后跳转-->
+
+<view class="top">宅急</view>
+  <button open-type="getUserInfo" style='display:{{shouquan}}' bindgetuserinfo='bindGetUserInfo'>小程序授权</button>
+<view class='index' style='display:{{page}}'>
+  <view class='login'>
+    <input type='number' placeholder='请输入手机号' class='phone' data-name="{{phone}}" value="{{phone}}" bindinput='bindphoneinput'/>
+    <view class='psw'>
+      <input type='nunber' placeholder='请输入验证码' value="{{psw}}"/>
+      <button id='yanzhengma' bindtap='getyanzhengma' disabled='{{disabled}}' bindinput='bindyzminput'>获取验证码{{time}}</button>
+    </view>
+  </view>
+
+  <button id='submit' bindtap='loginsubmit' >提交</button>
+</view>

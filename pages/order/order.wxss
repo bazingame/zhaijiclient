@@ -1,0 +1,61 @@
+/* pages/order/order.wxss */
+page{
+  font-family: '楷体';
+  color:#888;
+  background-color:#eee;
+}
+.top{
+  padding-left: 20px;
+  font-family: '楷体';
+  color:#fff;
+  height: 40px;
+  font-size: 50rpx;
+  line-height: 30px;
+  background-color: #0097fe;
+}
+.order{
+  box-sizing: border-box;
+  padding: 30rpx 60rpx; 
+  height: 150px;
+  border-radius: 5px;
+  background-color: #fff;
+  width: 95%;
+  margin: 10px auto 0px;
+  line-height: 40px;
+}
+.order>image{
+  height: 150rpx;
+  width: 150rpx;
+  float: left;
+}
+.time,.kuaidi{
+  margin-left:20rpx;
+}
+.time,.price{
+  font-size: 12px;
+}
+.order>view:nth-child(2),.order>view:nth-child(3){
+  float:left;
+}
+.price,.flag{
+
+  font-size: 14px;
+}
+.order>view:nth-child(3){
+  float: right;
+  text-align: right;
+}
+.bar{
+  clear: both;
+  height: 1px;
+  background-color: #000;
+  width: 100%;
+  margin: 90px auto 0px;
+}
+button{
+  margin-top: 5px;
+  height: 30px;
+  line-height: 30px;
+  color:#fff;
+  background-color: #7ecef4;
+}

@@ -1,0 +1,39 @@
+
+  <view class='top'>
+    我的
+  </view>
+  <view class='me'>
+    <view class='personalInformation'>
+      <image src='{{head}}'></image>
+      <view class='id'>{{nickname}}</view>
+      <view class='wx_id'>{{wx_id}}</view>
+    </view>
+    <navigator url='../address/address' class='block'>
+      <image src='./img/address.png'></image>
+      <view>配送地址</view>
+      <view>></view>
+    </navigator>
+    <view class='block'>
+      <image src='./img/price.png'></image>
+      <view>快递收费标准</view>
+      <view>></view>
+    </view>
+    <view class='block'>
+      <image src='./img/kuaidiyuan.png'></image>
+      <view>运费收费标准</view>
+      <view>></view>
+    </view>
+    <view class='block'>
+      <image src='./img/contact.png'></image>
+      <view>用户协议</view>
+      <view>></view>
+    </view>
+    <view class='block'>
+      <image src='./img/kefu.png'></image>
+      <view>客服标准</view>
+      <view>></view>
+    </view>
+  </view>
+
+  <button bindtap='exitlogin'>退出登录</button>
+  

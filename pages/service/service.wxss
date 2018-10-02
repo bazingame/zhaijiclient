@@ -1,0 +1,93 @@
+/* pages/service/service.wxss */
+page{
+  font-family: '楷体';
+  background-color:#eee;
+}
+.top{
+  padding-left: 20px;
+  font-family: '楷体';
+  color:#fff;
+  height: 40px;
+  font-size: 50rpx;
+  line-height: 30px;
+  background-color: #0097fe;
+}
+.selectway{
+  font-family: '楷体';
+  color:#fff;
+  
+  font-size: 50rpx;
+  line-height: 50px;
+  background-color: #0097fe;
+
+}
+.selectway>view{
+  width: 50%;
+  display: inline-block;
+  text-align: center;
+}
+.heavy{
+  text-align: center;
+  background-color: #fff;
+  width: 80%;
+  padding: 15px 10%;
+}
+.heavy>view{
+  
+  display: inline-block;
+  width: 33%;
+}
+.kg>image{
+  margin-top: 50rpx;
+  width: 150rpx;
+  height: 150rpx;
+}
+.heavy>view>view{
+  display: inline;
+  padding-bottom:3px; 
+}
+.kg{
+  background-color: #fff;
+  margin: 0 auto;
+  width: 60%;
+  padding: 0 20%;
+  text-align: left;
+  height: 250rpx;
+}
+.kg>view{
+  line-height: 250rpx;
+  float: right;
+  width: 50%;
+  padding-left: 10%;
+}
+.send{
+  margin-top: 10px;
+  background-color: #fff;
+  width: 80%;
+  padding: 10%;
+}
+.send>view{
+  float: left;
+  margin-top: 10px;
+
+  /* width: 30%;
+  display: inline-block; */
+}
+.send>input,.send>picker{
+  margin-top: 10px;
+  /*display: inline-block;
+  width: 70%;*/
+  margin-left:100px;
+  color:#666; 
+}
+button{
+  z-index:999;
+  right: 5px;
+  background-color:#0097fe;
+  margin: 20px auto;
+  width: 80%;
+  color:#fff;
+}
+.placeholder{
+  font-family: '楷体'
+}
