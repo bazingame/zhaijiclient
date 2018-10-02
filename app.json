@@ -10,9 +10,6 @@
     "pages/order/order",
     
     "pages/logs/logs"
-    
-    
-    
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -42,5 +39,5 @@
         "selectedIconPath": "pages/img/Sme.png",
         "text": "我的"
       }]
-  }
+  }  
 }

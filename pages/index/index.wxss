@@ -38,7 +38,7 @@ page{
 .psw{
   position: relative;
 }
-#yanzhengma{
+#captcha{
   margin: 0;
   top: -7px;
   border-radius: 15px;

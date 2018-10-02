@@ -1,25 +1,30 @@
 //index.js
 //获取应用实例
 const app = getApp()
-
 Page({
   data: {
     time: "",
     disabled: "",
-    psw: "",
+    submitDisabled:true,
+    captcha: "",
     phone: "",
-    shouquan: 'block',
-    page: 'none'
+    shouquan: 'none',
+    page: 'block'
   },
   bindphoneinput: function(e) {
     this.setData({
       phone: e.detail.value
     })
   },
-  bindyzminput: function(e) {
+  bindCaptchaInput: function(e) {
     this.setData({
-      yzm: e.detail.value
+      captcha: e.detail.value
     })
+    if(this.data.captcha.length==6){
+      this.setData({
+        submitDisabled: ''
+      })
+    }
   },
   bindGetUserInfo: function(e) {
     var that = this;
@@ -62,90 +67,72 @@ Page({
       })
     }
   },
-  getyanzhengma: function() {
+    //获取验证码
+  getCaptcha: function() {
     var that = this;
-    var T = 60;
-    var timer = setInterval(function() {
-      if (T != 0) {
-        that.setData({
-          time: T,
-          disabled: 'disabled'
-        })
-        T--;
-      } else {
-        that.setData({
-          time: "",
-          disabled: ""
-        })
-        clearInterval(timer);
-      }
-
-    }, 1000)
-
-  },
-  loginsubmit: function(e) {
-    var that = this;
-    var phone = that.data.phone;
-    //console.log(that.data);
-    var psw = that.data.psw;
-    if (phone < 10000000000 || phone > 20000000000) {
+    if (this.data.phone < 10000000000 || this.data.phone > 20000000000) {
       wx.showToast({
-        title: '请输入正确格式的手机号',
+        title: '手机号格式错误',
         icon: 'none'
       })
       return;
     }
-    wx.login({
+    wx.request({
+      url: app.globalData.URL_BASE + app.globalData.GET_CAPTCHA,
+      method:"POST",
+      data: { "open_id": app.globalData.open_id, "phone": this.data.phone},
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
       success:function(res){
-        console.log(res);
-        wx.request({
-          url: 'https://zhaiji.hammerfood.cn/code',
-          method:'POST',
-          data:{
-            code:res.code
-          },
-          success:function (res) {
-            console.log(res);
-            var head;
-            var open_id = res.data.data.openid;
-            wx.getUserInfo({
-              lang: 'zh-CN',
-              success: function (res) {
-                console.log(res);
-                head = res.userInfo.avatarUrl;
-                console.log(head);
-                wx.request({
-                  url: 'https://zhaiji.hammerfood.cn/login',
-                  method:'POST',
-                  data: {
-                    open_id: open_id,
-                    phone: phone,
-                    headimg_url: head
-                  },
-                  success: function (res) {
-                    console.log(res);
-                    wx.setStorage({
-                      key: 'phone',
-                      data: phone
-                    }),
-                    wx.switchTab({
-                      url: '../service/service',
-                    })
-                  },
-                  fail: function (e) {
-                    console.log(e);
-                  }
-                })
-
-              }
+        if (res.statusCode === 200 && res.data.errcode === 0){
+          console.log(res.data)
+          that.setCountDown()
+          // this.data.submitDisabled = false
+          
+        }else{
+            wx.showToast({
+            title: res.data.errmsg,
+            icon: 'none'
+          })
+        }
+      }
+    })
+  },
+  //提交验证验证码并登录
+  loginsubmit: function(e) {
+    var that = this;
+    var captcha = this.data.captcha;
+    if(captcha.length==6){
+      wx.request({
+        url: app.globalData.URL_BASE + app.globalData.VERIFY_CAPTCHA,
+        method:"POST",
+        data: { "open_id": app.globalData.open_id, "phone": this.data.phone ,"captcha":captcha},
+        header:{
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        success: function (res) {
+          //验证成功，顺便登录
+          if (res.statusCode === 200 && res.data.errcode === 0) {
+            app.globalData.zhaijiUserInfo = res.data.data
+            console.log(res)
+            wx.switchTab({
+              url: '/pages/service/service',
+            })
+            // app.initLogin()
+          } else {
+            wx.showToast({
+              title: res.data.errmsg,
+              icon: 'none'
             })
           }
-        })
-      },
-    })
-    // ,
-   
-    //wx.request
+        }
+      })
+    }else{
+      wx.showToast({
+        title: '请输入正确的验证码',
+      })
+    }
   },
   //事件处理函数
   bindViewTap: function() {
@@ -185,5 +172,25 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+  },
+  setCountDown:function(e){
+    var that = this
+    var T = 60;
+    var timer = setInterval(function () {
+      if (T != 0) {
+        that.setData({
+          time: T,
+          disabled: 'disabled'
+        })
+        T--;
+      } else {
+        that.setData({
+          time: "",
+          disabled: ""
+        })
+        clearInterval(timer);
+      }
+
+    }, 1000)
   }
 })
