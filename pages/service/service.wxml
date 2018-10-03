@@ -1,33 +1,21 @@
 <!--pages/service/service.wxml-->
-<!-- <view class='selectway'>
-  <view style='{{bbs}}'>取</view>
-  <view style='{{bb}}'>寄</view>
-</view> -->
-<view class='heavy'>
-  <view >
-    <view style='border-bottom:{{b1}}px solid #000' bindtap='change' data-heavy="small">小件</view>
-  </view>
-  <view >
-    <view style='border-bottom:{{b2}}px solid #000' bindtap='change' data-heavy="middle">中件</view>
-  </view>
-  <view>
-    <view style='border-bottom:{{b3}}px solid #000' bindtap='change' data-heavy="big">大件</view>
-  </view>
-</view>
 <view class='kg'>
     <image class='package_img' src='img/smallbox.png' style='width:{{boxWidth}}rpx;height:{{boxHeight}}rpx;margin-left:{{boxMargin}}rpx'></image>
     <view>
-    <text>重量:</text> <image src='img/sub.png' class='sub_icon'></image>{{kg}}kg  <image src='img/add.png' class='add_icon'></image>
+    <text>重量:</text> <image src='img/sub.png' class='sub_icon' bindtap='subHeavey'></image><text class="heavy-num">{{kg}}kg</text><image src='img/add.png' class='add_icon' bindtap='addHeavey'></image>
     </view>
   <!-- </picker> -->
 </view>
 <view class='send'>
   <view>配送至</view>
-  <picker bindchange="bindAddressPickerChange" value="{{addressIndex}}" range="{{addressList}}" range-key='address_detail'>
+  <!-- <picker bindchange="bindAddressPickerChange" value="{{addressIndex}}" range="{{addressList}}" range-key='address_detail'>
     <view class="picker">
       <text>{{addressList[addressIndex].address_detail}}</text>
     </view>
-  </picker>
+  </picker> -->
+  <!-- <picker> -->
+    <text bindtap='selectAddress' class="send-address">{{selectAddressWord}}</text>
+  <!-- </picker> -->
   <view>快递平台</view>
   <picker bindchange="bindExpressPickerChange" value="{{expressIndex}}" range="{{expressList}}" range-key='name'>
     <view class="picker">
@@ -35,15 +23,15 @@
     </view>
   </picker>
   <view>取货号码</view>
-   <input type='text' placeholder='请输入取货号码' class='num' data-name="{{num}}" value="{{num}}" bindinput='bindnuminput' placeholder-class='placeholder' />
-    <view>运费险</view>
-    <picker bindchange="bindInsurancePickerChange" value="{{insuranceIndex}}" range="{{insurance}}">
+   <input type='text' placeholder='请输入取货号码' class='num' data-name="{{packageId}}" value="{{packageId}}" bindinput='bindPackageIdInput' placeholder-class='placeholder' />
+  <view>运费险</view>
+  <picker bindchange="bindInsurancePickerChange" value="{{insuranceIndex}}" range="{{insurance}}">
     <view class="picker">
       <text>{{insurance[insuranceIndex]}}</text>元(最高赔200倍)
     </view>
-    </picker>
+  </picker>
 </view>
 <view class="money">
     <view class="order_money">预计 <text class='order_money_num'>{{orderMoney}}</text> 元</view>
 </view>
-  <button bindtap='goodssubmit'>提交订单</button>
+  <button bindtap='goodsSubmit'>提交订单</button>

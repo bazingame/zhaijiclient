@@ -39,6 +39,11 @@ App({
             }
           }
         })
+      },
+      fail:res=>{
+        wx.showToast({
+          title: '网络连接错误',
+        })
       }
     })
     // 获取用户信集送送s    

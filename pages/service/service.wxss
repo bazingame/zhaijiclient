@@ -81,6 +81,13 @@ page{
   margin-left:100px;
   color:#666; 
 }
+.send-address{
+  margin-top: 10px;
+  display: block;
+  /* width: 70%; */
+  margin-left:100px;
+  color:#666; 
+}
 button{
   z-index:999;
   right: 5px;
@@ -108,10 +115,14 @@ button{
 .add_icon{
   width:40rpx;
   height:40rpx;
+  margin-left: 30rpx;
 }
 .sub_icon{
   margin-left: 30rpx;
   margin-right:30rpx;
   width:40rpx;
   height:40rpx;
+}
+.heavy-num{
+  font-size: 50rpx
 }
