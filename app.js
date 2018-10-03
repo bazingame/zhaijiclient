@@ -23,14 +23,16 @@ App({
                 data: { "open_id": that.globalData.open_id},
                 method: "POST",
                 success: function (res) {
-                    //用户未注册,跳转至手机验证页面
+                    //用户未注册，保存全局状态未注册
                     if(res.data.errcode===-4002){
-                      wx.navigateTo({
-                        url: '/pages/index/index',
-                      })
+                      that.globalData.isRegistered = false
+                      // wx.navigateTo({
+                        // url: '/pages/index/index',
+                      // })
                     }else if(res.data.errcode===0){
+                      that.globalData.isRegistered = true                      
                       that.globalData.zhaijiUserInfo = res.data.data
-                      that.initLogin
+                      that.initLogin()
                     }
                 }
               })
@@ -61,12 +63,28 @@ App({
     // })
   },
   initLogin: function () {
-
+    var that = this
+    that.globalData.zhaijiUserInfo.name = "宅集送"
+    //简化地址格式
+    var addressList = this.globalData.zhaijiUserInfo.addresses
+    // var addressSimple = []
+    // var addressIndedx = []
+    // for (var i in addressList){
+    //   addressSimple[i] = addressList[i]['address_detail'] + '-' + addressList[i]['phone']
+    //   addressIndedx[i] = addressList[i]['address_id'] 
+    // }
+    // that.globalData.zhaijiUserInfo.addressSimple = addressSimple
+    // that.globalData.zhaijiUserInfo.addressIndedx = addressIndedx
+    //防止onload先完成
+    if (this.addressReadyCallback) {
+      this.addressReadyCallback(addressList)
+    }
   },
   globalData: {
-    zhaijiUserInfo:null,
+    isRegistered:false,
+    zhaijiUserInfo:[],
     userInfo: null,
-    open_id :"123",
+    open_id :"",
     // api_url
     URL_BASE:"https://zhaiji.hammerfood.cn",
     // URL_BASE: "https://api.zhaiji.xyz",
@@ -87,5 +105,8 @@ App({
     REVISE_ADDRESS: "/address/{address_id}",//PATCH
     GET_ORDER_CAN_GET_LIST: "/order/{start}/{limit}",//GET
     RECEIVE_ORDER: "/deliverer/receive/{order_id}"//POST
+  },
+  p:function(data){
+    console.log(data)
   }
 })

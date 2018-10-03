@@ -10,13 +10,20 @@ Page({
     b1:1,
     b2:0,
     b3:0,
+    boxWidth:105,
+    boxHeight:120,
+    boxMargin:25,
     heavy:"小",
     kg:"0-2",
     address:"",
-    array:["请选择你的物流公司","圆通","中通","京东","申通","EMS"],
-    baoxian: ["货物丢失，按200倍赔偿","0", "1", "2", "3", "4", "5"],
-    index:0,
-    idx:0,
+    expressRange:["请选择你的物流公司","圆通","中通","京东","申通","EMS"],
+    insurance: ["0", "1", "2", "3", "4", "5"],
+    addressList:[{"address_detail":"请选择配送地址"}],
+    addressIndex:0,
+    addressId:0,
+    expressIndex:0,
+    insuranceIndex:0,
+    order_money:0,
     num:""
   },
   change:function(e){
@@ -28,6 +35,9 @@ Page({
         b3: 0,
         heavy: "小",
         kg: "0-2",
+        boxWidth: 105,
+        boxHeight: 120,
+        boxMargin:25
       })
     }
     else if(e.currentTarget.dataset.heavy == "middle")
@@ -38,6 +48,9 @@ Page({
         b3: 0,
         heavy: "中",
         kg: "2-10",
+        boxWidth: 130,
+        boxHeight: 150,
+        boxMargin: 14
       })
     } 
     else if (e.currentTarget.dataset.heavy == "big") {
@@ -47,24 +60,35 @@ Page({
         b3: 1,
         heavy: "大",
         kg: "10+",
+        boxWidth: 160,
+        boxHeight: 175,
+        boxMargin: -1
       })
     }
   },
-  bindindexPickerChange:function(e){
+  bindExpressPickerChange:function(e){
     if (e.detail.value == 0)
     {
       return ;
     }
     this.setData({
-      index: e.detail.value
+      expressIndex: e.detail.value
     })
   },
-  bindidxPickerChange: function (e) {
+  bindAddressPickerChange: function (e) {
+    var mchObj = this.data.addressList[e.detail.value];
+    this.setData({
+      addressIndex: e.detail.value,
+      addressId:mchObj.address_id,
+    })
+    app.p(this.data.addressId)
+  },
+  bindInsurancePickerChange: function (e) {
     if (e.detail.value == 0) {
       return;
     }
     this.setData({
-      idx: e.detail.value
+      insuranceIndex: e.detail.value
     })
   },
   bindaddressinput: function (e) {
@@ -78,10 +102,17 @@ Page({
     })
   },
   goodssubmit:function(e){
+    //未注册时，提交订单跳转到注册页面
+    if(app.globalData.isRegistered===false){
+      wx.navigateTo({
+        url: '/pages/index/index',
+      })
+      return 
+    }
     var classgoods = {
       heavy:this.data.heavy,
       address:this.data.address,
-      kuaidi:this.data.array[this.data.index],
+      kuaidi:this.data.array[this.data.expressIndex],
       num:this.data.num,
       baoxian: this.data.baoxian[this.data.idx]
     }
@@ -127,21 +158,31 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
-
+    var that = this;
+    if (typeof app.globalData.zhaijiUserInfo.addresses!="undefined"){
+      this.setData({
+        addressList: app.globalData.zhaijiUserInfo.addresses
+      })
+    }else{
+      app.addressReadyCallback = addressList => {
+        this.setData({
+          addressList: addressList
+        })
+      }
+    }
   },
 
   /**
    * Lifecycle function--Called when page is initially rendered
    */
   onReady: function () {
-
   },
 
   /**
    * Lifecycle function--Called when page show
    */
   onShow: function () {
-
+   
   },
 
   /**

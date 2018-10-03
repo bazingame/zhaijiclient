@@ -1,6 +1,6 @@
 // pages/order/order.js
+const app = getApp()
 Page({
-
   /**
    * Page initial data
    */
@@ -35,13 +35,20 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
-    wx.request({
-      url: 'https://zhaiji.hammerfood.cn/order',
-      method:'GET',
-      success:function(res){
-        console.log(res);
-      }
-    })
+    if(app.globalData.isRegistered===true){
+      wx.request({
+        url: app.globalData.URL_BASE + app.globalData.GET_ONES_ORDER_LIST,
+        method: 'GET',
+        header:{authorization: app.globalData.zhaijiUserInfo.authorization},
+        success: function (res) {
+          console.log(res);
+        }
+      })
+    }else{
+      wx.navigateTo({
+        url: '/pages/index/index',
+      })
+    }
   },
 
   /**

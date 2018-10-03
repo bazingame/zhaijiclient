@@ -121,6 +121,7 @@ Page({
             })
             // app.initLogin()
           } else {
+            // console.log(res)
             wx.showToast({
               title: res.data.errmsg,
               icon: 'none'

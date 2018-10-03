@@ -8,11 +8,11 @@
       <view class='id'>{{nickname}}</view>
       <view class='wx_id'>{{wx_id}}</view>
     </view>
-    <navigator url='../address/address' class='block'>
+    <view bindtap="addressAdmin"  class='block'>
       <image src='./img/address.png'></image>
       <view>配送地址</view>
       <view>></view>
-    </navigator>
+    </view>
     <view class='block'>
       <image src='./img/price.png'></image>
       <view>快递收费标准</view>
@@ -30,10 +30,10 @@
     </view>
     <view class='block'>
       <image src='./img/kefu.png'></image>
-      <view>客服标准</view>
+      <view>联系客服</view>
       <view>></view>
     </view>
   </view>
 
-  <button bindtap='exitlogin'>退出登录</button>
+  <button bindtap='exitlogin' style='display:{{exitloginDisplay}}'>登录</button>
   

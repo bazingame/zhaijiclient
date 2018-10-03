@@ -1,15 +1,16 @@
 // pages/me/me.js
+const app = getApp()
 Page({
-
   /**
    * Page initial data
    */
   data: {
-    head:"",
-    nickname:"",
-    wx_id:""
+    head:app.globalData.URL_BASE+"/storage/images/package2.png",
+    nickname:"未登录",
+    wx_id:"NotLogin",
+    exitloginDisplay:"block"
   },
- 
+
   /**
    * Lifecycle function--Called when page load
    */
@@ -20,23 +21,37 @@ Page({
   },
   onLoad: function (options) {
     var that = this;
-    wx.getStorage({
-      key: 'phone',
-      fail:function(res)
-      {
-        wx.navigateTo({
-          url: '../index/index',
-        })
-      }
-    })
+    //已经注册状态不显示
+    if (app.globalData.isRegistered == true){
+      that.setData({
+        exitloginDisplay: 'none',
+        nickname: app.globalData.zhaijiUserInfo.name,
+        head: app.globalData.zhaijiUserInfo.headimg_url
+      })
+    }
     
+    // that.setData({
+      // exitloginDisplay: 'none'
+    // })
+    // wx.getStorage({
+    //   key: 'phone',
+    //   fail:function(res)
+    //   {
+    //     wx.navigateTo({
+    //       url: '../index/index',
+    //     })
+    //   }
+    // })
   },
 
   /**
    * Lifecycle function--Called when page is initially rendered
    */
   onReady: function () {
-
+    
+    var that = this
+    
+    return
   },
 
   /**
@@ -52,51 +67,29 @@ Page({
       },
     })
    
-    wx.getUserInfo({
-      lang: 'zh-CN',
-      success: function (res) {
-        console.log(res);
-        that.setData({
-          head: res.userInfo.avatarUrl,
-          nickname: res.userInfo.nickName,
-          wx_id:phone
-        })
-      }
-    })
+    // wx.getUserInfo({
+    //   lang: 'zh-CN',
+    //   success: function (res) {
+    //     console.log(res);
+    //     that.setData({
+    //       head: res.userInfo.avatarUrl,
+    //       nickname: res.userInfo.nickName,
+    //       wx_id:phone
+    //     })
+    //   }
+    // })
   },
 
-  /**
-   * Lifecycle function--Called when page hide
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page unload
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * Page event handler function--Called when user drop down
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * Called when page reach bottom
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * Called when user click on the top right corner to share
-   */
-  onShareAppMessage: function () {
-
+  //跳转地址管理
+  addressAdmin:function(){
+    if(app.globalData.isRegistered===false){
+      wx.navigateTo({
+        url: '/pages/index/index',
+      })
+    }else{
+      wx.navigateTo({
+        url: '../address/address'
+      })
+    }
   }
 })

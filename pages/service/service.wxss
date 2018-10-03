@@ -39,8 +39,9 @@ page{
 }
 .kg>image{
   margin-top: 50rpx;
-  width: 150rpx;
-  height: 150rpx;
+  width: 105rpx;
+  height: 120rpx;
+  margin-left:25px;
 }
 .heavy>view>view{
   display: inline;
@@ -75,8 +76,8 @@ page{
 }
 .send>input,.send>picker{
   margin-top: 10px;
-  /*display: inline-block;
-  width: 70%;*/
+   /* display: inline-block; */
+  /* width: 70%; */
   margin-left:100px;
   color:#666; 
 }
@@ -90,4 +91,14 @@ button{
 }
 .placeholder{
   font-family: '楷体'
+}
+.money{
+  margin-top: 10px;
+  background-color: #fff;
+  width: 80%;
+  padding: 10%;
+}
+.order_money{
+  text-align: center;
+  font-size: 50rpx;
 }

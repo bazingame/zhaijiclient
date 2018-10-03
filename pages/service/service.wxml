@@ -19,27 +19,32 @@
   
 </view>
 <view class='kg'>
-    <image src='img/smallbox.png' ></image>
+    <image src='img/smallbox.png' style='width:{{boxWidth}}rpx;height:{{boxHeight}}rpx;margin-left:{{boxMargin}}rpx'></image>
     <view>重量:{{kg}}kg</view>
 </view>
 <view class='send'>
   <view>配送至</view>
-    <!--这里以后可以改成选择输入，但是暂时先用输入框-->
-    <input type='text' placeholder='请输入配送地址' class='address' data-name="{{address}}" value="{{address}}" bindinput='bindaddressinput' placeholder-class='placeholder' />
-  <view>快递平台</view>
-  <picker bindchange="bindindexPickerChange" value="{{index}}" range="{{array}}">
+  <picker bindchange="bindAddressPickerChange" value="{{addressIndex}}" range="{{addressList}}" range-key='address_detail'>
     <view class="picker">
-      <text>{{array[index]}}</text>
+      <text>{{addressList[addressIndex].address_detail}}</text>
+    </view>
+  </picker>
+  <view>快递平台</view>
+  <picker bindchange="bindExpressPickerChange" value="{{expressIndex}}" range="{{expressRange}}">
+    <view class="picker">
+      <text>{{expressRange[expressIndex]}}</text>
     </view>
   </picker>
   <view>取货号码</view>
    <input type='text' placeholder='请输入取货号码' class='num' data-name="{{num}}" value="{{num}}" bindinput='bindnuminput' placeholder-class='placeholder' />
     <view>运费险</view>
-    <picker bindchange="bindidxPickerChange" value="{{idx}}" range="{{baoxian}}">
+    <picker bindchange="bindInsurancePickerChange" value="{{insuranceIndex}}" range="{{insurance}}">
     <view class="picker">
-      <text>{{baoxian[idx]}}</text>
+      <text>{{insurance[insuranceIndex]}}</text>元(最高赔200倍)
     </view>
-  </picker>
+    </picker>
 </view>
-
+<view class="money">
+    <view class="order_money">预计{{order_money}}元</view>
+</view>
   <button bindtap='goodssubmit'>提交订单</button>
