@@ -37,7 +37,7 @@ page{
   display: inline-block;
   width: 33%;
 }
-.kg>image{
+.package_img{
   margin-top: 50rpx;
   width: 105rpx;
   height: 120rpx;
@@ -50,15 +50,15 @@ page{
 .kg{
   background-color: #fff;
   margin: 0 auto;
-  width: 60%;
-  padding: 0 20%;
+  width: 80%;
+  padding: 0 10%;
   text-align: left;
   height: 250rpx;
 }
 .kg>view{
   line-height: 250rpx;
   float: right;
-  width: 50%;
+  width: 63%;
   padding-left: 10%;
 }
 .send{
@@ -101,4 +101,17 @@ button{
 .order_money{
   text-align: center;
   font-size: 50rpx;
+}
+.order_money_num{
+  font-size: 80rpx;
+}
+.add_icon{
+  width:40rpx;
+  height:40rpx;
+}
+.sub_icon{
+  margin-left: 30rpx;
+  margin-right:30rpx;
+  width:40rpx;
+  height:40rpx;
 }

@@ -1,7 +1,3 @@
-
-  <view class='top'>
-    我的
-  </view>
   <view class='me'>
     <view class='personalInformation'>
       <image src='{{head}}'></image>

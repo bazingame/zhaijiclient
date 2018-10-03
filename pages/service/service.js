@@ -16,14 +16,16 @@ Page({
     heavy:"小",
     kg:"0-2",
     address:"",
-    expressRange:["请选择你的物流公司","圆通","中通","京东","申通","EMS"],
     insurance: ["0", "1", "2", "3", "4", "5"],
-    addressList:[{"address_detail":"请选择配送地址"}],
+    expressList: app.globalData.expressList,
+    addressList:[{"address_id":null,"address_detail":"请选择配送地址"}],
+    heaveyList: [],
     addressIndex:0,
-    addressId:0,
+    addressId:null,
     expressIndex:0,
+    expressId:'Express_zhongtong',//第一个快递默认为中通
     insuranceIndex:0,
-    order_money:0,
+    orderMoney:0,
     num:""
   },
   change:function(e){
@@ -65,15 +67,15 @@ Page({
         boxMargin: -1
       })
     }
+    this.caculateMoney()
   },
   bindExpressPickerChange:function(e){
-    if (e.detail.value == 0)
-    {
-      return ;
-    }
+    var mchObj = this.data.expressList[e.detail.value];
     this.setData({
-      expressIndex: e.detail.value
+      expressIndex: e.detail.value,
+      expressId: mchObj.express_id,
     })
+    app.p(this.data.expressId)
   },
   bindAddressPickerChange: function (e) {
     var mchObj = this.data.addressList[e.detail.value];
@@ -90,6 +92,7 @@ Page({
     this.setData({
       insuranceIndex: e.detail.value
     })
+    this.caculateMoney()
   },
   bindaddressinput: function (e) {
     this.setData({
@@ -101,6 +104,19 @@ Page({
       num: e.detail.value
     })
   },
+  //计算总额
+  caculateMoney:function(e){
+    if (this.data.addressId!=null){
+      var heavy = this.data.heavy
+      var insurance = this.data.insurance[this.data.insuranceIndex]
+      
+      var count = insurance
+      this.setData({
+        orderMoney:count
+      })
+    }
+  }
+  ,
   goodssubmit:function(e){
     //未注册时，提交订单跳转到注册页面
     if(app.globalData.isRegistered===false){
@@ -158,15 +174,19 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
+    app.p(this.data.expressList);
     var that = this;
+    //初始化地址列表
     if (typeof app.globalData.zhaijiUserInfo.addresses!="undefined"){
       this.setData({
-        addressList: app.globalData.zhaijiUserInfo.addresses
+        addressList: app.globalData.zhaijiUserInfo.addresses,
+        addressId: app.globalData.zhaijiUserInfo.addresses[0].address_id
       })
     }else{
       app.addressReadyCallback = addressList => {
         this.setData({
-          addressList: addressList
+          addressList: addressList,
+          addressId: app.globalData.zhaijiUserInfo.addresses[0].address_id
         })
       }
     }

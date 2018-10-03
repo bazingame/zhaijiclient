@@ -1,6 +1,3 @@
-<view class='top'>
-  订单
-</view>
 <view class='order' wx:for="{{order}}" >
   <image src='./img/smallbox.png'></image>
   <view>

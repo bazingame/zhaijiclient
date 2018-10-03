@@ -1,11 +1,8 @@
 <!--pages/service/service.wxml-->
-<view class='top'>
-  快递服务
-</view>
-<view class='selectway'>
+<!-- <view class='selectway'>
   <view style='{{bbs}}'>取</view>
   <view style='{{bb}}'>寄</view>
-</view>
+</view> -->
 <view class='heavy'>
   <view >
     <view style='border-bottom:{{b1}}px solid #000' bindtap='change' data-heavy="small">小件</view>
@@ -16,11 +13,13 @@
   <view>
     <view style='border-bottom:{{b3}}px solid #000' bindtap='change' data-heavy="big">大件</view>
   </view>
-  
 </view>
 <view class='kg'>
-    <image src='img/smallbox.png' style='width:{{boxWidth}}rpx;height:{{boxHeight}}rpx;margin-left:{{boxMargin}}rpx'></image>
-    <view>重量:{{kg}}kg</view>
+    <image class='package_img' src='img/smallbox.png' style='width:{{boxWidth}}rpx;height:{{boxHeight}}rpx;margin-left:{{boxMargin}}rpx'></image>
+    <view>
+    <text>重量:</text> <image src='img/sub.png' class='sub_icon'></image>{{kg}}kg  <image src='img/add.png' class='add_icon'></image>
+    </view>
+  <!-- </picker> -->
 </view>
 <view class='send'>
   <view>配送至</view>
@@ -30,9 +29,9 @@
     </view>
   </picker>
   <view>快递平台</view>
-  <picker bindchange="bindExpressPickerChange" value="{{expressIndex}}" range="{{expressRange}}">
+  <picker bindchange="bindExpressPickerChange" value="{{expressIndex}}" range="{{expressList}}" range-key='name'>
     <view class="picker">
-      <text>{{expressRange[expressIndex]}}</text>
+      <text>{{expressList[expressIndex].name}}</text>
     </view>
   </picker>
   <view>取货号码</view>
@@ -45,6 +44,6 @@
     </picker>
 </view>
 <view class="money">
-    <view class="order_money">预计{{order_money}}元</view>
+    <view class="order_money">预计 <text class='order_money_num'>{{orderMoney}}</text> 元</view>
 </view>
   <button bindtap='goodssubmit'>提交订单</button>
