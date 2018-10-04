@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 4,
 			"list": [
 				{
 					"id": -1,
@@ -45,6 +45,24 @@
 					"id": 1,
 					"name": "me",
 					"pathName": "pages/me/me",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "new_address",
+					"pathName": "pages/new_address/new_address",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "select",
+					"pathName": "pages/new_address/select_address/select_address",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "addressList",
+					"pathName": "pages/address/address",
 					"query": ""
 				}
 			]

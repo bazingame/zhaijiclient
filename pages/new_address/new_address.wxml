@@ -1,0 +1,25 @@
+<view class="add-address">
+    <view class="add-form">
+        <view class="form-item">
+            <input class="input" bindinput="bindinputName" placeholder="姓名" value="{{address.name}}" auto-focus/>
+        </view>
+        <view class="form-item">
+            <input type='number' class="input" bindinput="bindinputPhone" value="{{address.phone}}" placeholder="手机号码"/>
+        </view>
+        <view class="form-item">
+            <navigator url="/pages/new_address/select_address/select_address" class="select-address"><text class='select-address-word'>{{address.address}}</text></navigator>
+        </view>
+        <view class="form-item">
+            <input class="input" bindinput="bindinputAddressDetail" value="{{address.address_detail}}" placeholder="详细地址, 如街道、楼盘号等"/>
+        </view>
+        <!-- <view class="form-default">
+            <text bindtap="bindIsDefault" class="default-input {{address.is_default == 1 ? 'selected' : ''}}">设为默认地址</text>
+        </view> -->
+    </view>
+    <view class="btns">
+        <button class="cannel" bindtap="cancelAddress">取消</button>
+        <button class="save" bindtap="saveAddress">保存
+        </button>
+    </view>
+</view>
+<view class="bg-mask" bindtap="cancelSelectRegion" wx:if="{{openSelectRegion}}"></view>

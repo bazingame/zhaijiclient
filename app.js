@@ -34,6 +34,7 @@ App({
                       that.globalData.zhaijiUserInfo = res.data.data
                       that.initLogin()
                     }
+                  console.log(that.globalData)
                 }
               })
             }
@@ -72,14 +73,6 @@ App({
     that.globalData.zhaijiUserInfo.name = "宅集送"
     //简化地址格式
     var addressList = this.globalData.zhaijiUserInfo.addresses
-    // var addressSimple = []
-    // var addressIndedx = []
-    // for (var i in addressList){
-    //   addressSimple[i] = addressList[i]['address_detail'] + '-' + addressList[i]['phone']
-    //   addressIndedx[i] = addressList[i]['address_id'] 
-    // }
-    // that.globalData.zhaijiUserInfo.addressSimple = addressSimple
-    // that.globalData.zhaijiUserInfo.addressIndedx = addressIndedx
     //防止onload先完成
     if (this.addressReadyCallback) {
       this.addressReadyCallback(addressList)
@@ -100,16 +93,16 @@ App({
     ADD_USER: "/user",//POST
     REVISE_USER: "/user",//PATCH
     GET_ONES_ORDER_LIST: "/order",//GET
-    GET_ONES_ORDER_DETAIL: "/order/{order_id}",//GET
+    GET_ONES_ORDER_DETAIL: "/order/",//GET
     ADD_ORDER: "/order",//POST
-    CANCEL_ORDER: "/order/cancel/{order_id}",//PATCH
-    CONFIRM_ORDER: "/order/confirm/{order_id}",//PATCH
-    MARK_ORDER: "/order/mark/{order_id}",//PATCH
+    CANCEL_ORDER: "/order/cancel/",//PATCH
+    CONFIRM_ORDER: "/order/confirm/",//PATCH
+    MARK_ORDER: "/order/mark/",//PATCH
     ADD_ADDRESS: "/address/",//POST
-    DELETE_ADDRESS: "/address/{address_id}",//DELETE
-    REVISE_ADDRESS: "/address/{address_id}",//PATCH
-    GET_ORDER_CAN_GET_LIST: "/order/{start}/{limit}",//GET
-    RECEIVE_ORDER: "/deliverer/receive/{order_id}",//POST
+    DELETE_ADDRESS: "/address/",//DELETE
+    REVISE_ADDRESS: "/address/",//PATCH
+    GET_ORDER_CAN_GET_LIST: "/order/",//GET
+    RECEIVE_ORDER: "/deliverer/receive/",//POST
     expressList: [
       { 'express_id': 'Express_zhongtong', 'name': '中通' },
       { 'express_id': 'Express_yuantong', 'name': '圆通' },

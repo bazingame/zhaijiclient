@@ -12,8 +12,7 @@ Page({
     kg:2,//重量最小为2
     insurance: [0, 1, 2, 3, 4, 5],
     expressList: app.globalData.expressList,
-    addressList:[{"address_id":null,"address_detail":"请选择配送地址"}],
-    selectAddressWord:"选择配送地址",
+    addressName:"选择配送地址 >",
     heaveyList: [],
     addressIndex:0,
     addressId:null,
@@ -63,7 +62,22 @@ Page({
   },
   //选择地址
   selectAddress:function(){
-    app.p(1)
+    //登录状态下且有地址时默认为第一个地址 A_000000001  点击跳转地址管理
+    //登录状态下且无地址时默认显示添加地址 0  点击跳转地址管理
+    //未登录状态下，点击跳转登录 null
+    if (this.data.addressId==null){
+      wx.navigateTo({
+        url: '/pages/index/index',
+      })
+    } else if (this.data.addressId==0){
+      wx.navigateTo({
+        url: '/pages/address/address',
+      })
+    }else{
+      wx.navigateTo({
+        url: '/pages/address/address',
+      })
+    }
   },
   //保险额变换
   bindInsurancePickerChange: function (e) {
@@ -131,12 +145,11 @@ Page({
       money : this.data.orderMoney,
       package_size : this.data.kg,
     }
-   
-   if(classgoods.address=="")
+   if(classgoods.address_id==null||classgoods.address_id==0)
    {
       wx.showToast({
-        title: '请输入配送地址',
-        icon:'none'
+        title: '请选择配送地址',
+        icon:"none"
       })
       return;
    }
@@ -155,18 +168,37 @@ Page({
   onLoad: function (options) {
     // app.p(this.data.expressList);
     var that = this;
-    //初始化地址列表
+    //登录状态下且有地址时默认为第一个地址 A_000000001
+    //登录状态下且无地址时默认显示添加地址 0
+    //未登录状态下，点击跳转登录 null
     if (typeof app.globalData.zhaijiUserInfo.addresses!="undefined"){
-      this.setData({
-        addressList: app.globalData.zhaijiUserInfo.addresses,
-        addressId: app.globalData.zhaijiUserInfo.addresses[0].address_id
-      })
+      var lastAddress = app.globalData.zhaijiUserInfo.addresses.pop()
+      if(typeof lastAddress=="undefined"){
+        this.setData({
+          addressName: "选择配送地址 >",
+          addressId: 0
+        })
+      }else{
+        this.setData({
+          addressName: lastAddress.address_detail,
+          addressId: lastAddress.address_id
+        })
+      }
     }else{
       app.addressReadyCallback = addressList => {
-        this.setData({
-          addressList: addressList,
-          addressId: app.globalData.zhaijiUserInfo.addresses[0].address_id
-        })
+        var lastAddress = app.globalData.zhaijiUserInfo.addresses.pop()
+        app.globalData.zhaijiUserInfo.addresses.push(lastAddress)
+        if (typeof lastAddress == "undefined") {
+          this.setData({
+            addressName: "选择配送地址 >",
+            addressId: 0
+          })
+        } else {
+          this.setData({
+            addressName: lastAddress.address_detail,
+            addressId: lastAddress.address_id
+          })
+        }
       }
     }
   }

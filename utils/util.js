@@ -5,7 +5,6 @@ const formatTime = date => {
   const hour = date.getHours()
   const minute = date.getMinutes()
   const second = date.getSeconds()
-
   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
 
@@ -14,6 +13,22 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
-module.exports = {
-  formatTime: formatTime
+function showErrorToast(msg) {
+  wx.showToast({
+    title: msg,
+    image: '/static/images/icon_error.png'
+  })
 }
+
+function col(data){
+  console.log(data)
+}
+
+module.exports = {
+  formatTime: formatTime,
+  showErrorToast,
+  col
+}
+
+
+

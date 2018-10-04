@@ -14,7 +14,7 @@
     </view>
   </picker> -->
   <!-- <picker> -->
-    <text bindtap='selectAddress' class="send-address">{{selectAddressWord}}</text>
+    <text bindtap='selectAddress' class="send-address">{{addressName}}</text>
   <!-- </picker> -->
   <view>快递平台</view>
   <picker bindchange="bindExpressPickerChange" value="{{expressIndex}}" range="{{expressList}}" range-key='name'>

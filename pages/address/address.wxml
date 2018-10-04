@@ -1,3 +1,24 @@
-<navigator url='../newAddress/newAddress' class="newAddress">
-  ⊕ 新增收货地址
-</navigator>
+<view class="container">
+    <view class="address-list" wx:if="{{ addressList.length > 0 }}">
+        <view class="item" wx:for="{{addressList}}" wx:key="{{item.address_id}}"  data-address-id="{{item.address_id}}">
+            <view class="l">
+                <view class="name">{{item.name}}</view>
+                <!-- <view class="default" wx:if="{{item.is_default}}">默认</view> -->
+            </view>
+            <view class="c">
+                <view class="mobile">{{item.phone}}</view>
+                <view class="address">{{item.address + item.address_detail}}</view>
+            </view>
+            <view class="r">
+                <image catchtap="deleteAddress" data-address-id="{{item.address_id}}" class="del" src="/static/images/del-address.png"></image>
+            </view>
+        </view>
+    </view>
+    <!-- <view class="empty-view" >
+      <image class="icon" src="img/address.png"></image>
+      <text class="text">收货地址在哪里</text>
+    </view> -->
+    <navigator url='../new_address/new_address' class="add-address">新增地址</navigator>
+</view>
+
+

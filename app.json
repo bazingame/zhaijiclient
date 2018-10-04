@@ -1,28 +1,28 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
     "pages/address/address",
-    "pages/newAddress/newAddress",
-    
+    "pages/new_address/new_address",
     "pages/order_detail/order_detail",
     "pages/me/me",
     "pages/service/service",
     "pages/order/order",
-    
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/new_address/select_address/select_address"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#0097fe",
     "navigationBarTitleText": "",
-    "navigationBarTextStyle":"#fff"
+    "navigationBarTextStyle": "#fff"
   },
   "tabBar": {
-    "color":"#8a8a8a",
+    "color": "#8a8a8a",
     "selectedColor": "#0097fe",
-    "backgroundColor":"#fff",
-    "list": [{
-        "pagePath":"pages/service/service",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/service/service",
         "iconPath": "pages/img/index.png",
         "selectedIconPath": "pages/img/Sindex.png",
         "text": "首页"
@@ -38,6 +38,7 @@
         "iconPath": "pages/img/me.png",
         "selectedIconPath": "pages/img/Sme.png",
         "text": "我的"
-      }]
-  }  
+      }
+    ]
+  }
 }

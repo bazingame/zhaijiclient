@@ -89,7 +89,6 @@ Page({
           console.log(res.data)
           that.setCountDown()
           // this.data.submitDisabled = false
-          
         }else{
             wx.showToast({
             title: res.data.errmsg,
@@ -121,7 +120,7 @@ Page({
             })
             // app.initLogin()
           } else {
-            // console.log(res)
+            console.log(res)
             wx.showToast({
               title: res.data.errmsg,
               icon: 'none'
