@@ -1,0 +1,46 @@
+<view class="container">
+<view class='order order-main'>
+  <view  bindtap='viewOrderDetail'>
+    <view class='kuaidi'>
+      订单编号: {{orderDetail.order_id}}
+    </view>
+    <view class='time'>
+    取货码: {{orderDetail.package_id}}
+    </view>
+  </view>
+  <view data-order-id="{{order[index].order_id}}" bindtap='viewOrderDetail'>
+    <view class='flag'>
+      {{orderDetail.status}}
+    </view>
+    <view class='price'>
+      ---
+    </view>
+  </view>
+</view>
+    <view class="order order-info">
+        <view class="item-a"><view>包裹重量：</view><text>{{orderDetail.package_size}}kg</text></view>
+        <view class="item-a"><view>快递平台：</view><text>{{orderDetail.express}}</text></view>
+        <view class="item-a"><view>保险金额：</view><text>{{orderDetail.insurance}}</text></view>
+        <view class="item-a"><view>姓名：</view><text>{{orderDetail.name}}</text></view>
+        <view class="item-a"><view>电话：</view><text>{{orderDetail.phone}}</text></view>
+        <view class="item-a"><view>地址：</view><text>{{orderDetail.address}}</text></view>
+        <view class="item-a"><view>详细地址：</view><text>{{orderDetail.address_detail}}</text></view>
+        <view class="item-a"><view>下单时间：</view><text>{{orderDetail.order_time}}</text></view>
+        <view class="item-a"><view>备注：</view><text>{{orderDetail.note}}</text></view>
+    </view>
+    
+    <view wx:if="{{orderDetail.status=='已接单' || orderDetail.status=='已完成' }}" class="order order-goods">
+        <view class="item-b"><view>快递员编号：</view><text>{{orderDetail.deliverer_id}}</text></view>
+        <view class="item-b"><view>接单时间：</view><text>{{orderDetail.take_order_time}}</text></view>
+        <view class="item-b"><view>完成时间：</view><text>{{orderDetail.finish_time}}</text></view>
+        <view class="status">{{orderDetail.order_status_text}}</view>
+    </view>
+    <view class="order order-bottom">
+        <view class="item-c">
+            <view class="l">费用：<text class="cost">￥{{orderDetail.money}}</text></view>
+            <view class="r" wx:if="{{orderDetail.status=='已接单'||orderDetail.status=='未接单'}}">
+                <view class="btn active" bindtap="payOrder">取消订单</view>
+            </view>
+        </view>
+    </view>
+</view>

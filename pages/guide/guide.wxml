@@ -1,0 +1,27 @@
+ <swiper indicator-dots="{{indicatorDots}}"
+  autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="{{circular}}" previous-margin="{{previous_margin}}">
+  <block wx:for="{{imgUrls}}" wx:key="{{imgUrls}}">
+    <swiper-item>
+      <image src="{{item}}" class="slide-image"  style="width:{{picWidth}}; height:150px"/>
+    </swiper-item>
+  </block>
+</swiper>
+
+<view class="container">
+  <view class="user-menu">
+    <view class="item">
+      <navigator url="/pages/service/service" class="a">
+        <image src='./img/takePackage.png' class="icon send-package"></image>
+        <text class="txt">取快递</text>
+      </navigator>  
+    </view>
+    <view class="item">
+      <view bindtap='codeing' class="a">
+        <image src='./img/sendPackage.png' class="icon send-package"></image>
+        <text class="txt">寄快递</text>
+      </view>
+    </view>
+  </view>
+
+  <!--<view class="logout" bindtap="exitLogin">退出登录</view>-->
+</view>

@@ -88,8 +88,20 @@ Page({
       })
     }else{
       wx.navigateTo({
-        url: '../address/address'
+        url: '../address/address?from=me'
       })
     }
+  },
+  //收费标准跳转
+  chargingStandard:function(){
+    wx.navigateTo({
+      url: '/pages/me/charging_standard/charging_standard',
+    })
+  },
+  //用户协议跳转
+  userDeal:function(){
+    wx.navigateTo({
+      url: '/pages/me/user_deal/user_deal',
+    })
   }
 })

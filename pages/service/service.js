@@ -1,4 +1,5 @@
 // pages/service/service.js
+var util = require('../../utils/util.js');
 const app = getApp();
 Page({
   /**
@@ -14,13 +15,12 @@ Page({
     expressList: app.globalData.expressList,
     addressName:"选择配送地址 >",
     heaveyList: [],
-    addressIndex:0,
     addressId:null,
     expressIndex:0,
     expressId:'Express_zhongtong',//第一个快递默认为中通
     insuranceIndex:0,
     orderMoney:2,
-    packageId:""
+    packageId:"1-1"
   },
   //减重量
   subHeavey:function(){
@@ -31,7 +31,7 @@ Page({
     }
     this.changePackage(this.data.kg)
     this.caculateMoney()
-    app.p(1)
+    // app.p(1)
   },
   //加重量
   addHeavey(){
@@ -40,7 +40,7 @@ Page({
     })
     this.changePackage(this.data.kg)
     this.caculateMoney()
-    app.p(2)
+    // app.p(2)
   },
   //快递平台变换
   bindExpressPickerChange:function(e){
@@ -49,16 +49,7 @@ Page({
       expressIndex: e.detail.value,
       expressId: mchObj.express_id,
     })
-    app.p(this.data.expressId)
-  },
-  //配送地址变换
-  bindAddressPickerChange: function (e) {
-    var mchObj = this.data.addressList[e.detail.value];
-    this.setData({
-      addressIndex: e.detail.value,
-      addressId:mchObj.address_id,
-    })
-    app.p(this.data.addressId)
+    // app.p(this.data.expressId)
   },
   //选择地址
   selectAddress:function(){
@@ -71,11 +62,11 @@ Page({
       })
     } else if (this.data.addressId==0){
       wx.navigateTo({
-        url: '/pages/address/address',
+        url: '/pages/address/address?from=service',
       })
     }else{
       wx.navigateTo({
-        url: '/pages/address/address',
+        url: '/pages/address/address?from=service',
       })
     }
   },
@@ -147,20 +138,49 @@ Page({
     }
    if(classgoods.address_id==null||classgoods.address_id==0)
    {
-      wx.showToast({
-        title: '请选择配送地址',
-        icon:"none"
-      })
+     util.showErrorToast('请选择配送地址')
       return;
    }
-   else if(classgoods.num == "") {
-     wx.showToast({
-       title: '请输入取货号码',
-       icon: 'none'
-     })
+   else if (classgoods.package_id == "") {
+     util.showErrorToast('请输入取货码')
      return;
    }
-    console.log(classgoods);
+    var express_name = app.globalData.expressList[this.data.expressIndex].name
+    wx.showModal({
+      title: '确定信息如下',
+      content: '重量: '+classgoods.package_size+'kg\n配送至: ' + this.data.addressName + '\n取货号: ' +express_name+' '+classgoods.package_id+'\n运费险: '+classgoods.insurance+'元\n预计费用: '+classgoods.money+'元',
+      confirmText:'确认提交',
+      success: function (res) {
+        if (res.confirm) {
+          //下单亲！
+          wx.request({
+            url: app.globalData.URL_BASE + app.globalData.ADD_ORDER,
+            method: "POST",
+            header: {
+              "Content-Type": "application/x-www-form-urlencoded",
+              "Authorization": app.globalData.zhaijiUserInfo.authorization,
+            },
+            data: classgoods,
+            success: function (res) {
+              if (res.statusCode === 200 && res.data.errcode === 0) {
+                util.showSucessToast("提交成功")
+                setTimeout(function(){
+                  wx.switchTab({
+                    url: '/pages/order/order',
+                  })
+                },1500)                
+              } else {
+                wx.showToast({
+                  title: res.data.errmsg,
+                  icon: 'none'
+                })
+              }
+            }
+          })
+        }
+      }
+    })
+    // console.log(classgoods);
   },
   /**
    * Lifecycle function--Called when page load
@@ -173,6 +193,7 @@ Page({
     //未登录状态下，点击跳转登录 null
     if (typeof app.globalData.zhaijiUserInfo.addresses!="undefined"){
       var lastAddress = app.globalData.zhaijiUserInfo.addresses.pop()
+      app.globalData.zhaijiUserInfo.addresses.push(lastAddress)
       if(typeof lastAddress=="undefined"){
         this.setData({
           addressName: "选择配送地址 >",

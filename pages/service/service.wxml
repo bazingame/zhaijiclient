@@ -8,14 +8,7 @@
 </view>
 <view class='send'>
   <view>配送至</view>
-  <!-- <picker bindchange="bindAddressPickerChange" value="{{addressIndex}}" range="{{addressList}}" range-key='address_detail'>
-    <view class="picker">
-      <text>{{addressList[addressIndex].address_detail}}</text>
-    </view>
-  </picker> -->
-  <!-- <picker> -->
     <text bindtap='selectAddress' class="send-address">{{addressName}}</text>
-  <!-- </picker> -->
   <view>快递平台</view>
   <picker bindchange="bindExpressPickerChange" value="{{expressIndex}}" range="{{expressList}}" range-key='name'>
     <view class="picker">

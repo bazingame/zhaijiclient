@@ -95,7 +95,9 @@ App({
     GET_ONES_ORDER_LIST: "/order",//GET
     GET_ONES_ORDER_DETAIL: "/order/",//GET
     ADD_ORDER: "/order",//POST
-    CANCEL_ORDER: "/order/cancel/",//PATCH
+    APPPLY_CANCEL_ORDER: "/order/apply-cancel/",//PATCH
+    CANCEL_ORDER: "/deliverer/cancel/",//PATCH
+    REFUSE_CANCEL_ORDER: "/deliverer/refuse-cancel/",//PATCH
     CONFIRM_ORDER: "/order/confirm/",//PATCH
     MARK_ORDER: "/order/mark/",//PATCH
     ADD_ADDRESS: "/address/",//POST

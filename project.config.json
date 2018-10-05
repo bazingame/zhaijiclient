@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 7,
 			"list": [
 				{
 					"id": -1,
@@ -63,6 +63,24 @@
 					"id": -1,
 					"name": "addressList",
 					"pathName": "pages/address/address",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "guide",
+					"pathName": "pages/guide/guide",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "order",
+					"pathName": "pages/order/order",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "order_detail",
+					"pathName": "pages/order/order_detail/order_detail",
 					"query": ""
 				}
 			]

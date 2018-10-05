@@ -1,26 +1,26 @@
-<view class='order' wx:for="{{order}}" >
-  <image src='./img/smallbox.png'></image>
-  <view>
+<view class='order' wx:for="{{order}}" wx:key="{{order[index].order_id}}">
+  <image src='./img/smallbox.png' data-order-id="{{order[index].order_id}}" bindtap='viewOrderDetail'></image>
+  <view data-order-id="{{order[index].order_id}}" bindtap='viewOrderDetail'>
     <view class='kuaidi'>
-      {{order[index].kuaidi}}
+      {{order[index].express}}  {{order[index].package_id}}
     </view>
     <view class='time'>
-      {{order[index].time}}
+    送至：{{order[index].address_detail}}
     </view>
   </view>
-  <view >
+  <view data-order-id="{{order[index].order_id}}" bindtap='viewOrderDetail'>
     <view class='flag'>
-      {{order[index].flag}}
+      {{order[index].status}}
     </view>
     <view class='price'>
-      {{order[index].price}}
+      {{order[index].money}}元
     </view>
   </view>
   <view class='bar'></view>
-  <view style='float:left'>
-    配送人：{{order[index].people}}
+  <view style='float:left' class='order-time' data-order-id="{{order[index].order_id}}" bindtap='viewOrderDetail'>
+      {{order[index].order_time}}
   </view>
-  <button data-order="{{order[index]}}" style='float:right' bindtap='orderDetail'>去评论</button>
-  
+  <button wx:if="{{order[index].mark_status==1}}" data-order="{{order[index]}}" style='float:right' disabled='disabled'>已评论</button>
+  <button wx:else data-order="{{order[index]}}" style='float:right' bindtap='orderDetail'>待评论</button>
 </view>
 

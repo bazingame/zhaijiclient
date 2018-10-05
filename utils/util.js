@@ -20,6 +20,13 @@ function showErrorToast(msg) {
   })
 }
 
+function showSucessToast(msg) {
+  wx.showToast({
+    title: msg,
+    image: '/static/images/icon_success.png'
+  })
+}
+
 function col(data){
   console.log(data)
 }
@@ -27,6 +34,7 @@ function col(data){
 module.exports = {
   formatTime: formatTime,
   showErrorToast,
+  showSucessToast,
   col
 }
 

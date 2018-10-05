@@ -8,7 +8,11 @@
     "pages/service/service",
     "pages/order/order",
     "pages/logs/logs",
-    "pages/new_address/select_address/select_address"
+    "pages/new_address/select_address/select_address",
+    "pages/me/charging_standard/charging_standard",
+    "pages/me/user_deal/user_deal",
+    "pages/guide/guide",
+    "pages/order/order_detail/order_detail"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -22,7 +26,7 @@
     "backgroundColor": "#fff",
     "list": [
       {
-        "pagePath": "pages/service/service",
+        "pagePath": "pages/guide/guide",
         "iconPath": "pages/img/index.png",
         "selectedIconPath": "pages/img/Sindex.png",
         "text": "首页"

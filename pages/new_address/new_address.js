@@ -51,7 +51,6 @@ Page({
     this.setData({
       navigateFrom : fromService
     })
-    console.log(options)
   },
 
   cancelAddress() {
@@ -59,7 +58,6 @@ Page({
    })
   },
   saveAddress() {
-    console.log(this.data.address)
     let address = this.data.address;
     if (address.name == '') {
       // console.log(util)
@@ -96,15 +94,7 @@ Page({
       success: function (res) {
         if (res.statusCode === 200 && res.data.errcode === 0) {
           //更新全局数据-->address
-          var addressList = app.globalData.zhaijiUserInfo.addresses
-          var AddressData = {
-            name: address.name,
-            address: address.address,
-            address_detail: address.address_detail,
-            phone: address.phone
-          }
-          addressList.push(AddressData)
-          app.p(addressList)
+          app.globalData.zhaijiUserInfo.addresses = res.data.data
           //地址添加成功后返回地址管理页面
           wx.navigateBack({
           })

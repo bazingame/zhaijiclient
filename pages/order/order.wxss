@@ -17,29 +17,33 @@ page{
   box-sizing: border-box;
   padding: 30rpx 60rpx; 
   height: 150px;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   background-color: #fff;
   width: 95%;
   margin: 10px auto 0px;
   line-height: 40px;
+  border-bottom: 1rpx solid #DCD9D9;
 }
 .order>image{
-  height: 150rpx;
-  width: 150rpx;
+  height: 140rpx;
+  width: 130rpx;
   float: left;
+  margin-top:14rpx;
 }
 .time,.kuaidi{
   margin-left:20rpx;
+  color: black;
 }
 .time,.price{
-  font-size: 12px;
+  font-size: 35rpx;
+  color: black;
 }
 .order>view:nth-child(2),.order>view:nth-child(3){
   float:left;
 }
 .price,.flag{
-
-  font-size: 14px;
+  font-size: 30rpx;
+  color: black;
 }
 .order>view:nth-child(3){
   float: right;
@@ -48,7 +52,7 @@ page{
 .bar{
   clear: both;
   height: 1px;
-  background-color: #000;
+  background-color: gray;
   width: 100%;
   margin: 90px auto 0px;
 }
@@ -57,5 +61,8 @@ button{
   height: 30px;
   line-height: 30px;
   color:#fff;
-  background-color: #7ecef4;
+  background-color: #0097fe;
+}
+.order-time{
+  font-size:30rpx;
 }
