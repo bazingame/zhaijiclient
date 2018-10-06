@@ -66,7 +66,14 @@ Page({
         phone = res.data
       },
     })
-   
+    if (app.globalData.isRegistered == true) {
+      that.setData({
+        exitloginDisplay: 'none',
+        // nickname: app.globalData.zhaijiUserInfo.name,
+        nickname: '已登录',
+        head: app.globalData.zhaijiUserInfo.headimg_url
+      })
+    }
     // wx.getUserInfo({
     //   lang: 'zh-CN',
     //   success: function (res) {

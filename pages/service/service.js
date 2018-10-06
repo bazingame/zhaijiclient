@@ -57,9 +57,10 @@ Page({
     //登录状态下且无地址时默认显示添加地址 0  点击跳转地址管理
     //未登录状态下，点击跳转登录 null
     if (this.data.addressId==null){
-      wx.navigateTo({
-        url: '/pages/index/index',
-      })
+      // wx.navigateTo({
+        // url: '/pages/index/index?from=select_address',
+      // })
+      util.showErrorToast("请注册")
     } else if (this.data.addressId==0){
       wx.navigateTo({
         url: '/pages/address/address?from=service',
@@ -122,6 +123,7 @@ Page({
   },
   goodsSubmit:function(e){
     //未注册时，提交订单跳转到注册页面
+    app.p(app.globalData.isRegistered)
     if(app.globalData.isRegistered===false){
       wx.navigateTo({
         url: '/pages/index/index',

@@ -20,7 +20,7 @@
   <view style='float:left' class='order-time' data-order-id="{{order[index].order_id}}" bindtap='viewOrderDetail'>
       {{order[index].order_time}}
   </view>
-  <button wx:if="{{order[index].mark_status==1}}" data-order="{{order[index]}}" style='float:right' disabled='disabled'>已评论</button>
-  <button wx:else data-order="{{order[index]}}" style='float:right' bindtap='orderDetail'>待评论</button>
+  <!-- <button wx:if="{{order[index].mark_status==1}}" data-order="{{order[index]}}" style='float:right' disabled='disabled'>已评论</button> -->
+  <!-- <button wx:else data-order="{{order[index]}}" style='float:right' bindtap='orderDetail'>待评论</button> -->
 </view>
 

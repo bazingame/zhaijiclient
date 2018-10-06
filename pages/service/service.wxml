@@ -24,7 +24,7 @@
     </view>
   </picker>
 </view>
-<view class="money">
+<view class="money"> 
     <view class="order_money">预计 <text class='order_money_num'>{{orderMoney}}</text> 元</view>
 </view>
   <button bindtap='goodsSubmit'>提交订单</button>

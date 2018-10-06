@@ -114,9 +114,12 @@ Page({
           //验证成功，顺便登录
           if (res.statusCode === 200 && res.data.errcode === 0) {
             app.globalData.zhaijiUserInfo = res.data.data
+            app.globalData.isRegistered=true
             console.log(res)
-            wx.switchTab({
-              url: '/pages/service/service',
+            // wx.switchTab({
+              // url: '/pages/service/service',
+            // })
+            wx.navigateBack({
             })
             // app.initLogin()
           } else {

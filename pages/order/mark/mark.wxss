@@ -1,0 +1,83 @@
+/* pages/order_detail/order_detail.wxss */
+page{
+  font-family: '楷体';
+  background-color:#eee;
+  color:#666;
+}
+.order{
+  box-sizing: border-box;
+  padding: 30rpx 60rpx; 
+  height: 380px;
+  background-color: #fff;
+  width: 95%;
+  margin: 10px auto 0px;
+  line-height: 40px;
+  border-bottom: 1rpx solid #DCD9D9;
+}
+.order>image{
+  margin-top: 15px;
+  height: 150rpx;
+  width: 150rpx;
+  float: left;
+}
+.time,.kuaidi{
+  margin-top: 15px;
+  margin-left:20rpx;
+}
+.time,.price{
+  font-size: 16px;
+}
+
+.price,.flag{
+  margin-top: 15px;
+  font-size: 16px;
+}
+
+.bar{
+  clear: both;
+  height: 1px;
+  background-color: #000;
+  width: 100%;
+  margin: 90px auto 0px;
+}
+.me{
+  margin-top: 20px;
+}
+.star{
+  text-align: center;
+  width: 100%;
+  /* margin:30px auto; */
+}
+.star>text{
+  font-size:45rpx;
+}
+.star>view{
+  /* display: inline */
+}
+.star>view>image{
+  width: 30px;
+  height: 30px;
+}
+.personalInformation{
+  height: 80px;
+  margin-bottom: 20px;
+}
+.personalInformation>image{
+  float: left;
+  width:80px;
+  height:80px;
+  border-radius:0px;
+}
+.id,.sendTime{
+  width: 70%;
+  float: left;
+  margin-left: 30px;
+}
+button{
+  z-index:999;
+  right: 5px;
+  background-color:#0097fe;
+  margin: 20px auto;
+  width: 80%;
+  color:#fff;
+}

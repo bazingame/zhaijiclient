@@ -1,0 +1,33 @@
+<view class='order' >
+  <view >
+    配送员：
+  </view>
+  <view class='me'>
+    <view class='personalInformation'>
+      <image src='./img/head.jpg'></image>
+      <view class='id'>{{deliverer_name}}</view>
+      <view class='sendTime'>接单量:{{deliverer_amount}} 评分:{{deliverer_mark}}</view>
+    </view>
+    <view class='star'>
+      <text>服务</text>
+      <view>
+          <image src="{{star_arr_one[0]}}" bindtap='commentOne' data-star="1"></image>
+          <image src="{{star_arr_one[1]}}" bindtap='commentOne' data-star="2"></image>
+          <image src="{{star_arr_one[2]}}" bindtap='commentOne' data-star="3"></image>
+          <image src="{{star_arr_one[3]}}" bindtap='commentOne' data-star="4"></image>
+          <image src="{{star_arr_one[4]}}" bindtap='commentOne' data-star="5"></image>
+      </view>
+    </view>
+    <view class='star'>
+      <text>速度</text>
+      <view >
+        <image src="{{star_arr_two[0]}}" bindtap='commentTwo' data-star="1"></image>
+        <image src="{{star_arr_two[1]}}" bindtap='commentTwo' data-star="2"></image>
+        <image src="{{star_arr_two[2]}}" bindtap='commentTwo' data-star="3"></image>
+        <image src="{{star_arr_two[3]}}" bindtap='commentTwo' data-star="4"></image>
+        <image src="{{star_arr_two[4]}}" bindtap='commentTwo' data-star="5"></image>
+      </view>
+    </view>
+  </view>
+</view>
+  <button wx:if="{{isUnMarked}}" id='submit' bindtap='commentsubmit' >提交</button>

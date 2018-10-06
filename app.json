@@ -12,7 +12,8 @@
     "pages/me/charging_standard/charging_standard",
     "pages/me/user_deal/user_deal",
     "pages/guide/guide",
-    "pages/order/order_detail/order_detail"
+    "pages/order/order_detail/order_detail",
+    "pages/order/mark/mark"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -20,7 +20,7 @@
     <view class="order order-info">
         <view class="item-a"><view>包裹重量：</view><text>{{orderDetail.package_size}}kg</text></view>
         <view class="item-a"><view>快递平台：</view><text>{{orderDetail.express}}</text></view>
-        <view class="item-a"><view>保险金额：</view><text>{{orderDetail.insurance}}</text></view>
+        <view class="item-a"><view>保险金额：</view><text>{{orderDetail.insurance}}元</text></view>
         <view class="item-a"><view>姓名：</view><text>{{orderDetail.name}}</text></view>
         <view class="item-a"><view>电话：</view><text>{{orderDetail.phone}}</text></view>
         <view class="item-a"><view>地址：</view><text>{{orderDetail.address}}</text></view>
@@ -29,17 +29,25 @@
         <view class="item-a"><view>备注：</view><text>{{orderDetail.note}}</text></view>
     </view>
     
-    <view wx:if="{{orderDetail.status=='已接单' || orderDetail.status=='已完成' }}" class="order order-goods">
-        <view class="item-b"><view>快递员编号：</view><text>{{orderDetail.deliverer_id}}</text></view>
-        <view class="item-b"><view>接单时间：</view><text>{{orderDetail.take_order_time}}</text></view>
-        <view class="item-b"><view>完成时间：</view><text>{{orderDetail.finish_time}}</text></view>
-        <view class="status">{{orderDetail.order_status_text}}</view>
-    </view>
+    <block wx:if="{{orderDetail.status=='已接单' || orderDetail.status=='已完成' || orderDetail.status=='申请取消中' || orderDetail.status=='取消失败' }}">
+      <view  class="order order-goods">
+          <view class="item-b"><view>快递员编号：</view><text>{{orderDetail.deliverer_id}}</text></view>
+          <view class="item-b"><view>接单时间：</view><text>{{orderDetail.take_order_time}}</text></view>
+          <view class="item-b"><view>完成时间：</view><text>{{orderDetail.finish_time}}</text></view>
+      </view>
+      <view class="order order-contact">
+          <view class="contact" bindtap='contactDeliverer'>联系配送员</view>
+      </view>
+    </block>
     <view class="order order-bottom">
         <view class="item-c">
             <view class="l">费用：<text class="cost">￥{{orderDetail.money}}</text></view>
-            <view class="r" wx:if="{{orderDetail.status=='已接单'||orderDetail.status=='未接单'}}">
-                <view class="btn active" bindtap="payOrder">取消订单</view>
+            <view class="r">
+                  <view wx:if="{{orderDetail.status=='已接单'||orderDetail.status=='未接单'}}" class="btn active" bindtap="applyCancelOrder">取消订单</view>
+                  <block wx:if="{{orderDetail.status=='已完成'}}">
+                    <view wx:if="{{orderDetail.mark_status==0}}" class="btn active" bindtap="applyMark">去评价</view>
+                    <view wx:elif="{{orderDetail.mark_status==1}}" class="btn active" bindtap="viewMark">查看评价</view>
+                  </block>
             </view>
         </view>
     </view>

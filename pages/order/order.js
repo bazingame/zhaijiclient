@@ -5,27 +5,7 @@ Page({
    * Page initial data
    */
   data: {
-    order:[{
-      order_id:'O__00000007',
-      express:'中通',
-      package_id:'1-1-1',
-      order_time:'2018-04-09 11:30',
-      status:'未接单',
-      money:'10',
-      mark_status:1,
-      address_detail:'北苑7栋',
-    },
-      {
-        order_id: 'O__0000008',
-        express: '顺丰',
-        package_id: '1-21-1',
-        order_time: '2018-01-09 15:30',
-        status: '未接单',
-        money: '8',
-        mark_status: 0,
-        address_detail: '北苑8栋',
-      }
-      ]
+    order:[]
   },
   orderDetail:function(e){
     wx.setStorage({
@@ -72,20 +52,20 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
-    // if(app.globalData.isRegistered===true){
-    //   wx.request({
-    //     url: app.globalData.URL_BASE + app.globalData.GET_ONES_ORDER_LIST,
-    //     method: 'GET',
-    //     header:{authorization: app.globalData.zhaijiUserInfo.authorization},
-    //     success: function (res) {
-    //       console.log(res);
-    //     }
-    //   })
-    // }else{
-    //   wx.navigateTo({
-    //     url: '/pages/index/index',
-    //   })
-    // }
+    if(app.globalData.isRegistered===true){
+      wx.request({
+        url: app.globalData.URL_BASE + app.globalData.GET_ONES_ORDER_LIST,
+        method: 'GET',
+        header:{authorization: app.globalData.zhaijiUserInfo.authorization},
+        success: function (res) {
+          console.log(res);
+        }
+      })
+    }else{
+      wx.navigateTo({
+        url: '/pages/index/index',
+      })
+    }
   },
 
   /**
@@ -100,7 +80,9 @@ Page({
    */
   onShow: function () {
     //刷新订单列表
-    this.refreshOrderList()
+    if (app.globalData.isRegistered === true) {
+      this.refreshOrderList()
+    }    
   },
 
   /**

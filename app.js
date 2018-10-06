@@ -91,20 +91,21 @@ App({
     GET_CAPTCHA: "/msg/send",//POST 
     VERIFY_CAPTCHA: "/msg/verify", //POST 
     ADD_USER: "/user",//POST
-    REVISE_USER: "/user",//PATCH
+    REVISE_USER: "/user",//PUT
     GET_ONES_ORDER_LIST: "/order",//GET
     GET_ONES_ORDER_DETAIL: "/order/",//GET
     ADD_ORDER: "/order",//POST
-    APPPLY_CANCEL_ORDER: "/order/apply-cancel/",//PATCH
-    CANCEL_ORDER: "/deliverer/cancel/",//PATCH
-    REFUSE_CANCEL_ORDER: "/deliverer/refuse-cancel/",//PATCH
-    CONFIRM_ORDER: "/order/confirm/",//PATCH
-    MARK_ORDER: "/order/mark/",//PATCH
+    APPLY_CANCEL_ORDER: "/order/apply-cancel/",//PUT
+    CANCEL_ORDER: "/deliverer/cancel/",//PUT
+    REFUSE_CANCEL_ORDER: "/deliverer/refuse-cancel/",//PUT
+    CONFIRM_ORDER: "/order/confirm/",//PUT
+    MARK_ORDER: "/order/mark/",//PUT
     ADD_ADDRESS: "/address/",//POST
     DELETE_ADDRESS: "/address/",//DELETE
-    REVISE_ADDRESS: "/address/",//PATCH
+    REVISE_ADDRESS: "/address/",//PUT
     GET_ORDER_CAN_GET_LIST: "/order/",//GET
     RECEIVE_ORDER: "/deliverer/receive/",//POST
+    GET_DELIVERER_INFO:"/deliverer/info/",//GET
     expressList: [
       { 'express_id': 'Express_zhongtong', 'name': '中通' },
       { 'express_id': 'Express_yuantong', 'name': '圆通' },

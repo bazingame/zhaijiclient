@@ -51,6 +51,21 @@ page{
   height: 50rpx;
   float: left;
 }
+.contact{
+  height: 52.5rpx;
+  line-height: 65rpx;
+  font-size: 40rpx;
+  color: #666;
+  text-align: center;
+}
+.contact-service{
+  margin-top: 20rpx;
+  height: 52.5rpx;    
+  line-height: 50rpx;
+  font-size: 40rpx;
+  color: #666;
+  text-align: center;
+}
 .item-c{
     margin-left: 31.25rpx;
     border-top: 1px solid #f4f4f4;
@@ -277,7 +292,6 @@ page{
     width: 140rpx;
     color: #b4282d;
 }
-
 .top{
   padding-left: 20px;
   font-family: '楷体';
@@ -298,6 +312,11 @@ page{
   width: 130rpx;
   float: left;
   margin-top:14rpx;
+}
+.order-contact{
+  height: 45px;
+  padding: 10rpx 30rpx; 
+  line-height: 50px;
 }
 .time,.kuaidi{
   margin-left:20rpx;
