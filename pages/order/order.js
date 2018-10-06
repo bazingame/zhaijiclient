@@ -7,39 +7,57 @@ Page({
   data: {
     order:[]
   },
-  orderDetail:function(e){
-    wx.setStorage({
-      key: 'order',
-      data: e.target.dataset.order,
-    })
-    wx.navigateTo({
-      url: '../order_detail/order_detail',
-    })
-  },
   //刷新列表
   refreshOrderList:function(){
     var that = this
-    wx.request({
-      url: app.globalData.URL_BASE + app.globalData.GET_ONES_ORDER_LIST,
-      method: "GET",
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Authorization": app.globalData.zhaijiUserInfo.authorization,
-      },
-      success: function (res) {
-        if (res.statusCode === 200 && res.data.errcode === 0) {
-          var orderList = res.data.data
-          that.setData({
-            order:orderList
-          })
-        } else {
-          wx.showToast({
-            title: res.data.errmsg,
-            icon: 'none'
-          })
+    //判断是配送员还是普通用户
+    var isDeliverer = app.globalData.isDeliverer
+    if(isDeliverer==true){
+      wx.request({
+        url: app.globalData.URL_BASE + app.globalData.GET_ORDER_RECEIVED_LIST,
+        method: "GET",
+        header: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "Authorization": app.globalData.zhaijiUserInfo.authorization,
+        },
+        success: function (res) {
+          if (res.statusCode === 200 && res.data.errcode === 0) {
+            var orderList = res.data.data
+            that.setData({
+              order: orderList
+            })
+            app.p(orderList)
+          } else {
+            wx.showToast({
+              title: res.data.errmsg,
+              icon: 'none'
+            })
+          }
         }
-      }
-    })
+      })
+    }else{
+      wx.request({
+        url: app.globalData.URL_BASE + app.globalData.GET_ONES_ORDER_LIST,
+        method: "GET",
+        header: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "Authorization": app.globalData.zhaijiUserInfo.authorization,
+        },
+        success: function (res) {
+          if (res.statusCode === 200 && res.data.errcode === 0) {
+            var orderList = res.data.data
+            that.setData({
+              order: orderList
+            })
+          } else {
+            wx.showToast({
+              title: res.data.errmsg,
+              icon: 'none'
+            })
+          }
+        }
+      })
+    }
   },
   //查看订单详情
   viewOrderDetail:function(event){
@@ -53,14 +71,14 @@ Page({
    */
   onLoad: function (options) {
     if(app.globalData.isRegistered===true){
-      wx.request({
-        url: app.globalData.URL_BASE + app.globalData.GET_ONES_ORDER_LIST,
-        method: 'GET',
-        header:{authorization: app.globalData.zhaijiUserInfo.authorization},
-        success: function (res) {
-          console.log(res);
-        }
-      })
+      // wx.request({
+      //   url: app.globalData.URL_BASE + app.globalData.GET_ONES_ORDER_LIST,
+      //   method: 'GET',
+      //   header:{authorization: app.globalData.zhaijiUserInfo.authorization},
+      //   success: function (res) {
+      //     console.log(res);
+      //   }
+      // })
     }else{
       wx.navigateTo({
         url: '/pages/index/index',
@@ -82,7 +100,7 @@ Page({
     //刷新订单列表
     if (app.globalData.isRegistered === true) {
       this.refreshOrderList()
-    }    
+    }
   },
 
   /**

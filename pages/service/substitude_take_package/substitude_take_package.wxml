@@ -1,0 +1,29 @@
+<view class='order' wx:for="{{order}}" wx:key="{{order[index].order_id}}">
+  <image src='../img/smallbox.png' data-order-id="{{order[index].order_id}}" ></image>
+  <view data-order-id="{{order[index].order_id}}">
+    <view class='kuaidi'>
+      {{order[index].express}}  
+    </view>
+    <view class='time'>
+    送至：{{order[index].address_detail}}
+    </view>
+    <view class='time'>
+    备注: {{order[index].note}}
+    </view>
+  </view>
+  <view data-order-id="{{order[index].order_id}}">
+    <view class='flag'>
+      {{order[index].package_size}}kg
+    </view>
+    <!-- <view class='price'> -->
+      <!-- {{order[index].money}}元 -->
+    <!-- </view> -->
+  </view>
+  <view class='bar'></view>
+  <view  class='order-time' data-order-id="{{order[index].order_id}}" >
+      {{order[index].order_time}}
+  </view>
+  <!-- <button wx:if="{{order[index].mark_status==1}}" data-order="{{order[index]}}" style='float:right' disabled='disabled'>已评论</button> -->
+  <button data-order-id="{{order[index].order_id}}"  bindtap='takeOrder'>接单</button>
+</view>
+

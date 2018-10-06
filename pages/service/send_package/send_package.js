@@ -1,4 +1,4 @@
-// pages/order_detail/order_detail.js
+// pages/service/send_package/send_package.js
 Page({
 
   /**

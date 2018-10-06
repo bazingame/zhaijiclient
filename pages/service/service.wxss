@@ -74,7 +74,7 @@ page{
   /* width: 30%;
   display: inline-block; */
 }
-.send>input,.send>picker{
+.send>input,.send>picker,.send>textarea{
   margin-top: 10px;
    /* display: inline-block; */
   /* width: 70%; */
@@ -103,7 +103,7 @@ button{
   margin-top: 10px;
   background-color: #fff;
   width: 80%;
-  padding: 10%;
+  padding: 2% 10%;
 }
 .order_money{
   text-align: center;
@@ -125,4 +125,13 @@ button{
 }
 .heavy-num{
   font-size: 50rpx
+}
+
+.note-area{
+  /* background:#EEEEEE; */
+  padding: 2%;
+  height:80rpx;
+  width:410rpx;
+  margin-top:15rpx;
+  border: 3rpx solid #EEEEEE;
 }

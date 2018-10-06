@@ -43,9 +43,9 @@ Page({
         "Authorization": app.globalData.zhaijiUserInfo.authorization,
       },
       success: function (res) {
+        app.p(res)
         if (res.statusCode === 200 && res.data.errcode === 0) {
           var order_detail = res.data.data
-          app.p(order_detail)
           that.setData({
             orderDetail: order_detail
           })

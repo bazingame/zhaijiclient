@@ -29,9 +29,19 @@ App({
                       // wx.navigateTo({
                         // url: '/pages/index/index',
                       // })
+                      that.p('wx:login:未注册')
+                      //就算没注册也要回调一下 方便对登录状态的判断
+                      if (that.GuideReadyCallback) {
+                        that.p('未注册回调guide')
+                        that.GuideReadyCallback(that.globalData.isDeliverer)
+                      }
                     }else if(res.data.errcode===0){
                       that.globalData.isRegistered = true                      
                       that.globalData.zhaijiUserInfo = res.data.data
+                      //判断是普通用户还是快递员
+                      that.globalData.isDeliverer = res.data.data.type == 'deliverer' ? true : false   
+                      // that.globalData.isDeliverer = true 
+                      that.p('wx:login:注册了')
                       that.initLogin()
                     }
                   console.log(that.globalData)
@@ -70,16 +80,21 @@ App({
   },
   initLogin: function () {
     var that = this
-    that.globalData.zhaijiUserInfo.name = "宅集送"
+    that.globalData.zhaijiUserInfo.name = "宅急"
     //简化地址格式
     var addressList = this.globalData.zhaijiUserInfo.addresses
     //防止onload先完成
     if (this.addressReadyCallback) {
       this.addressReadyCallback(addressList)
     }
+    if (this.GuideReadyCallback){
+      that.p('initLogin注册回调guide')
+      this.GuideReadyCallback(that.globalData.isDeliverer)
+    }
   },
   globalData: {
-    isRegistered:false,
+    isRegistered: null,//默认值不要乱改 guide基于此判断登录状态
+    isDeliverer: null,
     zhaijiUserInfo:[],
     userInfo: null,
     open_id :"",
@@ -103,7 +118,8 @@ App({
     ADD_ADDRESS: "/address/",//POST
     DELETE_ADDRESS: "/address/",//DELETE
     REVISE_ADDRESS: "/address/",//PUT
-    GET_ORDER_CAN_GET_LIST: "/order/",//GET
+    GET_ORDER_CAN_GET_LIST: "/deliverer/order/",//GET
+    GET_ORDER_RECEIVED_LIST: "/deliverer/received-order/",//GET    
     RECEIVE_ORDER: "/deliverer/receive/",//POST
     GET_DELIVERER_INFO:"/deliverer/info/",//GET
     expressList: [

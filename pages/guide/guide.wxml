@@ -9,6 +9,7 @@
 
 <view class="container">
   <view class="user-menu">
+  <block wx:if="{{isUser}}">
     <view class="item">
       <navigator url="/pages/service/service" class="a">
         <image src='./img/takePackage.png' class="icon send-package"></image>
@@ -17,10 +18,29 @@
     </view>
     <view class="item">
       <view bindtap='codeing' class="a">
-        <image src='./img/sendPackage.png' class="icon send-package"></image>
+      <!-- <navigator url="/pages/service/service" class="a"> -->
+        <image src='./img/sendPackage.png' class="icon "></image>
         <text class="txt">寄快递</text>
+      <!-- </navigator > -->
       </view>
     </view>
+  </block>
+  <block wx:if="{{isDeliverer}}">
+    <view class="item">
+      <navigator url="/pages/service/substitude_take_package/substitude_take_package" class="a">
+          <image src='./img/takePackageList.png' class="icon "></image>
+          <text class="txt">代取快递</text>
+      </navigator >
+    </view>
+    <view class="item">
+      <!-- <navigator url="/pages/service/substitude_send_package/substitude_send_package" class="a"> -->
+        <view  class="a" bindtap='codeing'>
+          <image src='./img/sendPackage.png' class="icon "></image>
+          <text class="txt">代寄快递</text>
+        </view>
+      <!-- </navigator > -->
+    </view>
+  </block>
   </view>
 
   <!--<view class="logout" bindtap="exitLogin">退出登录</view>-->

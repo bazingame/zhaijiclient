@@ -12,6 +12,7 @@ Page({
     boxMargin:25,
     kg:2,//重量最小为2
     insurance: [0, 1, 2, 3, 4, 5],
+    valuation:null,//估价
     expressList: app.globalData.expressList,
     addressName:"选择配送地址 >",
     heaveyList: [],
@@ -20,7 +21,8 @@ Page({
     expressId:'Express_zhongtong',//第一个快递默认为中通
     insuranceIndex:0,
     orderMoney:2,
-    packageId:"1-1"
+    packageId:"",
+    note:'',
   },
   //减重量
   subHeavey:function(){
@@ -55,8 +57,8 @@ Page({
   selectAddress:function(){
     //登录状态下且有地址时默认为第一个地址 A_000000001  点击跳转地址管理
     //登录状态下且无地址时默认显示添加地址 0  点击跳转地址管理
-    //未登录状态下，点击跳转登录 null
-    if (this.data.addressId==null){
+    //未登录状态下，点击跳转登录 未登录状态下，address_id为null 同时isRegisted是false
+    if (app.globalData.isRegistered==false||this.data.addressId==null){
       // wx.navigateTo({
         // url: '/pages/index/index?from=select_address',
       // })
@@ -70,6 +72,47 @@ Page({
         url: '/pages/address/address?from=service',
       })
     }
+  },
+  //估价变换
+  bindValuationInput: function (e) {
+    this.setData({
+      valuation: e.detail.value
+    })
+  },
+  //提示保险额
+  showInsuranceNotice:function(){
+    var that = this
+    var valuation = that.data.valuation
+    if(valuation==0||valuation==''||valuation==null){return}
+    var insurance = 0
+    if(valuation>0&&valuation<200){
+      insurance = 1
+    }else if(valuation>=200&&valuation<400){
+      insurance = 2
+    }else if(valuation>=400&& valuation< 600){
+      insurance = 3
+    }else if(valuation>=600&& valuation<800){
+      insurance = 4
+    }else if(valuation>800){
+      insurance = 5
+    }
+    var indemnification = insurance*200>valuation?valuation:insurance*200
+    //询问是否购买保险
+    wx.showModal({
+      title: '',
+      content: '建议购买' + insurance + '元保险,货物丢失最高赔偿' + indemnification+'元',
+      confirmText: '确认购买',
+      ccancelText: '不购买',
+      success: function (res) {
+        if (res.confirm) {
+          //更改运费险
+          that.setData({
+            insuranceIndex:insurance
+          })
+          that.caculateMoney()
+        }
+      }
+    })
   },
   //保险额变换
   bindInsurancePickerChange: function (e) {
@@ -85,6 +128,12 @@ Page({
   bindPackageIdInput: function (e) {
     this.setData({
       packageId: e.detail.value
+    })
+  },
+  //备注变换
+  bindNoteInput: function (e) {
+    this.setData({
+      note: e.detail.value
     })
   },
   //变换包裹外形
@@ -133,20 +182,28 @@ Page({
     var classgoods = {
       address_id : this.data.addressId,
       express_id : this.data.expressId,
-      package_id : this.data.packageId,
+      package_id: this.data.packageId,
+      note : this.data.note,
       insurance : this.data.insurance[this.data.insuranceIndex],
       money : this.data.orderMoney,
-      package_size : this.data.kg,
+      package_size: this.data.kg,
+      valuation : this.data.valuation,
     }
-   if(classgoods.address_id==null||classgoods.address_id==0)
-   {
-     util.showErrorToast('请选择配送地址')
+    if(classgoods.valuation==null){
+      classgoods.valuation = 0
+    }
+    if (classgoods.note == '') {
+      classgoods.note = '无'
+    }
+    if(classgoods.address_id==null||classgoods.address_id==0)
+    {
+      util.showErrorToast('请选择配送地址')
+        return;
+    }
+    else if (classgoods.package_id == "") {
+      util.showErrorToast('请输入取货码')
       return;
-   }
-   else if (classgoods.package_id == "") {
-     util.showErrorToast('请输入取货码')
-     return;
-   }
+    }
     var express_name = app.globalData.expressList[this.data.expressIndex].name
     wx.showModal({
       title: '确定信息如下',
@@ -154,6 +211,7 @@ Page({
       confirmText:'确认提交',
       success: function (res) {
         if (res.confirm) {
+          app.p(classgoods)
           //下单亲！
           wx.request({
             url: app.globalData.URL_BASE + app.globalData.ADD_ORDER,
@@ -188,6 +246,7 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
+    app.p(app.globalData)
     // app.p(this.data.expressList);
     var that = this;
     //登录状态下且有地址时默认为第一个地址 A_000000001

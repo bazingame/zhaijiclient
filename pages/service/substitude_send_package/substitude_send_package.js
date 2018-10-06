@@ -1,4 +1,4 @@
-// pages/order_detail/order_detail.js
+// pages/service/substitude_send_package/substitude_send_package.js
 Page({
 
   /**

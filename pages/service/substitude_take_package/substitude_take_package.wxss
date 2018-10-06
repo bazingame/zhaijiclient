@@ -1,0 +1,72 @@
+/* pages/order/order.wxss */
+page{
+  font-family: '楷体';
+  color:#888;
+  background-color:#eee;
+}
+.top{
+  padding-left: 20px;
+  font-family: '楷体';
+  color:#fff;
+  height: 40px;
+  font-size: 50rpx;
+  line-height: 30px;
+  background-color: #0097fe;
+}
+.order{
+  box-sizing: border-box;
+  padding: 30rpx 60rpx; 
+  /* height: 150px; */
+  /* border-radius: 5px; */
+  background-color: #fff;
+  width: 95%;
+  margin: 10px auto 0px;
+  line-height: 40px;
+  border-bottom: 1rpx solid #DCD9D9;
+}
+.order>image{
+  height: 140rpx;
+  width: 130rpx;
+  float: left;
+  margin-top:53rpx;
+}
+.time,.kuaidi{
+  margin-left:20rpx;
+  color: black;
+}
+.time,.price{
+  font-size: 35rpx;
+  color: black;
+}
+.order>view:nth-child(2),.order>view:nth-child(3){
+  float:left;
+}
+.price,.flag{
+  font-size: 30rpx;
+  color: black;
+}
+.order>view:nth-child(3){
+  float: right;
+  text-align: right;
+}
+.bar{
+  clear: both;
+  height: 1px;
+  background-color: gray;
+  width: 100%;
+  margin: 90px auto 0px;
+}
+button{
+  margin-top: 10px;
+  height: 30px;
+  line-height: 30px;
+  color:#fff;
+  background-color: #0097fe;
+  display:inline;
+  /* margin-left:25%; */
+  float:right;
+}
+.order-time{
+  font-size:30rpx;
+  display: inline
+}

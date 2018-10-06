@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 8,
+			"current": 9,
 			"list": [
 				{
 					"id": -1,
@@ -87,6 +87,12 @@
 					"id": 8,
 					"name": "mark",
 					"pathName": "pages/order/mark/mark",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "substitude",
+					"pathName": "pages/service/substitude_take_package/substitude_take_package",
 					"query": ""
 				}
 			]
