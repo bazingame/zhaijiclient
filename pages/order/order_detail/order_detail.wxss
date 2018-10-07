@@ -351,6 +351,9 @@ button{
   color:#fff;
   background-color: #0097fe;
 }
+.refuseactive{
+  background-color: #A8322F;
+}
 .order-time{
   font-size:30rpx;
 }

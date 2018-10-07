@@ -23,6 +23,13 @@ Page({
         success: function (res) {
           if (res.statusCode === 200 && res.data.errcode === 0) {
             var orderList = res.data.data
+            //当账户为配送员时 将取消失败改为已拒绝
+            if (app.globalData.isDeliverer ) {
+              for(var i in orderList){
+                if(orderList[i].status=='取消失败')
+                  orderList[i].status = '已拒绝取消'
+              }
+            }
             that.setData({
               order: orderList
             })
