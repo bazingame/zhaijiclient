@@ -24,7 +24,7 @@
       <view>用户协议</view>
       <view>></view>
     </view>
-    <view class='block' bindtap="addressAdmin">
+    <view class='block' >
       <image src='./img/kefu.png'></image>
       <view>联系客服</view>
       <view>></view>

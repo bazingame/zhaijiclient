@@ -3,7 +3,6 @@
     "pages/index/index",
     "pages/address/address",
     "pages/new_address/new_address",
-    "pages/order_detail/order_detail",
     "pages/me/me",
     "pages/service/service",
     "pages/order/order",

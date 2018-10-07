@@ -154,6 +154,37 @@ Page({
       }
     })
   },
+  //确认收货
+  confirmOrder: function () {
+    var that = this
+    var orderId = that.data.orderId
+    wx.request({
+      url: app.globalData.URL_BASE + app.globalData.CONFIRM_ORDER + orderId,
+      method: "PUT",
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Authorization": app.globalData.zhaijiUserInfo.authorization,
+      },
+      success: function (res) {
+        if (res.statusCode === 200 && res.data.errcode === 0) {
+          app.p(res)
+          var status_code = res.data.data.status_code
+          var status = res.data.data.status
+          util.showSucessToast(status)
+          //刷新
+          that.refreshOrderDetail()
+        } else {
+          wx.showToast({
+            title: res.data.errmsg,
+            icon: 'none'
+          })
+        }
+      },
+      fail: function (res) {
+        app.p(res)
+      }
+    })
+  },
   //查看评价
   viewMark:function(){
     wx.navigateTo({

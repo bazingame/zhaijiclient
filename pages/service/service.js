@@ -39,6 +39,7 @@ Page({
   addHeavey(){
     this.setData({
       kg: this.data.kg + 1
+      
     })
     this.changePackage(this.data.kg)
     this.caculateMoney()
