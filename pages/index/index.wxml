@@ -1,6 +1,6 @@
 <!--登录数据缓存，判断缓存后跳转-->
 
-<view class="top">宅集送</view>
+<view class="top">宅急</view>
   <button open-type="getUserInfo" style='display:{{shouquan}}' bindgetuserinfo='bindGetUserInfo'>小程序授权</button>
 <view class='index' style='display:{{page}}'>
   <view class='login'>

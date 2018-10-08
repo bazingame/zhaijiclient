@@ -62,8 +62,7 @@
                     <view wx:if="{{orderDetail.status=='申请取消中'}}" class="btn active refuseactive" bindtap="refuseCancel">拒绝取消</view>
                     <view wx:if="{{orderDetail.status=='已接单'}}" class="btn active" bindtap="confirmOrder">确认送达</view>
                     <block wx:if="{{orderDetail.status=='已完成'}}">
-                      <view wx:if="{{orderDetail.mark_status==0}}" class="btn active" bindtap="applyMark">去评价</view>
-                      <view wx:elif="{{orderDetail.mark_status==1}}" class="btn active" bindtap="viewMark">查看评价</view>
+                      <view wx:if="{{orderDetail.mark_status==1}}" class="btn active" bindtap="viewMark">查看评价</view>
                     </block>
               </view>
           </view>

@@ -224,12 +224,29 @@ Page({
             data: classgoods,
             success: function (res) {
               if (res.statusCode === 200 && res.data.errcode === 0) {
-                util.showSucessToast("提交成功")
-                setTimeout(function(){
-                  wx.switchTab({
-                    url: '/pages/order/order',
-                  })
-                },1500)                
+                console.log(res.data.data)
+                wx.requestPayment({
+                  'timeStamp': res.data.data.timeStamp.toString(),
+                  'nonceStr': res.data.data.nonceStr,
+                  'package': res.data.data.package,
+                  'signType': 'MD5',
+                  'paySign': res.data.data.paySign,
+                  'success': function (res) {
+                    if (res.errMsg =='requestPayment:ok'){
+                      util.showSucessToast("提交成功")
+                      setTimeout(function(){
+                      wx.switchTab({
+                        url: '/pages/order/order',
+                      })
+                      },1500)
+                    }else{
+                      util.showSucessToast("提交成功")
+                    }
+                  },
+                  'fail': function (res) {
+                    util.showSucessToast(res.err_desc)
+                  },
+                })
               } else {
                 wx.showToast({
                   title: res.data.errmsg,

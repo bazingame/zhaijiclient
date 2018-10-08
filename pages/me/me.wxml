@@ -4,7 +4,7 @@
       <view class='id'>{{nickname}}</view>
       <view class='wx_id'>{{wx_id}}</view>
     </view>
-    <view bindtap="addressAdmin"  class='block'>
+    <view wx:if="{{!isDeliverer}}" bindtap="addressAdmin"  class='block'>
       <image src='./img/address.png'></image>
       <view>配送地址</view>
       <view>></view>
@@ -24,7 +24,7 @@
       <view>用户协议</view>
       <view>></view>
     </view>
-    <view class='block' >
+    <view class='block' bindtap='callService'>
       <image src='./img/kefu.png'></image>
       <view>联系客服</view>
       <view>></view>

@@ -8,7 +8,8 @@ Page({
     head:app.globalData.URL_BASE+"/storage/images/package2.png",
     nickname:"未登录",
     wx_id:"NotLogin",
-    exitloginDisplay:"block"
+    exitloginDisplay:"block",
+    isDeliverer:false
   },
 
   /**
@@ -21,12 +22,10 @@ Page({
   },
   onLoad: function (options) {
     var that = this;
-    //已经注册状态不显示
+    // 已经注册状态不显示
     if (app.globalData.isRegistered == true){
       that.setData({
-        exitloginDisplay: 'none',
-        nickname: app.globalData.zhaijiUserInfo.name,
-        head: app.globalData.zhaijiUserInfo.headimg_url
+        isDeliverer: app.globalData.isDeliverer,
       })
     }
     
@@ -71,6 +70,7 @@ Page({
         exitloginDisplay: 'none',
         // nickname: app.globalData.zhaijiUserInfo.name,
         nickname: '已登录',
+        wx_id: app.globalData.zhaijiUserInfo.phone,
         head: app.globalData.zhaijiUserInfo.headimg_url
       })
     }
@@ -109,6 +109,20 @@ Page({
   userDeal:function(){
     wx.navigateTo({
       url: '/pages/me/user_deal/user_deal',
+    })
+  },
+  //打电话给客服
+  callService:function(){
+    wx.showModal({
+      title: '',
+      content: '打电话给客服？',
+      success:function(res){
+        if(res.confirm){
+          wx.makePhoneCall({
+            phoneNumber: '0731-58610069'
+          })
+        }
+      }
     })
   }
 })

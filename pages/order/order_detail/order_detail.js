@@ -166,10 +166,11 @@ Page({
         "Authorization": app.globalData.zhaijiUserInfo.authorization,
       },
       success: function (res) {
+        app.p(res)
         if (res.statusCode === 200 && res.data.errcode === 0) {
-          app.p(res)
           var status_code = res.data.data.status_code
           var status = res.data.data.status
+          app.p(res)
           util.showSucessToast(status)
           //刷新
           that.refreshOrderDetail()
@@ -181,7 +182,10 @@ Page({
         }
       },
       fail: function (res) {
-        app.p(res)
+        wx.showErrorToast({
+          title: res.data.errmsg,
+          icon: 'none'
+        })
       }
     })
   },
