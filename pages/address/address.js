@@ -16,12 +16,19 @@ Page({
   },
   onShow: function () {
     // 页面显示
+    wx.removeStorage({
+      key: 'end_location',
+      success: function(res) {
+
+      },
+    })
     this.getAddressList()
   },
   //获取地址列表
   getAddressList(option="add",address_id=null) {
     let that = this;
     var addressList = app.globalData.zhaijiUserInfo.addresses
+    console.log(addressList);
     if(addressList.length==0||typeof addressList[0] != "undefined"){
       that.setData({
         addressList: addressList
@@ -48,11 +55,28 @@ Page({
   // },
   //选择地址
   selectAddress:function(event){
+    var that = this;
     if(this.data.navigateFrom=='me'){
       return
-    }else if(this.data.navigateFrom=='service'){
+    }
+    else if(this.data.navigateFrom=='service'){
+     
       var selectAddressId = event.target.dataset.addressId
       var selectAddressDetail = event.target.dataset.addressDetail
+      for (var i = 0; i < this.data.addressList.length; i++) {
+        if(selectAddressId == this.data.addressList[i].address_id)
+        {
+          var location = {
+            latitude: this.data.addressList[i].latitude,
+            longitude:this.data.addressList[i].longitude,
+          }
+          wx.setStorage({
+            key: 'end_location',
+            data: location,
+          })
+          break;
+        }
+      }
       //设置前一页的数据
       var pages = getCurrentPages()
       var prevPage = pages[pages.length-2]

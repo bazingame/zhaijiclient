@@ -9,7 +9,7 @@ page{
   width: 100%;
   height:300rpx;
   font-size:60rpx;
-  background-color: #0097fe;
+  background-color: #1aaaff;
   color:#fff;
   line-height: 250rpx;
   text-align: center;
@@ -49,7 +49,7 @@ page{
 button{
   z-index:999;
   right: 5px;
-  background-color:#0097fe;
+  background-color:#1aaaff;
   margin: 20px auto;
   width: 80%;
   color:#fff;

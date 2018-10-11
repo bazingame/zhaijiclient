@@ -1,23 +1,29 @@
 var app = getApp()
+var that = this;
 Page({
   /**
    * 页面的初始数据
    */
   data: {
+    
     locationList: [],
-    hidden: true
+    hidden: true,
   },
   //选择地址后对上一级页面进行更新数据
   onTap: function (e) {
     var that = this;
-    var index = Math.floor(e.target.offsetTop / 50);
+   
+   
+    var index = Math.floor(e.target.offsetTop/50);
     var location = that.data.locationList[index].location;
-    console.log(location);
+   //console.log(location);
     var touchAddress = e.currentTarget.dataset.key
-    var pages = getCurrentPages()
+    var pages = getCurrentPages();
     var prevPage = pages[pages.length-2];
+    //console.log(prevPage);
     prevPage.updateAddress(touchAddress)
-    wx.setStorageSync('end_location',location)
+   // console.log(location);
+    wx.setStorageSync('start_location', location);
     wx.navigateBack({
     })
   },
@@ -57,17 +63,20 @@ Page({
       method: "post",
       url: 'https://zhaiji.hammerfood.cn/map/search/' + text,
       success: function (res) {
-        // console.log(res);
+        //console.log(res);
+      
         that.setData({
           locationList: res.data.data
         })
       }
     })
   },
-  onLoad:function(){
+  onLoad:function(e){
+
     this.setData({
       hidden: false
     })
     this.search('湘潭大学');
+  
   }
 })

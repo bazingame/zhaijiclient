@@ -4,6 +4,18 @@
       <view class='id'>{{nickname}}</view>
       <view class='wx_id'>{{wx_id}}</view>
     </view>
+    <view class='manage' style='display:{{manage}}'>
+      <view class='order'>
+        <view>今日收入</view>
+        <view>{{today_num}}单</view>
+        <view>{{today_money}}元</view>
+      </view>
+      <view class='money'>
+        <view>总共收入</view>
+        <view>{{total_num}}单</view>
+        <view>{{total_money}}元</view>
+      </view>
+    </view>
     <view wx:if="{{!isDeliverer}}" bindtap="addressAdmin"  class='block'>
       <image src='./img/address.png'></image>
       <view>配送地址</view>

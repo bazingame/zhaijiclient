@@ -108,7 +108,7 @@ page{
 }
 
 .add-address{
-    background: #0097fe;
+    background: #1aaaff;
     text-align: center;
     width: 100%;
     height: 99rpx;

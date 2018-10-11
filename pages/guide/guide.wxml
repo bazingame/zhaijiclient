@@ -7,7 +7,7 @@
   </block>
 </swiper>
 
-<view class="container">
+<view class="container" style='padding:0'>
   <view class="user-menu">
   <block wx:if="{{isUser}}">
     <view class="item">

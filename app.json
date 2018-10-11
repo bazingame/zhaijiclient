@@ -1,16 +1,17 @@
 {
   "pages": [
+    "pages/guide/guide",
     "pages/index/index",
     "pages/address/address",
     "pages/new_address/new_address",
     "pages/me/me",
     "pages/service/service",
+    "pages/service/select_address/select_address",
     "pages/order/order",
     "pages/logs/logs",
     "pages/new_address/select_address/select_address",
     "pages/me/charging_standard/charging_standard",
     "pages/me/user_deal/user_deal",
-    "pages/guide/guide",
     "pages/order/order_detail/order_detail",
     "pages/order/mark/mark",
     "pages/service/send_package/send_package",
@@ -19,13 +20,13 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#0097fe",
+    "navigationBarBackgroundColor": "#1aaaff",
     "navigationBarTitleText": "",
     "navigationBarTextStyle": "#fff"
   },
   "tabBar": {
     "color": "#8a8a8a",
-    "selectedColor": "#0097fe",
+    "selectedColor": "#1aaaff",
     "backgroundColor": "#fff",
     "list": [
       {

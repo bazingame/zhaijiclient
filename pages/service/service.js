@@ -6,6 +6,8 @@ Page({
    * Page initial data
    */
   data: {
+    start: [],
+    end: [],
     bbs:"border-bottom:2px solid #fff",
     boxWidth:105,
     boxHeight:120,
@@ -14,6 +16,7 @@ Page({
     insurance: [0, 1, 2, 3, 4, 5],
     valuation:null,//估价
     expressList: app.globalData.expressList,
+    KuaidiAddressName: "选择物流公司地址 >",
     addressName:"选择配送地址 >",
     heaveyList: [],
     addressId:null,
@@ -23,6 +26,7 @@ Page({
     orderMoney:2,
     packageId:"",
     note:'',
+    distanceMoney:0
   },
   //减重量
   subHeavey:function(){
@@ -53,6 +57,15 @@ Page({
       expressId: mchObj.express_id,
     })
     // app.p(this.data.expressId)
+  },
+  //get物流公司地址
+  updateAddress: function (select_data) {
+    
+    this.setData({
+      KuaidiAddressName: select_data,
+      //addressIsSelect: true
+    })
+    return true
   },
   //选择地址
   selectAddress:function(){
@@ -117,9 +130,9 @@ Page({
   },
   //保险额变换
   bindInsurancePickerChange: function (e) {
-    if (e.detail.value == 0) {
-      return;
-    }
+    // if (e.detail.value == 0) {
+    //   return;
+    // }
     this.setData({
       insuranceIndex: e.detail.value
     })
@@ -165,7 +178,7 @@ Page({
     // if (this.data.addressId!=null){
       var kg = this.data.kg>2?this.data.kg:2
       var insurance = this.data.insurance[this.data.insuranceIndex]
-      var count = insurance + kg
+      var count = insurance + kg + this.data.distanceMoney
       this.setData({
         orderMoney:count
       })
@@ -264,6 +277,7 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
+    wx.clearStorage();
     app.p(app.globalData)
     // app.p(this.data.expressList);
     var that = this;
@@ -272,6 +286,14 @@ Page({
     //未登录状态下，点击跳转登录 null
     if (typeof app.globalData.zhaijiUserInfo.addresses!="undefined"){
       var lastAddress = app.globalData.zhaijiUserInfo.addresses.pop()
+      var location = {
+        latitude: lastAddress.latitude,
+        longitude: lastAddress.longitude,
+      }
+      wx.setStorage({
+        key: 'end_location',
+        data: location,
+      })
       app.globalData.zhaijiUserInfo.addresses.push(lastAddress)
       if(typeof lastAddress=="undefined"){
         this.setData({
@@ -301,5 +323,46 @@ Page({
         }
       }
     }
+  },
+  onShow:function(){
+    var that = this;
+  
+    wx.getStorage({
+      key: 'end_location',
+      success: function(res) {
+        console.log(res);
+        that.setData({
+          start:res.data,
+        })
+        wx.getStorage({
+          key: 'start_location',
+          success: function (res) {
+            console.log(res);
+            that.setData({
+              end: res.data,
+            })
+            //console.log(that.data);
+            wx.request({
+              url: app.globalData.URL_BASE + '/map/distance/' + that.data.start.latitude + '/' + that.data.start.longitude + '/' + that.data.end.lat + '/' + that.data.end.lng,
+              method:'POST',
+              header: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Authorization": app.globalData.zhaijiUserInfo.authorization,
+              },
+              success:function(res){
+                console.log(res);
+                var orderMoney = that.data.orderMoney;
+                that.setData({
+                  distanceMoney:res.data.data.distance_money
+                })
+                that.caculateMoney();
+              }
+            })
+          },
+        })
+      },
+    })
+   
+    
   }
 })

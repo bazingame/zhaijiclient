@@ -11,19 +11,34 @@ page{
   height: 40px;
   font-size: 50rpx;
   line-height: 30px;
-  background-color: #0097fe;
+  background-color: #1aaaff;
 }
 .me{
   padding-top: 20px;
   /* border-radius: 10px; */
-  margin-top: 10px;
+  
   box-sizing: border-box;
   background-color: #fff;
-  width: 90%;
+  width: 95%;
   padding-left: 10%;
-  margin-left: 5%;
+  margin:10px auto;
   padding-bottom: 20px;
   border-bottom: 2rpx solid #DCD9D9;
+}
+.manage{
+  width: 100%;
+  margin-bottom: 20px;
+}
+.money{
+  border-left:1px solid #DCD9D9;
+}
+.money,.order{
+  line-height: 40px;
+  width: 45%;
+  float: left;
+}
+.money,.order>view{
+  text-align: center;
 }
 .personalInformation{
   height: 80px;
@@ -66,7 +81,7 @@ page{
 button{
   z-index:999;
   right: 5px;
-  background-color:#0097fe;
+  background-color:#1aaaff;
   margin: 20px auto;
   width: 80%;
   color:#fff;

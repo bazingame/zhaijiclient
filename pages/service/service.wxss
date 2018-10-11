@@ -10,7 +10,7 @@ page{
   height: 40px;
   font-size: 50rpx;
   line-height: 30px;
-  background-color: #0097fe;
+  background-color: #1aaaff;
 }
 .selectway{
   font-family: '楷体';
@@ -18,7 +18,7 @@ page{
   
   font-size: 50rpx;
   line-height: 50px;
-  background-color: #0097fe;
+  background-color: #1aaaff;
 
 }
 .selectway>view{
@@ -91,7 +91,7 @@ page{
 button{
   z-index:999;
   right: 5px;
-  background-color:#0097fe;
+  background-color:#1aaaff;
   margin: 20px auto;
   width: 80%;
   color:#fff;

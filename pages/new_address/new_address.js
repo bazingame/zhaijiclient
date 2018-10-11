@@ -8,7 +8,9 @@ Page({
       phone: '',
       address: '地址',
       address_detail:'',
-      is_default: 0
+      is_default: 0,
+      latitude:'',
+      longitude:'',
     },
     addressId: 0,
   },
@@ -58,6 +60,7 @@ Page({
    })
   },
   saveAddress() {
+    var that = this;
     let address = this.data.address;
     if (address.name == '') {
       // console.log(util)
@@ -77,28 +80,36 @@ Page({
       util.showErrorToast('请输入详细地址');
       return false;
     }
-    //保存地址
-    wx.request({
-      url: app.globalData.URL_BASE + app.globalData.ADD_ADDRESS,
-      method: "POST",
-      data: { 
-          name: address.name, 
-          address: address.address,
-          address_detail:address.address_detail,
-          phone:address.phone
-        },
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Authorization": app.globalData.zhaijiUserInfo.authorization,
-      },
-      success: function (res) {
-        if (res.statusCode === 200 && res.data.errcode === 0) {
-          //更新全局数据-->address
-          app.globalData.zhaijiUserInfo.addresses = res.data.data
-          //地址添加成功后返回地址管理页面
-          wx.navigateBack({
-          })
-        } else {
+    wx.getStorage({
+      key: 'end_location',
+      success: function(res) {
+        //console.log(res);
+        address.latitude = res.data.lat;
+        address.longitude = res.data.lng;
+        console.log(address);
+        wx.request({
+            url: app.globalData.URL_BASE + app.globalData.ADD_ADDRESS,
+            method: "POST",
+            data: { 
+              name: address.name, 
+              address: address.address,
+              address_detail:address.address_detail,
+              phone:address.phone,
+              latitude:address.latitude,
+              longitude:address.longitude
+            },
+          header: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Authorization": app.globalData.zhaijiUserInfo.authorization,
+           },
+          success: function (res) {
+            if (res.statusCode === 200 && res.data.errcode === 0) {
+            //更新全局数据-->address
+            app.globalData.zhaijiUserInfo.addresses = res.data.data
+            //地址添加成功后返回地址管理页面
+            wx.navigateBack({
+            })
+          } else {
           wx.showToast({
             title: res.data.errmsg,
             icon: 'none'
@@ -106,5 +117,10 @@ Page({
         }
       }
     })
+      },
+    })
+    
+    //保存地址
+    
   },
 })

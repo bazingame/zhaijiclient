@@ -11,7 +11,7 @@ page{
   height: 40px;
   font-size: 50rpx;
   line-height: 30px;
-  background-color: #0097fe;
+  background-color: #1aaaff;
 }
 .order{
   box-sizing: border-box;
@@ -61,7 +61,7 @@ button{
   height: 30px;
   line-height: 30px;
   color:#fff;
-  background-color: #0097fe;
+  background-color: #1aaaff;
 }
 .order-time{
   font-size:30rpx;
