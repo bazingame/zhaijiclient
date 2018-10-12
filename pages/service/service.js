@@ -186,6 +186,7 @@ Page({
     // }
   },
   goodsSubmit:function(e){
+    var that = this
     //未注册时，提交订单跳转到注册页面
     app.p(app.globalData.isRegistered)
     if(app.globalData.isRegistered===false){
@@ -203,6 +204,7 @@ Page({
       money : this.data.orderMoney,
       package_size: this.data.kg,
       valuation : this.data.valuation,
+      express_address: this.data.KuaidiAddressName
     }
     if(classgoods.valuation==null){
       classgoods.valuation = 0
@@ -215,14 +217,18 @@ Page({
       util.showErrorToast('请选择配送地址')
         return;
     }
-    else if (classgoods.package_id == "") {
+    if (classgoods.express_address == "选择物流公司地址 >") {
+      util.showErrorToast('请选择物流公司地址')
+      return;
+    }
+    if (classgoods.package_id == "") {
       util.showErrorToast('请输入取货码')
       return;
     }
     var express_name = app.globalData.expressList[this.data.expressIndex].name
     wx.showModal({
       title: '确定信息如下',
-      content: '重量: '+classgoods.package_size+'kg\n配送至: ' + this.data.addressName + '\n取货号: ' +express_name+' '+classgoods.package_id+'\n运费险: '+classgoods.insurance+'元\n预计费用: '+classgoods.money+'元',
+      content: '重量: ' + classgoods.package_size + 'kg\n配送至: ' + this.data.addressName + '\n取货号: ' + classgoods.express_address + ' ' +express_name+' '+classgoods.package_id+'\n运费险: '+classgoods.insurance+'元\n预计费用: '+classgoods.money+'元',
       confirmText:'确认提交',
       success: function (res) {
         if (res.confirm) {
@@ -237,28 +243,63 @@ Page({
             },
             data: classgoods,
             success: function (res) {
+              app.p(res)
               if (res.statusCode === 200 && res.data.errcode === 0) {
-                console.log(res.data.data)
+                app.p('支付请求')
                 wx.requestPayment({
                   'timeStamp': res.data.data.timeStamp.toString(),
                   'nonceStr': res.data.data.nonceStr,
                   'package': res.data.data.package,
                   'signType': 'MD5',
                   'paySign': res.data.data.paySign,
-                  'success': function (res) {
-                    if (res.errMsg =='requestPayment:ok'){
-                      util.showSucessToast("提交成功")
-                      setTimeout(function(){
-                      wx.switchTab({
-                        url: '/pages/order/order',
+                  'success': function (payRes) {
+                    if (payRes.errMsg =='requestPayment:ok'){
+                      //TODO 修改支付状态(成功)
+                      wx.request({
+                        url: app.globalData.URL_BASE + app.globalData.CHANGE_PAY_STATUS + res.data.data.order_id,
+                        method: "PUT",
+                        header: {
+                          "Content-Type": "application/x-www-form-urlencoded",
+                          "Authorization": app.globalData.zhaijiUserInfo.authorization,
+                        },
+                        data: { 'guagua': 'ss' },
+                        success: function (reviseRes) {
+                          app.p('修改支付状态')
+                          if (reviseRes.statusCode === 200 && reviseRes.data.errcode === 0) {
+                            util.showSucessToast("下单成功")
+                            setTimeout(function () {
+                              wx.switchTab({
+                                url: '/pages/order/order',
+                              })
+                            }, 1500)
+                          }else {
+                            util.showErrorToast("支付状态修改失败")
+                          }
+                        }
                       })
-                      },1500)
-                    }else{
-                      util.showSucessToast("提交成功")
                     }
                   },
-                  'fail': function (res) {
-                    util.showSucessToast(res.err_desc)
+                  'fail': function (payRes) {
+                    if (payRes.errMsg =='requestPayment:fail cancel'){
+                      //TODO 修改支付状态(失败)
+                      wx.request({
+                        url: app.globalData.URL_BASE + app.globalData.CHANGE_PAY_STATUS + res.data.data.order_id,
+                        method: "PUT",
+                        header: {
+                          "Content-Type": "application/x-www-form-urlencoded",
+                          "Authorization": app.globalData.zhaijiUserInfo.authorization,
+                        },
+                        data: { 'guagua': 'gg' },
+                        success: function (reviseRes) {
+                          app.p('修改支付状态')
+                          if (reviseRes.statusCode === 200 && reviseRes.data.errcode === 0) {
+                            util.showErrorToast('支付失败')
+                          } else {
+                            util.showErrorToast("支付状态修改失败")
+                          }
+                        }
+                      })
+                    }
                   },
                 })
               } else {
@@ -273,6 +314,25 @@ Page({
       }
     })
     // console.log(classgoods);
+  },
+  changePayStatus(order_id,status){
+    wx.request({
+      url: app.globalData.URL_BASE + app.globalData.CHANGE_PAY_STATUS + order_id,
+      method: "PUT",
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Authorization": app.globalData.zhaijiUserInfo.authorization,
+      },
+      data: {'guagua':status},
+      success: function (res) {
+        app.p('修改支付状态')
+        if (res.statusCode === 200 && res.data.errcode === 0) {
+          return true
+        } else {
+          return res.data.errcode
+        }
+      }
+    })
   },
   /**
    * Lifecycle function--Called when page load

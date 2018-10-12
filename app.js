@@ -123,7 +123,8 @@ App({
     GET_ORDER_RECEIVED_LIST: "/deliverer/received-order/",//GET    
     RECEIVE_ORDER: "/deliverer/receive/",//POST
     GET_DELIVERER_INFO:"/deliverer/info/",//GET
-    GET_DELIVERER_INFO_MY: "/deliverer/info_my",//GET
+    GET_DELIVERER_INFO_MY: "/deliverer/info-my",//GET
+    CHANGE_PAY_STATUS: "/order/guagua/",//PUT
     expressList: [
       { 'express_id': 'Express_zhongtong', 'name': '中通' },
       { 'express_id': 'Express_yuantong', 'name': '圆通' },

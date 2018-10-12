@@ -19,6 +19,7 @@
 </view>
     <view class="order order-info">
         <view class="item-a"><view>包裹重量：</view><text>{{orderDetail.package_size}}kg</text></view>
+        <view class="item-a"><view>快递位置：</view><text>{{orderDetail.express_address}}</text></view>
         <view class="item-a"><view>快递平台：</view><text>{{orderDetail.express}}</text></view>
         <view class="item-a"><view>估值：</view><text>{{orderDetail.valuation}}元</text></view>
         <view class="item-a"><view>保险金额：</view><text>{{orderDetail.insurance}}元</text></view>

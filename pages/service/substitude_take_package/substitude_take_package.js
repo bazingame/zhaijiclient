@@ -52,6 +52,7 @@ Page({
         "Authorization": app.globalData.zhaijiUserInfo.authorization,
       },
       success: function (res) {
+        app.p(res)
         if (res.statusCode === 200 && res.data.errcode === 0) {
           var orderList = res.data.data
           app.p('刷新列表')

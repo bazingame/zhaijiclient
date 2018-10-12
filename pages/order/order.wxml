@@ -2,7 +2,7 @@
   <image src='./img/smallbox.png' data-order-id="{{order[index].order_id}}" bindtap='viewOrderDetail'></image>
   <view data-order-id="{{order[index].order_id}}" bindtap='viewOrderDetail'>
     <view class='kuaidi'>
-      {{order[index].express}}  {{order[index].package_id}}
+      {{order[index].express_address}} {{order[index].express}}  {{order[index].package_id}}
     </view>
     <view class='time'>
     送至：{{order[index].address_detail}}
