@@ -72,6 +72,7 @@ Page({
     //登录状态下且有地址时默认为第一个地址 A_000000001  点击跳转地址管理
     //登录状态下且无地址时默认显示添加地址 0  点击跳转地址管理
     //未登录状态下，点击跳转登录 未登录状态下，address_id为null 同时isRegisted是false
+    app.p(this.data.addressId)
     if (app.globalData.isRegistered==false||this.data.addressId==null){
       // wx.navigateTo({
         // url: '/pages/index/index?from=select_address',
@@ -278,49 +279,36 @@ Page({
    */
   onLoad: function (options) {
     wx.clearStorage();
-    app.p(app.globalData)
+    // app.p(app.globalData)
     // app.p(this.data.expressList);
     var that = this;
     //登录状态下且有地址时默认为第一个地址 A_000000001
     //登录状态下且无地址时默认显示添加地址 0
     //未登录状态下，点击跳转登录 null
+    // app.p(typeof app.globalData.zhaijiUserInfo.addresses)
+    //undefiend时为未注册状态鸭
     if (typeof app.globalData.zhaijiUserInfo.addresses!="undefined"){
       var lastAddress = app.globalData.zhaijiUserInfo.addresses.pop()
-      var location = {
-        latitude: lastAddress.latitude,
-        longitude: lastAddress.longitude,
-      }
-      wx.setStorage({
-        key: 'end_location',
-        data: location,
-      })
       app.globalData.zhaijiUserInfo.addresses.push(lastAddress)
+      //如果地址列表没有地址
       if(typeof lastAddress=="undefined"){
         this.setData({
           addressName: "选择配送地址 >",
           addressId: 0
         })
       }else{
+        var location = {
+          latitude: lastAddress.latitude,
+          longitude: lastAddress.longitude,
+        }
+        wx.setStorage({
+          key: 'end_location',
+          data: location,
+        })
         this.setData({
           addressName: lastAddress.address_detail,
           addressId: lastAddress.address_id
         })
-      }
-    }else{
-      app.addressReadyCallback = addressList => {
-        var lastAddress = app.globalData.zhaijiUserInfo.addresses.pop()
-        app.globalData.zhaijiUserInfo.addresses.push(lastAddress)
-        if (typeof lastAddress == "undefined") {
-          this.setData({
-            addressName: "选择配送地址 >",
-            addressId: 0
-          })
-        } else {
-          this.setData({
-            addressName: lastAddress.address_detail,
-            addressId: lastAddress.address_id
-          })
-        }
       }
     }
   },

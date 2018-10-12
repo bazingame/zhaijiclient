@@ -84,9 +84,10 @@ App({
     //简化地址格式
     var addressList = this.globalData.zhaijiUserInfo.addresses
     //防止onload先完成
-    if (this.addressReadyCallback) {
-      this.addressReadyCallback(addressList)
-    }
+    //此处没必要，因为加了一个guide页，所以当进入到service页时，app页一定加载完了
+    // if (this.addressReadyCallback) {
+    //   this.addressReadyCallback(addressList)
+    // }
     if (this.GuideReadyCallback){
       that.p('initLogin注册回调guide')
       this.GuideReadyCallback(that.globalData.isDeliverer)
