@@ -46,6 +46,7 @@ Page({
       success: function (res) {
         if (res.statusCode === 200 && res.data.errcode === 0) {
           var order_detail = res.data.data
+          app.p(order_detail)
           //当账户未配送员时 将取消失败改为已拒绝
           if (app.globalData.isDeliverer == true && order_detail.status=='取消失败'){
             order_detail.status='已拒绝取消'
@@ -74,6 +75,8 @@ Page({
         "Authorization": app.globalData.zhaijiUserInfo.authorization,
       },
       success: function (res) {
+        app.p('cancel order')
+        app.p(res)
         if (res.statusCode === 200 && res.data.errcode === 0) {
           var status_code = res.data.data.status_code
           var status = res.data.data.status

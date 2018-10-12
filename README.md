@@ -1,42 +1,11 @@
 # zhaijiclient
 A mini program to solve the trouble of getting express for college students(only client)
 
-
 ---
-
-- 大多数都是根据`app.globalData`里的数据进行判断，没有设置缓存
-
-- 所有接口地址页存在`app.globalData`里了
-
-- 登录之后对是否注册、是否是快递员的逻辑有点乱，但是现在是正常的，都是service和app进行比较，app加载的快就直接进行，service加载的快就采用回调函数进行等待，其他页面根据app里的全局数据进行判定
-
-- 未注册的人员，打开后和普通用户一样都显示取快递，但是未登录的人，在下单、查看订单时会提示登录
-
-- 我把getUserinfo那个东西去掉了一部分，我觉得只获取个openId就够了，用户头像和昵称没必要去存储了，先这样搞着，调用一个wx.login然后判断身份就行了
-
-  ------
-
-## 
 
 ## 未完成
 
-- 支付对接
-
-> 前端只需要在service.js的下单的地方和后端做好对接就好了，我这边把和微信服务器对接好就给接口,现在可以直接提交订单，但是没有付款功能
-
-- 快递地址
-
-> 因为他要做的不仅是湘大和科大，所以快递平台的前面还有加一个选择快递所在位置的选项，和添加地址的时候那个搜索地址差不多
-
-- 根据距离计算价格
-
-> 这个百度有api，搜索地址那个地方已经用了百度api，我都申请好了，[路线规划](http://lbsyun.baidu.com/index.php?title=webapi/direction-api-v2)使用这个接口，
->
-> 我做好接口封装再给你
-
-- 快递员和普通用户个人页面
-
-> 快递员的页面需要搞一下，显示自己的接单数目，评价，什么的
+- 寄快递
 
 - 用户协议，隐私协议
 
@@ -44,16 +13,108 @@ A mini program to solve the trouble of getting express for college students(only
 
 ### 测试发现的问题
 
-- 评价订单页字数多时变形
+**`necessary`**
 
-- 保险额变形
-- 有点图片模糊
-- 接单人员登录后的快递列表页，`送至`字数太多时变形
-- 同上的备注字数太多变形
+- 订单列表页变形
+
+  > 因为新添加了快递地址，所以会多出几个字，order/substitude_take_package这几页均会出现这个移位的情况，还有收货地址字数过多时会移位，还有备注字数过多时
+
+- 未注册时在service页进入注册，返回后点击配送地址至仍然提示未注册
+
+- 选择物流地址的页面上面的标题要改
+
+- 普通用户的订单详情页，根据`refund_apply`和`refund_status`进行显示退款状态
+
+  > `refund_apply`在有退款操作时为1，无时为null
+  >
+  > `refund_status`在`refund_status`为1时有值，分别可能为`退款成功` `退款关闭` `退款处理中` `退款异常`
+  >
+  > 根据refund_apply来决定是否显示refund_status
+
+---
+
+**`not necessary`**
+
+- 快递点和快递状态不明显
+
+- iphone保险额变形
+- 图片模糊
+
+---
 
 
-数据库地址
-http://134.175.42.59/mysqlAdmin/
-root
-ZhaiJi.sql.123
-user表和deliverer表，根据你的open_id 来判断用户属性，所以可以在后台改自己open_id的位置来进行测试
+
+
+
+> 注意：可以使用以下接口进行身份变换
+>
+> 均为GET方法，可在`浏览器`中直接操作，注意`user_id`,`deliverer_id`会变换在变更用户身份后，即使再次变回来
+
+### 1.转换为普通用户
+
+HTTP: **`GET`**
+URL: `{host}/profess/to-user/{deliverer_id}
+HTTP头信息:`Authorization:authorization`
+
+参数说明:
+| 参数名       | 类型   | 描述       | 示例       |
+| ------------ | ------ | ---------- | ---------- |
+| deliverer_id | String | 快递员编号 | D_00000001 |
+| **response** |        |            |            |
+| 无           | 无     | 无         | 无         |
+
+调用成功的返回值示例：
+```json
+{
+    "errcode": 0,
+    "status": 200,
+    "errmsg": "请求成功",
+    "data": {
+        "open_id": "oU7a05GPfgn_tIZIDsFR6Xm0tUm4",
+        "phone": "18670999799",
+        "register_time": "2018-10-12 21:47:19",
+        "headimg_url": "https://zhaiji.hammerfood.cn/storage/images/package1.png",
+        "user_id": "U_00000022"
+    }
+}
+```
+
+### 2.转换为快递员
+
+HTTP: **`GET`**
+URL: `{host}/profess/to-deliverer/{user_id}
+HTTP头信息:`Authorization:authorization`
+
+参数说明:
+| 参数名       | 类型   | 描述     | 示例       |
+| ------------ | ------ | -------- | ---------- |
+| user_id      | String | 用户编号 | U_00000001 |
+| **response** |        |          |            |
+| 无           | 无     | 无       | 无         |
+
+调用成功的返回值示例：
+```json
+{
+    "errcode": 0,
+    "status": 200,
+    "errmsg": "请求成功",
+    "data": {
+        "open_id": "oU7a05GPfgn_tIZIDsFR6Xm0tUm4",
+        "phone": "18670999799",
+        "register_time": {
+            "date": "2018-10-12 21:47:19.000000",
+            "timezone_type": 3,
+            "timezone": "Asia/Shanghai"
+        },
+        "name": "deliverer",
+        "mark": 0,
+        "order_count": 0,
+        "order_money": 0,
+        "order_money_today": 0,
+        "order_count_today": 0,
+        "deliverer_id": "D_00000012",
+        "updated_at": "2018-10-13 06:13:03",
+        "created_at": "2018-10-13 06:13:03"
+    }
+}
+```
