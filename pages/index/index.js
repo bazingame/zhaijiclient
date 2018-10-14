@@ -116,11 +116,11 @@ Page({
             app.globalData.zhaijiUserInfo = res.data.data
             app.globalData.isRegistered=true
             console.log(res)
-            // wx.switchTab({
-              // url: '/pages/service/service',
-            // })
-            wx.navigateBack({
+            wx.switchTab({
+              url: '/pages/me/me',
             })
+            // wx.navigateBack({
+            // })
             // app.initLogin()
           } else {
             console.log(res)

@@ -7,30 +7,7 @@ Page({
   data: {
     isDeliverer:null,
     orderId:null,
-    orderDetail:{
-      "order_id": "O_00000003",
-      "address_id": "A_00000001",
-      "package_id": "10-22",
-      "insurance": "1",
-      "money": "1",
-      "package_size": "2",
-      "status": "已完成",
-      "deliverer_id": "D_00000001",
-      "order_time": "2018-09-25 14:21:18",
-      "take_order_time": "2018-09-25 14:21:18",
-      "finish_time": "2018-09-25 14:21:18",
-      "mark": null,
-      "mark_status": 0,
-      "note": null,
-      "cancel_reason": null,
-      "created_at": "2018-09-25 14:21:18",
-      "updated_at": "2018-09-25 14:21:18",
-      "name": "王二小",
-      "address": "湖南省湘潭市雨湖区",
-      "address_detail": "湘潭大学北苑1栋",
-      "phone": "18670999791",
-      "express": "中通"
-    }
+    orderDetail:{}
   },
   //刷新详情页
   refreshOrderDetail:function(){
@@ -67,31 +44,39 @@ Page({
   applyCancelOrder:function(){
     var that = this
     var orderId = that.data.orderId
-    wx.request({
-      url: app.globalData.URL_BASE + app.globalData.APPLY_CANCEL_ORDER + orderId,
-      method: "PUT",
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Authorization": app.globalData.zhaijiUserInfo.authorization,
-      },
+    wx.showModal({
+      content: '确认取消订单？',
       success: function (res) {
-        app.p('cancel order')
-        app.p(res)
-        if (res.statusCode === 200 && res.data.errcode === 0) {
-          var status_code = res.data.data.status_code
-          var status = res.data.data.status
-          util.showSucessToast(status)
-          //刷新
-          that.refreshOrderDetail()
-        } else {
-          wx.showToast({
-            title: res.data.errmsg,
-            icon: 'none'
+        if (res.confirm) {
+          app.p('取消订单')
+          wx.request({
+            url: app.globalData.URL_BASE + app.globalData.APPLY_CANCEL_ORDER + orderId,
+            method: "PUT",
+            header: {
+              "Content-Type": "application/x-www-form-urlencoded",
+              "Authorization": app.globalData.zhaijiUserInfo.authorization,
+            },
+            success: function (res) {
+              app.p('cancel order')
+              app.p(res)
+              if (res.statusCode === 200 && res.data.errcode === 0) {
+                var status_code = res.data.data.status_code
+                var status = res.data.data.status
+                util.showSucessToast(status)
+                //刷新
+                that.refreshOrderDetail()
+              } else {
+                wx.showToast({
+                  title: res.data.errmsg,
+                  icon: 'none'
+                })
+              }
+            },
+            fail:function(res){
+              app.p(res)
+            }
           })
         }
-      },
-      fail:function(res){
-        app.p(res)
       }
     })
   },
@@ -99,30 +84,38 @@ Page({
   agreeCancel:function(){
     var that = this
     var orderId = that.data.orderId
-    wx.request({
-      url: app.globalData.URL_BASE + app.globalData.CANCEL_ORDER + orderId,
-      method: "PUT",
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Authorization": app.globalData.zhaijiUserInfo.authorization,
-      },
+    wx.showModal({
+      content: '确认同意取消订单？',
       success: function (res) {
-        if (res.statusCode === 200 && res.data.errcode === 0) {
-          app.p(res)
-          var status_code = res.data.data.status_code
-          var status = res.data.data.status
-          util.showSucessToast(status)
-          //刷新
-          that.refreshOrderDetail()
-        } else {
-          wx.showToast({
-            title: res.data.errmsg,
-            icon: 'none'
+        if (res.confirm) {
+          app.p('同意取消订单')
+          wx.request({
+            url: app.globalData.URL_BASE + app.globalData.CANCEL_ORDER + orderId,
+            method: "PUT",
+            header: {
+              "Content-Type": "application/x-www-form-urlencoded",
+              "Authorization": app.globalData.zhaijiUserInfo.authorization,
+            },
+            success: function (res) {
+              if (res.statusCode === 200 && res.data.errcode === 0) {
+                app.p(res)
+                var status_code = res.data.data.status_code
+                var status = res.data.data.status
+                util.showSucessToast(status)
+                //刷新
+                that.refreshOrderDetail()
+              } else {
+                wx.showToast({
+                  title: res.data.errmsg,
+                  icon: 'none'
+                })
+              }
+            },
+            fail: function (res) {
+              app.p(res)
+            }
           })
         }
-      },
-      fail: function (res) {
-        app.p(res)
       }
     })
   },
@@ -130,30 +123,38 @@ Page({
   refuseCancel:function(){
     var that = this
     var orderId = that.data.orderId
-    wx.request({
-      url: app.globalData.URL_BASE + app.globalData.REFUSE_CANCEL_ORDER + orderId,
-      method: "PUT",
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Authorization": app.globalData.zhaijiUserInfo.authorization,
-      },
+    wx.showModal({
+      content: '确认拒绝取消订单？',
       success: function (res) {
-        if (res.statusCode === 200 && res.data.errcode === 0) {
-          app.p(res)
-          var status_code = res.data.data.status_code
-          var status = res.data.data.status
-          util.showSucessToast(status)
-          //刷新
-          that.refreshOrderDetail()
-        } else {
-          wx.showToast({
-            title: res.data.errmsg,
-            icon: 'none'
+        if (res.confirm) {
+          app.p('拒绝取消订单')
+          wx.request({
+            url: app.globalData.URL_BASE + app.globalData.REFUSE_CANCEL_ORDER + orderId,
+            method: "PUT",
+            header: {
+              "Content-Type": "application/x-www-form-urlencoded",
+              "Authorization": app.globalData.zhaijiUserInfo.authorization,
+            },
+            success: function (res) {
+              if (res.statusCode === 200 && res.data.errcode === 0) {
+                app.p(res)
+                var status_code = res.data.data.status_code
+                var status = res.data.data.status
+                util.showSucessToast(status)
+                //刷新
+                that.refreshOrderDetail()
+              } else {
+                wx.showToast({
+                  title: res.data.errmsg,
+                  icon: 'none'
+                })
+              }
+            },
+            fail: function (res) {
+              app.p(res)
+            }
           })
         }
-      },
-      fail: function (res) {
-        app.p(res)
       }
     })
   },
@@ -161,34 +162,42 @@ Page({
   confirmOrder: function () {
     var that = this
     var orderId = that.data.orderId
-    wx.request({
-      url: app.globalData.URL_BASE + app.globalData.CONFIRM_ORDER + orderId,
-      method: "PUT",
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Authorization": app.globalData.zhaijiUserInfo.authorization,
-      },
+    wx.showModal({
+      content: '确认货物已送达？',
       success: function (res) {
-        app.p(res)
-        if (res.statusCode === 200 && res.data.errcode === 0) {
-          var status_code = res.data.data.status_code
-          var status = res.data.data.status
-          app.p(res)
-          util.showSucessToast(status)
-          //刷新
-          that.refreshOrderDetail()
-        } else {
-          wx.showToast({
-            title: res.data.errmsg,
-            icon: 'none'
+        if (res.confirm) {
+          app.p('确认货物已送达？')
+          wx.request({
+            url: app.globalData.URL_BASE + app.globalData.CONFIRM_ORDER + orderId,
+            method: "PUT",
+            header: {
+              "Content-Type": "application/x-www-form-urlencoded",
+              "Authorization": app.globalData.zhaijiUserInfo.authorization,
+            },
+            success: function (res) {
+              app.p(res)
+              if (res.statusCode === 200 && res.data.errcode === 0) {
+                var status_code = res.data.data.status_code
+                var status = res.data.data.status
+                app.p(res)
+                util.showSucessToast(status)
+                //刷新
+                that.refreshOrderDetail()
+              } else {
+                wx.showToast({
+                  title: res.data.errmsg,
+                  icon: 'none'
+                })
+              }
+            },
+            fail: function (res) {
+              wx.showErrorToast({
+                title: res.data.errmsg,
+                icon: 'none'
+              })
+            }
           })
         }
-      },
-      fail: function (res) {
-        wx.showErrorToast({
-          title: res.data.errmsg,
-          icon: 'none'
-        })
       }
     })
   },
