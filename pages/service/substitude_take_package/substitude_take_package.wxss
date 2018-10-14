@@ -31,6 +31,9 @@ page{
   margin-top:53rpx;
 }
 .time,.kuaidi{
+  max-width: 360rpx;
+  white-space: nowrap;
+  overflow-x: scroll;
   margin-left:20rpx;
   color: black;
 }

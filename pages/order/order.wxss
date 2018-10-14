@@ -31,11 +31,15 @@ page{
   margin-top:14rpx;
 }
 .time,.kuaidi{
+  max-width: 320rpx;
+  white-space: nowrap;
+  overflow-x: scroll;
+  font-size: 28rpx;
   margin-left:20rpx;
   color: black;
 }
 .time,.price{
-  font-size: 35rpx;
+  font-size: 28rpx;
   color: black;
 }
 .order>view:nth-child(2),.order>view:nth-child(3){

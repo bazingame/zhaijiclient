@@ -68,24 +68,27 @@ page{
   padding: 10%;
 }
 .send>view{
-  float: left;
-  margin-top: 10px;
-
+  margin-top:10px;
+}
+.send>view>view{
+  vertical-align: middle;
+  display: inline-block;
+  /*margin-top: 10px;*/
+  width: 30%;
   /* width: 30%;
   display: inline-block; */
 }
-.send>input,.send>picker,.send>textarea{
-  margin-top: 10px;
-   /* display: inline-block; */
-  /* width: 70%; */
-  margin-left:100px;
+.send>view>input,.send>view>picker,.send>view>textarea,.send>view>navigator{
+  vertical-align: middle;
+  /*margin-top: 10px;*/
+  display: inline-block;
+  width: 70%; 
   color:#666; 
 }
+.send>view>textarea{
+  width: 64%;
+}
 .send-address{
-  margin-top: 10px;
-  display: block;
-  /* width: 70%; */
-  margin-left:100px;
   color:#666; 
 }
 button{

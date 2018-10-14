@@ -7,32 +7,50 @@
   <!-- </picker> -->
 </view>
 <view class='send'>
-  <view>配送至</view>
+  <view>
+    <view>配送至</view>
     <text bindtap='selectAddress' class="send-address">{{addressName}}</text>
+  </view>
+
+  <view>
   <view>快递地址</view>
   <navigator url="/pages/service/select_address/select_address" class="select-address"><text class='select-address-word send-address'>{{KuaidiAddressName}}</text></navigator>
-   
-  
+   </view>
+
+   <view>
   <view>快递平台</view>
   <picker bindchange="bindExpressPickerChange" value="{{expressIndex}}" range="{{expressList}}" range-key='name'>
     <view class="picker">
       <text>{{expressList[expressIndex].name}}</text>
     </view>
   </picker>
-  <view>取货号码</view>
+   </view>
+
+   <view>
+   <view>取货号码</view>
    <input type='text' placeholder='请输入取货号码' class='num' data-name="{{packageId}}" value="{{packageId}}" bindinput='bindPackageIdInput' placeholder-class='placeholder' />
+    </view>
+
+  <view>
   <view>货物估值</view>
    <input type='number' placeholder='请输入货物估值'  data-name="{{valuation}}" value="{{valuation}}" bindinput='bindValuationInput' placeholder-class='placeholder' bindblur="showInsuranceNotice"/>
+   </view>
+
+   <view>
   <view>运费险</view>
   <picker bindchange="bindInsurancePickerChange" value="{{insuranceIndex}}" range="{{insurance}}">
     <view class="picker">
       <text>{{insurance[insuranceIndex]}}</text>元
     </view>
   </picker>
+   </view>
+
+  <view>
   <view>备注</view>
    <!-- <input type='text' class='num' /> -->
   <!-- <view class="note-text">备注</view> -->
   <textarea class="note-area" placeholder="如宿管代收等" show-confirm-bar="false" data-name="{{note}}" value="{{note}}" bindinput='bindNoteInput'></textarea>
+  </view>
 </view>
 <view class="money"> 
     <view class="order_money">预计 <text class='order_money_num'>{{orderMoney}}</text> 元</view>

@@ -11,8 +11,8 @@ Page({
     total_num: 132,
     total_money: 732,
     head:app.globalData.URL_BASE+"/storage/images/package2.png",
-    nickname:"未登录",
-    wx_id:"NotLogin",
+    //nickname:"未登录",
+    //wx_id:"NotLogin",
     exitloginDisplay:"block",
     isDeliverer:false
   },
@@ -94,8 +94,8 @@ Page({
               today_money: res.data.data.order_money_today,
               total_num: res.data.data.order_count,
               total_money: res.data.data.order_money,
-              nickname:res.data.data.name,
-              wx_id:res.data.data.phone
+              //nickname:res.data.data.name,
+              //wx_id:res.data.data.phone
             })
           },
           fail:function(res){
