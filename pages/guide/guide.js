@@ -6,9 +6,9 @@ Page({
     isUser:null,
     isDeliverer: null,
     imgUrls: [
-      'https://zhaiji.hammerfood.cn/storage/images/ads/banner1.png',
-      'https://zhaiji.hammerfood.cn/storage/images/ads/banner1.png',
-      'https://zhaiji.hammerfood.cn/storage/images/ads/banner1.png'
+      'https://api.zhaiji.xyz/storage/images/ads/banner1.png',
+      'https://api.zhaiji.xyz/storage/images/ads/banner1.png',
+      'https://api.zhaiji.xyz/storage/images/ads/banner1.png'
     ],
     indicatorDots: true,
     autoplay: true,

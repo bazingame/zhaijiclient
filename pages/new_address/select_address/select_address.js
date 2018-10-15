@@ -28,7 +28,7 @@ Page({
         var latitude = res.latitude
         var longitude = res.longitude
         wx.request({
-          url: 'https://zhaiji.hammerfood.cn/map/getcoder/' + latitude + '/' + longitude,
+          url: app.globalData.URL_BASE+'/map/getcoder/' + latitude + '/' + longitude,
           method: "post",
           success: function (res) {
             console.log(res)
@@ -55,7 +55,7 @@ Page({
     var that = this;
     wx.request({
       method: "post",
-      url: 'https://zhaiji.hammerfood.cn/map/search/' + text,
+      url: app.globalData.URL_BASE+'/map/search/' + text,
       success: function (res) {
         // console.log(res);
         that.setData({

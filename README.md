@@ -73,7 +73,7 @@ HTTP头信息:`Authorization:authorization`
         "open_id": "oU7a05GPfgn_tIZIDsFR6Xm0tUm4",
         "phone": "18670999799",
         "register_time": "2018-10-12 21:47:19",
-        "headimg_url": "https://zhaiji.hammerfood.cn/storage/images/package1.png",
+        "headimg_url": "https://api.zhaiji.xyz/storage/images/package1.png",
         "user_id": "U_00000022"
     }
 }

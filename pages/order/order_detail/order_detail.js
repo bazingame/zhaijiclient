@@ -166,7 +166,7 @@ Page({
       content: '确认货物已送达？',
       success: function (res) {
         if (res.confirm) {
-          app.p('确认货物已送达？')
+          app.p('确认货物已送达')
           wx.request({
             url: app.globalData.URL_BASE + app.globalData.CONFIRM_ORDER + orderId,
             method: "PUT",
