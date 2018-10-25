@@ -15,7 +15,7 @@ page{
 }
 .order{
   box-sizing: border-box;
-  padding: 30rpx 60rpx; 
+  padding: 30rpx 30rpx; 
   height: 150px;
   /* border-radius: 5px; */
   background-color: #fff;
@@ -25,8 +25,8 @@ page{
   border-bottom: 1rpx solid #DCD9D9;
 }
 .order>image{
-  height: 140rpx;
-  width: 130rpx;
+  height: 120rpx;
+  width: 110rpx;
   float: left;
   margin-top:14rpx;
 }
@@ -69,4 +69,8 @@ button{
 }
 .order-time{
   font-size:30rpx;
+}
+.status_img{
+  height:30rpx;
+  width:30rpx;
 }

@@ -26,11 +26,6 @@
       <view>快递收费标准</view>
       <view>></view>
     </view>
-    <!-- <view class='block'>
-      <image src='./img/kuaidiyuan.png'></image>
-      <view>运费收费标准</view>
-      <view>></view>
-    </view> -->
     <view class='block' bindtap="userDeal">
       <image src='./img/contact.png'></image>
       <view>用户协议</view>

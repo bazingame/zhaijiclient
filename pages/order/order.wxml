@@ -10,7 +10,7 @@
   </view>
   <view data-order-id="{{order[index].order_id}}" bindtap='viewOrderDetail'>
     <view class='flag'>
-      {{order[index].status}}
+      {{order[index].status}} <image src='./img/{{order[index].status_num}}.png' class='status_img'></image>
     </view>
     <view class='price'>
       {{order[index].package_size}}kg

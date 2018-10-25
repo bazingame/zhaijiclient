@@ -11,8 +11,8 @@ Page({
     total_num: 132,
     total_money: 732,
     head:app.globalData.URL_BASE+"/storage/images/package2.png",
-    //nickname:"未登录",
-    //wx_id:"NotLogin",
+    nickname:"未登录",
+    wx_id:"Not logged in",
     exitloginDisplay:"block",
     isDeliverer:false
   },
