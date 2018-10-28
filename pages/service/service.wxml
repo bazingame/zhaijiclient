@@ -32,19 +32,9 @@
     </view>
 
   <view>
-  <view>货物估值</view>
-   <input type='number' placeholder='请输入货物估值'  data-name="{{valuation}}" value="{{valuation}}" bindinput='bindValuationInput' placeholder-class='placeholder' bindblur="showInsuranceNotice"/>
-   </view>
-
-   <view>
   <view>运费险</view>
-  <picker bindchange="bindInsurancePickerChange" value="{{insuranceIndex}}" range="{{insurance}}">
-    <view class="picker">
-      <text>{{insurance[insuranceIndex]}}</text>元
-    </view>
-  </picker>
+   <input type='digit' placeholder='请输入运费险'  data-name="{{insurance}}" value="{{insurance}}" bindinput='bindInsuranceInput' placeholder-class='placeholder'/>
    </view>
-
   <view>
   <view>备注</view>
    <!-- <input type='text' class='num' /> -->
@@ -53,6 +43,6 @@
   </view>
 </view>
 <view class="money"> 
-    <view class="order_money">预计 <text class='order_money_num'>{{orderMoney}}</text> 元</view>
+    <view class="order_money">预计 <text class='order_distance_num'>{{distance}}</text> 公里 <text class='order_money_num'>{{orderMoney}}</text> 元</view>
 </view>
   <button bindtap='goodsSubmit'>提交订单</button>

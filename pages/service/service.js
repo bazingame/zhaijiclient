@@ -13,7 +13,6 @@ Page({
     boxHeight:120,
     boxMargin:25,
     kg:2,//重量最小为2
-    insurance: [0, 1, 2, 3, 4, 5],
     valuation:null,//估价
     expressList: app.globalData.expressList,
     KuaidiAddressName: "选择物流公司地址 >",
@@ -22,11 +21,12 @@ Page({
     addressId:null,
     expressIndex:0,
     expressId:'Express_zhongtong',//第一个快递默认为中通
-    insuranceIndex:0,
-    orderMoney:2,
+    insurance:"",
+    orderMoney:3,
     packageId:"",
     note:'',
-    distanceMoney:0
+    distanceMoney:0,
+    distance:0
   },
   //减重量
   subHeavey:function(){
@@ -88,54 +88,15 @@ Page({
       })
     }
   },
-  //估价变换
-  bindValuationInput: function (e) {
-    this.setData({
-      valuation: e.detail.value
-    })
-  },
-  //提示保险额
-  showInsuranceNotice:function(){
-    var that = this
-    var valuation = that.data.valuation
-    if(valuation==0||valuation==''||valuation==null){return}
-    var insurance = 0
-    if(valuation>0&&valuation<200){
-      insurance = 1
-    }else if(valuation>=200&&valuation<400){
-      insurance = 2
-    }else if(valuation>=400&& valuation< 600){
-      insurance = 3
-    }else if(valuation>=600&& valuation<800){
-      insurance = 4
-    }else if(valuation>800){
-      insurance = 5
+  //运费险额变换
+  bindInsuranceInput: function (e) {
+    var value = e.detail.value
+    if(value!=""&&parseFloat(value)>500){
+      util.showErrorToast("运费险最高500")
+      e.detail.value = 500
     }
-    var indemnification = insurance*200>valuation?valuation:insurance*200
-    //询问是否购买保险
-    wx.showModal({
-      title: '',
-      content: '建议购买' + insurance + '元保险,货物丢失最高赔偿' + indemnification+'元',
-      confirmText: '确认购买',
-      ccancelText: '不购买',
-      success: function (res) {
-        if (res.confirm) {
-          //更改运费险
-          that.setData({
-            insuranceIndex:insurance
-          })
-          that.caculateMoney()
-        }
-      }
-    })
-  },
-  //保险额变换
-  bindInsurancePickerChange: function (e) {
-    // if (e.detail.value == 0) {
-    //   return;
-    // }
     this.setData({
-      insuranceIndex: e.detail.value
+      insurance: e.detail.value
     })
     this.caculateMoney()
   },
@@ -175,15 +136,13 @@ Page({
   },
   //计算总额
   caculateMoney:function(e){
-    //未来根据距离计算价格
-    // if (this.data.addressId!=null){
-      var kg = this.data.kg>2?this.data.kg:2
-      var insurance = this.data.insurance[this.data.insuranceIndex]
-      var count = insurance + kg + this.data.distanceMoney
+      var kg = this.data.kg
+      var effKg = kg>2?kg-2:0
+      var insurance = this.data.insurance==""?0:parseFloat(this.data.insurance)
+      var count = 3 + insurance + effKg*0.5 + this.data.distanceMoney
       this.setData({
         orderMoney:count
       })
-    // }
   },
   goodsSubmit:function(e){
     var that = this
@@ -200,10 +159,9 @@ Page({
       express_id : this.data.expressId,
       package_id: this.data.packageId,
       note : this.data.note,
-      insurance : this.data.insurance[this.data.insuranceIndex],
+      insurance: this.data.insurance == "" ? 0 : parseFloat(this.data.insurance),
       money : this.data.orderMoney,
       package_size: this.data.kg,
-      valuation : this.data.valuation,
       express_address: this.data.KuaidiAddressName
     }
     if(classgoods.valuation==null){
@@ -401,7 +359,8 @@ Page({
                 console.log(res);
                 var orderMoney = that.data.orderMoney;
                 that.setData({
-                  distanceMoney:res.data.data.distance_money
+                  distanceMoney:res.data.data.distance_money,
+                  distance:res.data.data.distance/1000
                 })
                 that.caculateMoney();
               }
@@ -410,7 +369,5 @@ Page({
         })
       },
     })
-   
-    
   }
 })

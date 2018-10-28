@@ -75,6 +75,7 @@ page{
   display: inline-block;
   /*margin-top: 10px;*/
   width: 30%;
+  color: #666;
   /* width: 30%;
   display: inline-block; */
 }
@@ -83,13 +84,13 @@ page{
   /*margin-top: 10px;*/
   display: inline-block;
   width: 70%; 
-  color:#666; 
+  color:#000; 
 }
 .send>view>textarea{
   width: 64%;
 }
 .send-address{
-  color:#666; 
+  color:#000; 
 }
 button{
   z-index:999;
