@@ -6,7 +6,8 @@
     <view class='personalInformation'>
       <image src='./img/head.jpg'></image>
       <view class='id'>{{deliverer_name}}</view>
-      <view class='sendTime'>{{deliverer_amount}}</view>
+      <view class='id'>{{deliverer_id}}</view>
+      <view class='sendTime'>已接 {{deliverer_amount}} 单</view>
     </view>
     <view class='star'>
       <text>服务</text>

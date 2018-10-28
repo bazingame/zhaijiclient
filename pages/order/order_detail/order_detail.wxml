@@ -21,7 +21,6 @@
         <view class="item-a"><view>包裹重量：</view><text>{{orderDetail.package_size}}kg</text></view>
         <view class="item-a"><view>快递位置：</view><text>{{orderDetail.express_address}}</text></view>
         <view class="item-a"><view>快递平台：</view><text>{{orderDetail.express}}</text></view>
-        <view class="item-a"><view>估值：</view><text>{{orderDetail.valuation}}元</text></view>
         <view class="item-a"><view>保险金额：</view><text>{{orderDetail.insurance}}元</text></view>
         <view class="item-a"><view>姓名：</view><text>{{orderDetail.name}}</text></view>
         <view class="item-a"><view>电话：</view><text>{{orderDetail.phone}}</text></view>
@@ -43,6 +42,7 @@
       </view>
     </block>
     <view class="order order-bottom">
+        <!-- 普通用户 -->
         <block wx:if="{{!isDeliverer}}">
           <view class="item-c">
               <view class="l">费用：<text class="cost">￥{{orderDetail.money}}</text></view>
@@ -55,6 +55,7 @@
               </view>
           </view>
         </block>
+        <!-- 快递员-->
         <block wx:else>
           <view class="item-c">
               <view class="l">费用：<text class="cost">￥{{orderDetail.money}}</text></view>
@@ -62,9 +63,6 @@
                     <view wx:if="{{orderDetail.status=='申请取消中'}}" class="btn active" bindtap="agreeCancel">同意取消</view>
                     <view wx:if="{{orderDetail.status=='申请取消中'}}" class="btn active refuseactive" bindtap="refuseCancel">拒绝取消</view>
                     <view wx:if="{{orderDetail.status=='已接单'}}" class="btn active" bindtap="confirmOrder">确认送达</view>
-                    <block wx:if="{{orderDetail.status=='已完成'}}">
-                      <view wx:if="{{orderDetail.mark_status==1}}" class="btn active" bindtap="viewMark">查看评价</view>
-                    </block>
               </view>
           </view>
         </block>

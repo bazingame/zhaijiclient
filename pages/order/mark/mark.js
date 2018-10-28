@@ -6,7 +6,7 @@ Page({
    */
   data: {
     order_id:null,
-    deliverer_id:null,
+    deliverer_id:'',
     deliverer_name: '',
     deliverer_amount: null,
     deliverer_mark: null,
@@ -104,10 +104,12 @@ Page({
       },
       success: function (res) {
         if (res.statusCode === 200 && res.data.errcode === 0) {
+          app.p(res)
           that.setData({
             deliverer_name:res.data.data.name,
-            deliverer_amount:res.data.data.order_amount,
-            deliverer_mark:res.data.data.mark
+            deliverer_amount:res.data.data.order_count,
+            deliverer_mark: res.data.data.mark,
+            deliverer_id:res.data.data.deliverer_id
           })
         } else {
           wx.showToast({
