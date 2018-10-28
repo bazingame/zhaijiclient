@@ -139,3 +139,13 @@ button{
   margin-top:15rpx;
   border: 3rpx solid #EEEEEE;
 }
+
+.reparation{
+  margin-top:20rpx;
+  text-align: center;
+  font-size: 30rpx;
+}
+.nav-to-reparation{
+  display: inline;
+  color: #1AAAFF;
+}

@@ -42,7 +42,14 @@
   <textarea class="note-area" placeholder="如宿管代收等" show-confirm-bar="false" data-name="{{note}}" value="{{note}}" bindinput='bindNoteInput'></textarea>
   </view>
 </view>
+
 <view class="money"> 
     <view class="order_money">预计 <text class='order_distance_num'>{{distance}}</text> 公里 <text class='order_money_num'>{{orderMoney}}</text> 元</view>
 </view>
-  <button bindtap='goodsSubmit'>提交订单</button>
+  <checkbox-group bindchange="checkboxChange" class="reparation">
+    <label class="checkbox">
+      <checkbox value="isread" checked="{{rep_isread}}"/>已阅读
+    </label>
+    <navigator url="/pages/me/reparation/reparation" class="nav-to-reparation">赔偿协议</navigator>
+    </checkbox-group>
+  <button bindtap='goodsSubmit' disabled='{{submit_disable}}'>提交订单</button>

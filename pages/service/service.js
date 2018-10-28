@@ -26,7 +26,9 @@ Page({
     packageId:"",
     note:'',
     distanceMoney:0,
-    distance:0
+    distance:0,
+    rep_isread:false,
+    submit_disable:true
   },
   //减重量
   subHeavey:function(){
@@ -143,6 +145,20 @@ Page({
       this.setData({
         orderMoney:count
       })
+  },
+  //阅读协议
+  checkboxChange:function(e){
+    //没阅读
+    if(e.detail.value.length==0){
+    //阅读了
+      this.setData({
+        submit_disable: true
+      })
+    }else{
+        this.setData({
+          submit_disable:false
+        })
+    }
   },
   goodsSubmit:function(e){
     var that = this
