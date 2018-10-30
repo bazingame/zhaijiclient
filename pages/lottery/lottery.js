@@ -6,11 +6,12 @@ Page({
     btnDisabled: '',
     sub_title:'宅急首单幸运奖',
     awardsConfig:{chance:true,awards:null},
-    awardIndex:null
+    awardIndex:null,
+    notice:[]
   },
   gotoList: function () {
-    wx.switchTab({
-      url: '../list/list'
+    wx.navigateTo({
+      url: '/pages/me/lottery_record/lottery_record',
     })
   },
   getLottery: function () {
@@ -19,7 +20,6 @@ Page({
 
     // 获取奖品配置
     var awardsConfig = that.data.awardsConfig
-    if (awardIndex < 2) awardsConfig.chance = false
     console.log(awardIndex)
 
     // 初始化 rotate
@@ -40,7 +40,7 @@ Page({
         timingFunction: 'ease'
       })
       that.animationRun = animationRun
-      animationRun.rotate(360 * 8 - awardIndex * (360 / 6)).step()
+      animationRun.rotate(360 * 8 - awardIndex * (360 / that.data.awardsConfig.awards.length)).step()
       that.setData({
         animationData: animationRun.export()
       })
@@ -53,45 +53,26 @@ Page({
         content: '获得' + (awardsConfig.awards[awardIndex].name),
         showCancel: false
       })
-      if (awardsConfig.chance) {
-        that.setData({
-          btnDisabled: ''
-        })
-      }
+      that.setData({
+        btnDisabled: 'disabled'
+      })
     }, 4100);
-
-
-    /*wx.request({
-      url: '../../data/getLottery.json',
-      data: {},
-      header: {
-          'Content-Type': 'application/json'
-      },
-      success: function(data) {
-        console.log(data)
-      },
-      fail: function(error) {
-        console.log(error)
-        wx.showModal({
-          title: '抱歉',
-          content: '网络异常，请重试',
-          showCancel: false
-        })
-      }
-    })*/
   },
   onReady: function (e) {
     var that = this;
     var lottery = app.globalData.lottery.award_list
+    app.p(app.globalData.lottery)
     var awards = new Array()
     for(var i = 0;i<lottery.length;i++){
-      var award = {index:parseInt(lottery[i]['award_index'])-1,
+      var award = {index:parseInt(lottery[i]['award_index']),
                     name:lottery[i]['award_name']}
       awards.push(award)
     }
     that.setData({
+      sub_title:app.globalData.lottery.sub_title,
+      notice: app.globalData.lottery.notice,
       awardsConfig:{chance:true,awards:awards},
-      awardIndex:app.globalData.lottery.award_index-1
+      awardIndex:app.globalData.lottery.award_index
     })
     // 绘制转盘
     var awardsConfig = that.data.awardsConfig.awards,

@@ -2,7 +2,7 @@
 
 	<view class="header">
 		<text class="header-title"> 幸运抽奖 </text>
-		<text class="header-subtitle">  {{sub_title}} </text> 
+		<text class="header-subtitle">{{sub_title}} </text> 
 	</view>
 
 	<view class="main">
@@ -28,8 +28,9 @@
 			</view>
 			<view class="main-container-rule">
 				<text class="main-rule-title">活动规则：</text>
-				<text class="main-rule-item">1. xxxxxxxxxxx</text>
-				<text class="main-rule-item">2. xxxxxxxxxxx</text>	
+        <block wx:for="{{notice}}" wx:key="notice" wx:for-index="idx" wx:for-item="itemName">
+			  	<text class="main-rule-item" >{{idx+1}}:{{itemName}}</text>
+        </block>
 			</view>	
 		</view>
 

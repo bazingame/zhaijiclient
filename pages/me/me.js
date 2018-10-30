@@ -141,6 +141,12 @@ Page({
       url: '/pages/me/user_deal/user_deal',
     })
   },
+  //中奖记录跳转
+  userDeal: function () {
+    wx.navigateTo({
+      url: '/pages/me/lottery_record/lottery_record',
+    })
+  },
   //打电话给客服
   callService:function(){
     wx.showModal({

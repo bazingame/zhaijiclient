@@ -21,6 +21,11 @@
       <view>配送地址</view>
       <view>></view>
     </view>
+    <view wx:if="{{!isDeliverer}}" bindtap="lotteryRecord"  class='block'>
+      <image src='./img/address.png'></image>
+      <view>抽奖记录</view>
+      <view>></view>
+    </view>
     <view class='block' bindtap="chargingStandard">
       <image src='./img/price.png'></image>
       <view>快递收费标准</view>

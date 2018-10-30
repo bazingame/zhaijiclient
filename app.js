@@ -99,7 +99,7 @@ App({
     zhaijiUserInfo:[],
     userInfo: null,
     open_id :"",
-    lottery: { award_index: 3, award_list: [{ 'award_name': 'a1', 'award_index': '1' }, { 'award_name': 'a2', 'award_index': '2' }, { 'award_name': 'a3', 'award_index': '3' }]},
+    lottery: null,
     // api_url
     //URL_BASE:"https://zhaiji.hammerfood.cn",
     URL_BASE: "https://api.zhaiji.xyz",
