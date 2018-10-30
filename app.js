@@ -98,7 +98,7 @@ App({
     isDeliverer: null,
     userInfo: null,
     open_id :"",
-    lottery: { sub_title:'第一次抽大奖',notice: ["asdsaasdsaasdsaasdsa", "324", "dasdas"],award_index: 1, award_list: [{ 'award_name': 'a1', 'award_index': '0' }, { 'award_name': 'a2', 'award_index': '1' }, { 'award_name': 'a3', 'award_index': '2' }, { 'award_name': 'a4', 'award_index': '3' }, { 'award_name': 'a5', 'award_index': '4' }]},
+    lottery: null,
     // api_url
     //URL_BASE:"https://zhaiji.hammerfood.cn",
     URL_BASE: "https://api.zhaiji.xyz",
@@ -125,6 +125,7 @@ App({
     GET_DELIVERER_INFO:"/deliverer/info/",//GET
     GET_DELIVERER_INFO_MY: "/deliverer/info-my",//GET
     CHANGE_PAY_STATUS: "/order/guagua/",//PUT
+    GET_AWARD_RECORD: "/user/lottery/",//GET
     expressList: [
       { 'express_id': 'Express_zhongtong', 'name': '中通' },
       { 'express_id': 'Express_yuantong', 'name': '圆通' },

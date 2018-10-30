@@ -142,7 +142,7 @@ Page({
     })
   },
   //中奖记录跳转
-  userDeal: function () {
+  lotteryRecord: function () {
     wx.navigateTo({
       url: '/pages/me/lottery_record/lottery_record',
     })

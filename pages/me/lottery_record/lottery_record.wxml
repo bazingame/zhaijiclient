@@ -1,2 +1,13 @@
-<!--pages/me/lottery_record/lottery_record.wxml-->
-<text>pages/me/lottery_record/lottery_record.wxml</text>
+<view class='order' wx:for="{{award_list}}" wx:key="unique">
+  <image src='../img/gift.png' data-order-id="{{order[index].order_id}}" bindtap='viewOrderDetail'></image>
+  <view data-order-id="{{award_list[index].order_id}}">
+    <view class='kuaidi'>
+      {{award_list[index].award_name}} 
+    </view>
+    <view class='time'>
+    {{award_list[index].updated_at}}
+    </view>
+  </view>
+  <text class="used">{{award_used}}</text>
+</view>
+

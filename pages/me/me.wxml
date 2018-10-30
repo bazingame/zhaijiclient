@@ -22,7 +22,7 @@
       <view>></view>
     </view>
     <view wx:if="{{!isDeliverer}}" bindtap="lotteryRecord"  class='block'>
-      <image src='./img/address.png'></image>
+      <image src='./img/gift_record.png'></image>
       <view>抽奖记录</view>
       <view>></view>
     </view>
