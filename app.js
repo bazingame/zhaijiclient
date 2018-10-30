@@ -96,10 +96,9 @@ App({
   globalData: {
     isRegistered: null,//默认值不要乱改 guide基于此判断登录状态
     isDeliverer: null,
-    zhaijiUserInfo:[],
     userInfo: null,
     open_id :"",
-    lottery: null,
+    lottery: { sub_title:'第一次抽大奖',notice: ["asdsaasdsaasdsaasdsa", "324", "dasdas"],award_index: 1, award_list: [{ 'award_name': 'a1', 'award_index': '0' }, { 'award_name': 'a2', 'award_index': '1' }, { 'award_name': 'a3', 'award_index': '2' }, { 'award_name': 'a4', 'award_index': '3' }, { 'award_name': 'a5', 'award_index': '4' }]},
     // api_url
     //URL_BASE:"https://zhaiji.hammerfood.cn",
     URL_BASE: "https://api.zhaiji.xyz",
