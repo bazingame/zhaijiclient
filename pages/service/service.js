@@ -240,12 +240,25 @@ Page({
                         success: function (reviseRes) {
                           app.p('修改支付状态')
                           if (reviseRes.statusCode === 200 && reviseRes.data.errcode === 0) {
+                            app.p(reviseRes)
                             util.showSucessToast("下单成功")
-                            setTimeout(function () {
-                              wx.switchTab({
-                                url: '/pages/order/order',
-                              })
-                            }, 1500)
+                            //判断是否有抽奖
+                            if(reviseRes.data.data.lottery!=false){
+                              app.p('lottery')
+                              app.globalData.lottery = reviseRes.data.data.lottery
+                              setTimeout(function () {
+                                wx.navigateTo({
+                                  url: '/pages/lottery/lottery',
+                                })
+                              }, 1500)
+                            }else{
+                              app.p('no lottery')
+                              setTimeout(function () {
+                                wx.switchTab({
+                                  url: '/pages/order/order',
+                                })
+                              }, 1500)
+                            }
                           }else {
                             util.showErrorToast("支付状态修改失败")
                           }

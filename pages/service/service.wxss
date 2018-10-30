@@ -141,9 +141,12 @@ button{
 }
 
 .reparation{
-  margin-top:20rpx;
+  margin-top:30rpx;
   text-align: center;
-  font-size: 30rpx;
+  font-size: 28rpx;
+}
+.check-box{
+   border-radius: 50%;/* 圆角 */
 }
 .nav-to-reparation{
   display: inline;

@@ -48,8 +48,8 @@
 </view>
   <checkbox-group bindchange="checkboxChange" class="reparation">
     <label class="checkbox">
-      <checkbox value="isread" checked="{{rep_isread}}"/>已阅读
+      <checkbox value="isread" checked="{{rep_isread}}" class="check-box"/>已阅读并同意
     </label>
-    <navigator url="/pages/me/reparation/reparation" class="nav-to-reparation">赔偿协议</navigator>
-    </checkbox-group>
+    <navigator url="/pages/me/reparation/reparation" class="nav-to-reparation">《赔偿协议》</navigator>
+  </checkbox-group>
   <button bindtap='goodsSubmit' disabled='{{submit_disable}}'>提交订单</button>

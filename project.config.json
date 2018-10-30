@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 9,
+			"current": 11,
 			"list": [
 				{
 					"id": -1,
@@ -94,6 +94,17 @@
 					"name": "substitude",
 					"pathName": "pages/service/substitude_take_package/substitude_take_package",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "赔偿",
+					"pathName": "pages/me/reparation/reparation",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "lottery",
+					"pathName": "pages/lottery/lottery"
 				}
 			]
 		}

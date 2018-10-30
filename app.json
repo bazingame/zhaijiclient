@@ -17,7 +17,8 @@
     "pages/service/send_package/send_package",
     "pages/service/substitude_send_package/substitude_send_package",
     "pages/service/substitude_take_package/substitude_take_package",
-    "pages/me/reparation/reparation"
+    "pages/me/reparation/reparation",
+    "pages/lottery/lottery"
   ],
   "window": {
     "backgroundTextStyle": "light",
