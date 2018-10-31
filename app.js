@@ -126,6 +126,7 @@ App({
     GET_DELIVERER_INFO_MY: "/deliverer/info-my",//GET
     CHANGE_PAY_STATUS: "/order/guagua/",//PUT
     GET_AWARD_RECORD: "/user/lottery/",//GET
+    GET_COUPON: "/user/coupon/",//GET
     expressList: [
       { 'express_id': 'Express_zhongtong', 'name': '中通' },
       { 'express_id': 'Express_yuantong', 'name': '圆通' },

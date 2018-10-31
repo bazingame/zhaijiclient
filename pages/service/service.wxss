@@ -65,7 +65,7 @@ page{
   margin-top: 10px;
   background-color: #fff;
   width: 80%;
-  padding: 10%;
+  padding:5% 10%;
 }
 .send>view{
   margin-top:10px;
@@ -93,28 +93,68 @@ page{
   color:#000; 
 }
 button{
-  z-index:999;
-  right: 5px;
   background-color:#1aaaff;
-  margin: 20px auto;
-  width: 80%;
+  width:25%;
   color:#fff;
+  display:inline;
+  float: right;
+  height: 100%;
+  border-radius: 0;
+  line-height: 90rpx;
+  border: 0;
+}
+button::after{
+  border-radius: 0;
+  border: none;
 }
 .placeholder{
   font-family: '楷体'
 }
-.money{
+.coupon-text{
+  /* width:30%; */
+  display: inline-block;
+  vertical-align: middle;
+}
+.coupon{
   margin-top: 10px;
   background-color: #fff;
-  width: 80%;
   padding: 2% 10%;
 }
+.readed{
+  margin-top: 10px;
+  background-color: #fff;
+  margin-bottom:120rpx;
+  padding: 2% 10%;
+}
+.money{
+  background-color: rgb(73, 70, 70);
+  color: white;
+  font-size: 40rpx;
+  vertical-align: middle;
+  height: 90rpx;
+  bottom:0rpx;
+  position:fixed;
+  width:100%;
+}
 .order_money{
+  display: inline-block;
+}
+.coupon .detail{
+  vertical-align: middle;
+  display: inline-block;
+  color:#000; 
+  margin-left: 50rpx;
+}
+.order_money{
+  height: 100%;
+  margin-left: 30rpx;
   text-align: center;
-  font-size: 50rpx;
+  vertical-align: middle;
+  font-size: 40rpx;
+  line-height: 90rpx;
 }
 .order_money_num{
-  font-size: 80rpx;
+  /* font-size: 80rpx; */
 }
 .add_icon{
   width:40rpx;
@@ -141,13 +181,34 @@ button{
 }
 
 .reparation{
-  margin-top:30rpx;
   text-align: center;
-  font-size: 28rpx;
+  /* font-size: 28rpx; */
+  display: inline-block;
+  float: right;
 }
-.check-box{
-   border-radius: 50%;/* 圆角 */
+.coupon-checkbox{
+  text-align: center;
+  /* font-size: 28rpx; */
+  display: inline-block;
+  float: right;
 }
+
+/* 未选中 */
+checkbox .wx-checkbox-input{
+  border-radius: 50%;/* 圆角 */
+  height: 30rpx;
+  width: 30rpx;
+}
+checkbox .wx-checkbox-input.wx-checkbox-input-checked::before{
+    border-radius: 50%;
+    line-height: 30rpx;
+    text-align: center;
+    font-size: 50rpx; /* 对勾大小 28rpx */
+    color: green; /* 对勾颜色 白色 */
+    background: transparent;
+    border-color: green;
+}
+
 .nav-to-reparation{
   display: inline;
   color: #1AAAFF;

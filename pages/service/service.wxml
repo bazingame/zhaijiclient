@@ -13,23 +13,23 @@
   </view>
 
   <view>
-  <view>快递地址</view>
-  <navigator url="/pages/service/select_address/select_address" class="select-address"><text class='select-address-word send-address'>{{KuaidiAddressName}}</text></navigator>
-   </view>
+    <view>快递地址</view>
+    <navigator url="/pages/service/select_address/select_address" class="select-address"><text class='select-address-word send-address'>{{KuaidiAddressName}}</text></navigator>
+  </view>
 
-   <view>
-  <view>快递平台</view>
-  <picker bindchange="bindExpressPickerChange" value="{{expressIndex}}" range="{{expressList}}" range-key='name'>
-    <view class="picker">
-      <text>{{expressList[expressIndex].name}}</text>
-    </view>
-  </picker>
-   </view>
+  <view>
+    <view>快递平台</view>
+    <picker bindchange="bindExpressPickerChange" value="{{expressIndex}}" range="{{expressList}}" range-key='name'>
+      <view class="picker">
+        <text>{{expressList[expressIndex].name}}</text>
+      </view>
+    </picker>
+  </view>
 
-   <view>
-   <view>取货号码</view>
-   <input type='text' placeholder='请输入取货号码' class='num' data-name="{{packageId}}" value="{{packageId}}" bindinput='bindPackageIdInput' placeholder-class='placeholder' />
-    </view>
+  <view>
+    <view>取货号码</view>
+    <input type='text' placeholder='请输入取货号码' class='num' data-name="{{packageId}}" value="{{packageId}}" bindinput='bindPackageIdInput' placeholder-class='placeholder' />
+  </view>
 
   <view>
   <view>运费险</view>
@@ -42,14 +42,26 @@
   <textarea class="note-area" placeholder="如宿管代收等" show-confirm-bar="false" data-name="{{note}}" value="{{note}}" bindinput='bindNoteInput'></textarea>
   </view>
 </view>
-
-<view class="money"> 
-    <view class="order_money">预计 <text class='order_distance_num'>{{distance}}</text> 公里 <text class='order_money_num'>{{orderMoney}}</text> 元</view>
+<view class="coupon"  wx:if="{{hasCoupon}}"> 
+    <view class="coupon-text">红包优惠</view>
+    <view class="detail">{{couponNum}}元</view>
+    <checkbox-group bindchange="CouponCheckboxChange" class="coupon-checkbox">
+      <label class="checkbox">
+        <checkbox value="isused" checked="{{coupon_isused}}" class="check-box"/>
+      </label>
+    </checkbox-group>
 </view>
-  <checkbox-group bindchange="checkboxChange" class="reparation">
-    <label class="checkbox">
-      <checkbox value="isread" checked="{{rep_isread}}" class="check-box"/>已阅读并同意
-    </label>
-    <navigator url="/pages/me/reparation/reparation" class="nav-to-reparation">《赔偿协议》</navigator>
-  </checkbox-group>
-  <button bindtap='goodsSubmit' disabled='{{submit_disable}}'>提交订单</button>
+<view class="readed"> 
+    已阅读并同意<navigator url="/pages/me/reparation/reparation" class="nav-to-reparation">《赔偿协议》</navigator>
+    <checkbox-group bindchange="checkboxChange" class="reparation">
+      <label class="checkbox">
+        <checkbox value="isread" checked="{{rep_isread}}" class="check-box"/>
+      </label>
+    </checkbox-group>
+</view>
+
+ <view class="money"> 
+    <view class="order_money">预计 <text class='order_distance_num'>{{distance}}</text> 公里 <text class='order_money_num'>{{orderMoney}}</text> 元
+    </view>
+     <button bindtap='goodsSubmit' disabled='{{submit_disable}}'>提交</button>
+</view>

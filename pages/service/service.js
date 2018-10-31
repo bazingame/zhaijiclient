@@ -28,7 +28,11 @@ Page({
     distanceMoney:0,
     distance:0,
     rep_isread:false,
-    submit_disable:true
+    submit_disable:true,
+    couponNum:null,
+    hasCoupon: false,
+    couponId:0,
+    couponIsUsed:false
   },
   //减重量
   subHeavey:function(){
@@ -62,7 +66,6 @@ Page({
   },
   //get物流公司地址
   updateAddress: function (select_data) {
-    
     this.setData({
       KuaidiAddressName: select_data,
       //addressIsSelect: true
@@ -142,6 +145,10 @@ Page({
       var effKg = kg>2?kg-2:0
       var insurance = this.data.insurance==""?0:parseFloat(this.data.insurance)
       var count = 3 + insurance + effKg*0.5 + this.data.distanceMoney
+      //优惠券计算
+      if (this.data.couponIsUsed){
+        count = count - this.data.couponNum < 0 ? 0 : count - this.data.couponNum
+      }
       this.setData({
         orderMoney:count
       })
@@ -150,15 +157,58 @@ Page({
   checkboxChange:function(e){
     //没阅读
     if(e.detail.value.length==0){
-    //阅读了
       this.setData({
         submit_disable: true
       })
+    //阅读了
     }else{
         this.setData({
           submit_disable:false
         })
     }
+  },
+  //使用优惠券
+  CouponCheckboxChange:function(e){
+    var that = this
+    //没使用
+    if (e.detail.value.length == 0) {
+      app.p('没用优惠券')
+      this.setData({
+        couponIsUsed: false
+      })
+      //重新计算价格
+      that.caculateMoney()
+      //使用了
+    } else {
+      app.p('用了优惠券')
+      this.setData({
+        couponIsUsed: true
+      })
+      //重新计算价格
+      that.caculateMoney()
+    }
+  },
+  //获取优惠券
+  getCoupon:function(){
+    var that = this
+    wx.request({
+      url: app.globalData.URL_BASE + app.globalData.GET_COUPON,
+      method: "GET",
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Authorization": app.globalData.zhaijiUserInfo.authorization,
+      },
+      success: function (res) {
+        app.p(res)
+        if (res.statusCode === 200 && res.data.errcode === 0 && res.data.data.length != 0) {
+            that.setData({
+              couponNum: parseFloat(res.data.data[0].money_award_amount),
+              hasCoupon: true,
+              couponId: res.data.data[0].id
+            })
+        }
+      }
+    })
   },
   goodsSubmit:function(e){
     var that = this
@@ -178,7 +228,9 @@ Page({
       insurance: this.data.insurance == "" ? 0 : parseFloat(this.data.insurance),
       money : this.data.orderMoney,
       package_size: this.data.kg,
-      express_address: this.data.KuaidiAddressName
+      express_address: this.data.KuaidiAddressName,
+      coupon_used:this.data.couponIsUsed,
+      coupon_id:this.data.couponId
     }
     if(classgoods.valuation==null){
       classgoods.valuation = 0
@@ -361,7 +413,6 @@ Page({
   },
   onShow:function(){
     var that = this;
-  
     wx.getStorage({
       key: 'end_location',
       success: function(res) {
@@ -398,5 +449,7 @@ Page({
         })
       },
     })
+    //获取优惠券
+    that.getCoupon()
   }
 })
