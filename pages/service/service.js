@@ -95,8 +95,14 @@ Page({
   },
   //运费险额变换
   bindInsuranceInput: function (e) {
-    var value = e.detail.value
-    if(value!=""&&parseFloat(value)>500){
+    var value = parseFloat(e.detail.value)
+    //限制一位小数
+    var valueString = value.toString().split('.')
+    var digital = valueString[1]
+    if(parseInt(digital)>9){
+      e.detail.value = parseFloat(valueString[0]+'.'+valueString[1][0])
+    }
+    if (!isNaN(value)&&value>500){
       util.showErrorToast("运费险最高500")
       e.detail.value = 500
     }
@@ -147,7 +153,7 @@ Page({
       var count = 3 + insurance + effKg*0.5 + this.data.distanceMoney
       //优惠券计算
       if (this.data.couponIsUsed){
-        count = count - this.data.couponNum < 0 ? 0 : count - this.data.couponNum
+        count = count - this.data.couponNum < 0 ? 0 :(count*10 - this.data.couponNum*10)/10
       }
       this.setData({
         orderMoney:count
@@ -202,7 +208,7 @@ Page({
         app.p(res)
         if (res.statusCode === 200 && res.data.errcode === 0 && res.data.data.length != 0) {
             that.setData({
-              couponNum: parseFloat(res.data.data[0].money_award_amount),
+              couponNum: res.data.data[0].money_award_amount,
               hasCoupon: true,
               couponId: res.data.data[0].id
             })
