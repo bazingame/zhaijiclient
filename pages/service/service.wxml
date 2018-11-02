@@ -1,6 +1,6 @@
 <!--pages/service/service.wxml-->
 <view class='kg'>
-    <image class='package_img' src='img/smallbox.png' style='width:{{boxWidth}}rpx;height:{{boxHeight}}rpx;margin-left:{{boxMargin}}rpx'></image>
+    <image class='package_img' src='/static/images/smallbox.png' style='width:{{boxWidth}}rpx;height:{{boxHeight}}rpx;margin-left:{{boxMargin}}rpx;margin-top:{{boxMarginTop}}rpx'></image>
     <view>
     <text>重量:</text> <image src='img/sub.png' class='sub_icon' bindtap='subHeavey'></image><text class="heavy-num">{{kg}}kg</text><image src='img/add.png' class='add_icon' bindtap='addHeavey'></image>
     </view>

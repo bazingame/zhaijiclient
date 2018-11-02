@@ -46,17 +46,32 @@ Page({
       })
     }, 100)
 
-    // 中奖提示
-    setTimeout(function () {
-      wx.showModal({
-        title: '恭喜',
-        content: '获得' + (awardsConfig.awards[awardIndex].name),
-        showCancel: false
-      })
-      that.setData({
-        btnDisabled: 'disabled'
-      })
-    }, 4100);
+      // 未中奖提示
+    if (that.data.awardIndex==0){
+      // 中奖提示
+      setTimeout(function () {
+        wx.showModal({
+          title: '很遗憾',
+          content: '这次没有中奖',
+          showCancel: false
+        })
+        that.setData({
+          btnDisabled: 'disabled'
+        })
+      }, 4100);
+    }else{
+      // 中奖提示
+      setTimeout(function () {
+        wx.showModal({
+          title: '恭喜',
+          content: '获得' + (awardsConfig.awards[awardIndex].name),
+          showCancel: false
+        })
+        that.setData({
+          btnDisabled: 'disabled'
+        })
+      }, 4100);
+    }
   },
   onReady: function (e) {
     var that = this;

@@ -83,3 +83,9 @@ button{
   color: black;
   float: right;
 }
+.isused{
+  float: right;
+  max-width: 320rpx;
+  font-size: 28rpx;
+  color: black;
+}

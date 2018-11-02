@@ -2,12 +2,13 @@
   <image src='../img/gift.png' data-order-id="{{order[index].order_id}}" bindtap='viewOrderDetail'></image>
   <view data-order-id="{{award_list[index].order_id}}">
     <view class='kuaidi'>
-      {{award_list[index].award_name}} 
+      {{award_list[index].award_name}}
     </view>
     <view class='time'>
     {{award_list[index].updated_at}}
     </view>
   </view>
+  <view class="isused" wx:if="{{award_list[index].used == 1}}">已用</view>
   <text class="used">{{award_used}}</text>
 </view>
 

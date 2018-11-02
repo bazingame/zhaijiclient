@@ -12,6 +12,7 @@ Page({
     boxWidth:105,
     boxHeight:120,
     boxMargin:25,
+    boxMarginTop:66,
     kg:2,//重量最小为2
     valuation:null,//估价
     expressList: app.globalData.expressList,
@@ -129,19 +130,22 @@ Page({
       this.setData({
         boxWidth: 105,
         boxHeight: 120,
-        boxMargin: 25
+        boxMargin: 25,
+        boxMarginTop:66
       })
     } else if (kg > 2 && kg <= 5) {
       this.setData({
         boxWidth: 130,
         boxHeight: 150,
-        boxMargin: 14
+        boxMargin: 14,
+        boxMarginTop:54
       })
     } else {
       this.setData({
         boxWidth: 160,
         boxHeight: 175,
-        boxMargin: -1
+        boxMargin: -1,
+        boxMarginTop:46
       })
     } 
   },

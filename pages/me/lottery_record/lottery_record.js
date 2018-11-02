@@ -58,6 +58,7 @@ Page({
    */
   onPullDownRefresh: function () {
     this.getData()
+    wx.stopPullDownRefresh()
   },
 
 
