@@ -98,7 +98,12 @@ App({
     isDeliverer: null,
     userInfo: null,
     open_id :"",
-    lottery: null,
+    // lottery: null,
+    lottery: {
+      award_list: null,
+      sub_title:'11',
+      notice:["asds"],
+      award_index:0},
     // api_url
     //URL_BASE:"https://zhaiji.hammerfood.cn",
     URL_BASE: "https://api.zhaiji.xyz",

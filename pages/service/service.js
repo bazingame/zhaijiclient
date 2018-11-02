@@ -235,7 +235,7 @@ Page({
       money : this.data.orderMoney,
       package_size: this.data.kg,
       express_address: this.data.KuaidiAddressName,
-      coupon_used:this.data.couponIsUsed,
+      u_ask_me_why_so_long:this.data.couponIsUsed,
       coupon_id:this.data.couponId
     }
     if(classgoods.valuation==null){
@@ -264,6 +264,7 @@ Page({
       confirmText:'确认提交',
       success: function (res) {
         if (res.confirm) {
+          app.p('add order data:')
           app.p(classgoods)
           //下单亲！
           wx.request({

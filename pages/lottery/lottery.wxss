@@ -46,6 +46,8 @@ page {
   border-radius: inherit;
   background-clip: padding-box;
   background-color: #ffcb3f;
+  background-image: url('https://api.zhaiji.xyz/storage/images/row.jpg') ;
+  background-size: contain
 }
 .canvas-element{
   width: inherit;
@@ -98,6 +100,16 @@ page {
   box-shadow: 0 3px 5px rgba(0,0,0,.6);
   text-decoration: none;
 }
+/* .canvas-btn-triangle{
+  position: absolute;
+  left: 110px;
+  top: 50px;
+  z-index: 3;
+  width: 10px;
+  height: 80px;
+  border:1px solid black
+  background-color: #E44025;
+} */
 .canvas-btn::after{
   position: absolute;
   display: block;
