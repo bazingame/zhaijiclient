@@ -1,5 +1,5 @@
 <view class='order' wx:for="{{order}}" wx:key="{{order[index].order_id}}">
-  <image src='../img/smallbox.png' data-order-id="{{order[index].order_id}}" ></image>
+  <image src='/static/images/smallbox.png' data-order-id="{{order[index].order_id}}" ></image>
   <view data-order-id="{{order[index].order_id}}">
     <view class='kuaidi'>
       {{order[index].express_address}} {{order[index].express}}  

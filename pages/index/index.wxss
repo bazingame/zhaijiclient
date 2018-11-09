@@ -45,6 +45,10 @@ page{
   position: absolute;
   width: 250rpx;
   font-size: 28rpx;
+  border: 0;
+}
+#captcha::after{
+  border: none;
 }
 button{
   z-index:999;

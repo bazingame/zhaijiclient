@@ -6,10 +6,10 @@ Page({
    */
   data: {
     manage:'none',
-    today_num:5,
-    today_money:15,
-    total_num: 132,
-    total_money: 732,
+    today_num:1,
+    today_money:1,
+    total_num: 1,
+    total_money: 1,
     head:app.globalData.URL_BASE+"/storage/images/package2.png",
     nickname:"未登录",
     wx_id:"Not logged in",
@@ -33,19 +33,7 @@ Page({
         isDeliverer: app.globalData.isDeliverer,
       })
     }
-    
-    // that.setData({
-      // exitloginDisplay: 'none'
-    // })
-    // wx.getStorage({
-    //   key: 'phone',
-    //   fail:function(res)
-    //   {
-    //     wx.navigateTo({
-    //       url: '../index/index',
-    //     })
-    //   }
-    // })
+   
   },
 
   /**
@@ -94,6 +82,7 @@ Page({
               today_money: res.data.data.order_money_today,
               total_num: res.data.data.order_count,
               total_money: res.data.data.order_money,
+              head: '/static/images/deliverer.png'
               //nickname:res.data.data.name,
               //wx_id:res.data.data.phone
             })
@@ -143,9 +132,15 @@ Page({
   },
   //中奖记录跳转
   lotteryRecord: function () {
-    wx.navigateTo({
-      url: '/pages/me/lottery_record/lottery_record',
-    })
+    if (app.globalData.isRegistered === false) {
+      wx.navigateTo({
+        url: '/pages/index/index',
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/me/lottery_record/lottery_record',
+      })
+    }
   },
   //打电话给客服
   callService:function(){

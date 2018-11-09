@@ -133,6 +133,7 @@ Page({
       })
     }else{
       wx.showToast({
+        icon: 'none',
         title: '请输入正确的验证码',
       })
     }

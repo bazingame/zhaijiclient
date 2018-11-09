@@ -24,6 +24,7 @@ Page({
     expressId:'Express_zhongtong',//第一个快递默认为中通
     insurance:"",
     orderMoney:3,
+    orderMoneyNoCoupon:3,
     packageId:"",
     note:'',
     distanceMoney:0,
@@ -155,12 +156,14 @@ Page({
       var effKg = kg>2?kg-2:0
       var insurance = this.data.insurance==""?0:parseFloat(this.data.insurance)
       var count = 3 + insurance + effKg*0.5 + this.data.distanceMoney
+      var count_no_coupon = 3 + insurance + effKg*0.5 + this.data.distanceMoney
       //优惠券计算
       if (this.data.couponIsUsed){
         count = count - this.data.couponNum < 0 ? 0 :(count*10 - this.data.couponNum*10)/10
       }
       this.setData({
-        orderMoney:count
+        orderMoney:count,
+        orderMoneyNoCoupon:count_no_coupon
       })
   },
   //阅读协议
@@ -237,6 +240,7 @@ Page({
       note : this.data.note,
       insurance: this.data.insurance == "" ? 0 : parseFloat(this.data.insurance),
       money : this.data.orderMoney,
+      money_no_coupon: this.data.orderMoneyNoCoupon,
       package_size: this.data.kg,
       express_address: this.data.KuaidiAddressName,
       u_ask_me_why_so_long:this.data.couponIsUsed,
@@ -268,7 +272,7 @@ Page({
       confirmText:'确认提交',
       success: function (res) {
         if (res.confirm) {
-          app.p('add order data:')
+          app.p('下单请求:')
           app.p(classgoods)
           //下单亲！
           wx.request({
@@ -280,78 +284,118 @@ Page({
             },
             data: classgoods,
             success: function (res) {
+              app.p('下单成功:')
               app.p(res)
               if (res.statusCode === 200 && res.data.errcode === 0) {
                 app.p('支付请求')
-                wx.requestPayment({
-                  'timeStamp': res.data.data.timeStamp.toString(),
-                  'nonceStr': res.data.data.nonceStr,
-                  'package': res.data.data.package,
-                  'signType': 'MD5',
-                  'paySign': res.data.data.paySign,
-                  'success': function (payRes) {
-                    if (payRes.errMsg =='requestPayment:ok'){
-                      //TODO 修改支付状态(成功)
-                      wx.request({
-                        url: app.globalData.URL_BASE + app.globalData.CHANGE_PAY_STATUS + res.data.data.order_id,
-                        method: "PUT",
-                        header: {
-                          "Content-Type": "application/x-www-form-urlencoded",
-                          "Authorization": app.globalData.zhaijiUserInfo.authorization,
-                        },
-                        data: { 'guagua': 'ss' },
-                        success: function (reviseRes) {
-                          app.p('修改支付状态')
-                          if (reviseRes.statusCode === 200 && reviseRes.data.errcode === 0) {
-                            app.p(reviseRes)
-                            util.showSucessToast("下单成功")
-                            //判断是否有抽奖
-                            if(reviseRes.data.data.lottery!=false){
-                              app.p('lottery')
-                              app.globalData.lottery = reviseRes.data.data.lottery
-                              setTimeout(function () {
-                                wx.navigateTo({
-                                  url: '/pages/lottery/lottery',
-                                })
-                              }, 1500)
-                            }else{
-                              app.p('no lottery')
-                              setTimeout(function () {
-                                wx.switchTab({
-                                  url: '/pages/order/order',
-                                })
-                              }, 1500)
+                //零元请求
+                if(classgoods.money==0){
+                  wx.request({
+                    url: app.globalData.URL_BASE + app.globalData.CHANGE_PAY_STATUS + res.data.data.order_id,
+                    method: "PUT",
+                    header: {
+                      "Content-Type": "application/x-www-form-urlencoded",
+                      "Authorization": app.globalData.zhaijiUserInfo.authorization,
+                    },
+                    data: { 'guagua': 'ss' },
+                    success: function (reviseRes) {
+                      app.p('修改支付状态')
+                      if (reviseRes.statusCode === 200 && reviseRes.data.errcode === 0) {
+                        app.p(reviseRes)
+                        util.showSucessToast("下单成功")
+                        //判断是否有抽奖
+                        if (reviseRes.data.data.lottery != false) {
+                          app.p('lottery')
+                          app.globalData.lottery = reviseRes.data.data.lottery
+                          setTimeout(function () {
+                            wx.navigateTo({
+                              url: '/pages/lottery/lottery',
+                            })
+                          }, 1500)
+                        } else {
+                          app.p('no lottery')
+                          setTimeout(function () {
+                            wx.switchTab({
+                              url: '/pages/order/order',
+                            })
+                          }, 1500)
+                        }
+                      } else {
+                        util.showErrorToast("支付状态修改失败")
+                      }
+                    }
+                  })
+                }else{
+                  wx.requestPayment({
+                    'timeStamp': res.data.data.timeStamp.toString(),
+                    'nonceStr': res.data.data.nonceStr,
+                    'package': res.data.data.package,
+                    'signType': 'MD5',
+                    'paySign': res.data.data.paySign,
+                    'success': function (payRes) {
+                      if (payRes.errMsg =='requestPayment:ok'){
+                        //TODO 修改支付状态(成功)
+                        wx.request({
+                          url: app.globalData.URL_BASE + app.globalData.CHANGE_PAY_STATUS + res.data.data.order_id,
+                          method: "PUT",
+                          header: {
+                            "Content-Type": "application/x-www-form-urlencoded",
+                            "Authorization": app.globalData.zhaijiUserInfo.authorization,
+                          },
+                          data: { 'guagua': 'ss' },
+                          success: function (reviseRes) {
+                            app.p('修改支付状态')
+                            if (reviseRes.statusCode === 200 && reviseRes.data.errcode === 0) {
+                              app.p(reviseRes)
+                              util.showSucessToast("下单成功")
+                              //判断是否有抽奖
+                              if(reviseRes.data.data.lottery!=false){
+                                app.p('lottery')
+                                app.globalData.lottery = reviseRes.data.data.lottery
+                                setTimeout(function () {
+                                  wx.navigateTo({
+                                    url: '/pages/lottery/lottery',
+                                  })
+                                }, 1500)
+                              }else{
+                                app.p('no lottery')
+                                setTimeout(function () {
+                                  wx.switchTab({
+                                    url: '/pages/order/order',
+                                  })
+                                }, 1500)
+                              }
+                            }else {
+                              util.showErrorToast("支付状态修改失败")
                             }
-                          }else {
-                            util.showErrorToast("支付状态修改失败")
                           }
-                        }
-                      })
-                    }
-                  },
-                  'fail': function (payRes) {
-                    if (payRes.errMsg =='requestPayment:fail cancel'){
-                      //TODO 修改支付状态(失败)
-                      wx.request({
-                        url: app.globalData.URL_BASE + app.globalData.CHANGE_PAY_STATUS + res.data.data.order_id,
-                        method: "PUT",
-                        header: {
-                          "Content-Type": "application/x-www-form-urlencoded",
-                          "Authorization": app.globalData.zhaijiUserInfo.authorization,
-                        },
-                        data: { 'guagua': 'gg' },
-                        success: function (reviseRes) {
-                          app.p('修改支付状态')
-                          if (reviseRes.statusCode === 200 && reviseRes.data.errcode === 0) {
-                            util.showErrorToast('支付失败')
-                          } else {
-                            util.showErrorToast("支付状态修改失败")
+                        })
+                      }
+                    },
+                    'fail': function (payRes) {
+                      if (payRes.errMsg =='requestPayment:fail cancel'){
+                        //TODO 修改支付状态(失败)
+                        wx.request({
+                          url: app.globalData.URL_BASE + app.globalData.CHANGE_PAY_STATUS + res.data.data.order_id,
+                          method: "PUT",
+                          header: {
+                            "Content-Type": "application/x-www-form-urlencoded",
+                            "Authorization": app.globalData.zhaijiUserInfo.authorization,
+                          },
+                          data: { 'guagua': 'gg' },
+                          success: function (reviseRes) {
+                            app.p('修改支付状态')
+                            if (reviseRes.statusCode === 200 && reviseRes.data.errcode === 0) {
+                              util.showErrorToast('支付失败')
+                            } else {
+                              util.showErrorToast("支付状态修改失败")
+                            }
                           }
-                        }
-                      })
-                    }
-                  },
-                })
+                        })
+                      }
+                    },
+                  })
+                }
               } else {
                 wx.showToast({
                   title: res.data.errmsg,
@@ -397,7 +441,7 @@ Page({
     //未登录状态下，点击跳转登录 null
     // app.p(typeof app.globalData.zhaijiUserInfo.addresses)
     //undefiend时为未注册状态鸭
-    if (typeof app.globalData.zhaijiUserInfo.addresses!="undefined"){
+    if (typeof app.globalData.zhaijiUserInfo!="undefined"){
       var lastAddress = app.globalData.zhaijiUserInfo.addresses.pop()
       app.globalData.zhaijiUserInfo.addresses.push(lastAddress)
       //如果地址列表没有地址
@@ -461,6 +505,7 @@ Page({
       },
     })
     //获取优惠券
-    that.getCoupon()
+    if(app.globalData.isRegistered)
+      that.getCoupon()
   }
 })

@@ -1,5 +1,5 @@
 <view class='order' wx:for="{{award_list}}" wx:key="unique">
-  <image src='../img/gift.png' data-order-id="{{order[index].order_id}}" bindtap='viewOrderDetail'></image>
+  <image src='../img/gift.png' data-order-id="{{order[index].order_id}}" ></image>
   <view data-order-id="{{award_list[index].order_id}}">
     <view class='kuaidi'>
       {{award_list[index].award_name}}
