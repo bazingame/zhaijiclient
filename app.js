@@ -92,6 +92,11 @@ App({
       that.p('initLogin注册回调guide')
       this.GuideReadyCallback(that.globalData.isDeliverer)
     }
+    if (this.OrderReadyCallback) {
+      that.p('initLogin注册回调order')
+      this.OrderReadyCallback(that.globalData.isRegistered)
+    }
+
   },
   globalData: {
     isRegistered: null,//默认值不要乱改 guide基于此判断登录状态

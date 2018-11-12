@@ -78,19 +78,25 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
-    if(app.globalData.isRegistered===true){
-      // wx.request({
-      //   url: app.globalData.URL_BASE + app.globalData.GET_ONES_ORDER_LIST,
-      //   method: 'GET',
-      //   header:{authorization: app.globalData.zhaijiUserInfo.authorization},
-      //   success: function (res) {
-      //     console.log(res);
-      //   }
-      // })
-    }else{
-      wx.navigateTo({
-        url: '/pages/index/index',
-      })
+    if (app.globalData.isRegistered == null) {//值为null代表还未执行wx.login 需要等待
+      app.p('order先加载')
+      app.OrderReadyCallback = isRegistered => {
+        if (app.globalData.isRegistered === true) {
+         
+        } else {
+          wx.navigateTo({
+            url: '/pages/index/index',
+          })
+        }
+      }
+    } else {
+      app.p('app先加载')
+      if (app.globalData.isRegistered === true) {
+      } else {
+        wx.navigateTo({
+          url: '/pages/index/index',
+        })
+      }
     }
   },
 
