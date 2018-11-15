@@ -17,6 +17,7 @@ page{
 }
 .order-info{
     padding-top: 25rpx;
+    padding-bottom: 50rpx;
     background: #fff;
     height: auto;
     overflow: hidden;
@@ -36,6 +37,24 @@ page{
   width:160rpx;
   height: 50rpx;
   float: left;
+}
+.addnotice{
+  padding-left: 31.25rpx;
+  height: 52.5rpx;
+  padding-bottom: 12.5rpx;
+  line-height: 30rpx;
+  font-size: 30rpx;
+  color: #666;
+}
+.addnotice-word{
+  height: 52.5rpx;
+  line-height: 30rpx;
+  font-size: 30rpx;
+  color: #666;
+  position: relative;
+}
+.addnotice-word-view{
+  padding:0 30rpx;
 }
 .item-b{
     padding-left: 31.25rpx;

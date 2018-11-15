@@ -27,7 +27,8 @@
         <view class="item-a"><view>地址：</view><text>{{orderDetail.address}}</text></view>
         <view class="item-a"><view>详细地址：</view><text>{{orderDetail.address_detail}}</text></view>
         <view class="item-a"><view>下单时间：</view><text>{{orderDetail.order_time}}</text></view>
-        <view class="item-a"><view>备注：</view><text>{{orderDetail.note}}</text></view>
+        <view class="addnotice"><view>备注：</view></view>
+        <view class='addnotice-word-view'><text class='addnotice-word'>{{orderDetail.note}}</text></view>
     </view>
     
     <block wx:if="{{orderDetail.status=='已接单' || orderDetail.status=='已完成' || orderDetail.status=='申请取消中' || orderDetail.status=='取消失败' }}">
