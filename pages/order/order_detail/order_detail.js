@@ -119,6 +119,48 @@ Page({
       }
     })
   },
+  //取消接单
+  cancelReceivedOrder:function(){
+    var that = this
+    var orderId = that.data.orderId
+    wx.showModal({
+      content: '确认取消接单？',
+      success: function (res) {
+        if (res.confirm) {
+          app.p('同意取消接单')
+          wx.request({
+            url: app.globalData.URL_BASE + app.globalData.CANCEL_RECEIVED_ORDER + orderId,
+            method: "PUT",
+            header: {
+              "Content-Type": "application/x-www-form-urlencoded",
+              "Authorization": app.globalData.zhaijiUserInfo.authorization,
+            },
+            success: function (res) {
+              if (res.statusCode === 200 && res.data.errcode === 0) {
+                wx.showToast({
+                  title: '已取消接单',
+                  icon: 'none'
+                })
+                setTimeout(function(){
+                  wx.navigateBack({
+                  })
+                },1500)
+                
+              } else {
+                wx.showToast({
+                  title: res.data.errmsg,
+                  icon: 'none'
+                })
+              }
+            },
+            fail: function (res) {
+              app.p(res)
+            }
+          })
+        }
+      }
+    })
+  },
   //拒绝取消
   refuseCancel:function(){
     var that = this

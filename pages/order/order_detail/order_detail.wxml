@@ -64,6 +64,7 @@
                     <view wx:if="{{orderDetail.status=='申请取消中'}}" class="btn active" bindtap="agreeCancel">同意取消</view>
                     <view wx:if="{{orderDetail.status=='申请取消中'}}" class="btn active refuseactive" bindtap="refuseCancel">拒绝取消</view>
                     <view wx:if="{{orderDetail.status=='已接单'}}" class="btn active" bindtap="confirmOrder">确认送达</view>
+                    <view wx:if="{{orderDetail.status=='已接单'}}" class="btn active" bindtap="cancelReceivedOrder">取消接单</view>
               </view>
           </view>
         </block>

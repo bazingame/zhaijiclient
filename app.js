@@ -132,6 +132,7 @@ App({
     GET_ORDER_CAN_GET_LIST: "/deliverer/order/",//GET
     GET_ORDER_RECEIVED_LIST: "/deliverer/received-order/",//GET    
     RECEIVE_ORDER: "/deliverer/receive/",//POST
+    CANCEL_RECEIVED_ORDER: "/deliverer/cancel-received/",//PUT
     GET_DELIVERER_INFO:"/deliverer/info/",//GET
     GET_DELIVERER_INFO_MY: "/deliverer/info-my",//GET
     CHANGE_PAY_STATUS: "/order/guagua/",//PUT

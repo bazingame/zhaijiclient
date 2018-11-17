@@ -115,9 +115,17 @@ Page({
   },
   //取货号变换
   bindPackageIdInput: function (e) {
-    this.setData({
-      packageId: e.detail.value
-    })
+    var length = e.detail.value.length
+    if(length>15){
+      util.showErrorToast('取货号太长')
+      this.setData({
+        packageId: e.detail.value.substr(0,15)
+      })
+    }else{
+      this.setData({
+        packageId: e.detail.value
+      })
+    }
   },
   //备注变换
   bindNoteInput: function (e) {
