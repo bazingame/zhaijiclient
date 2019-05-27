@@ -297,7 +297,7 @@ Page({
               if (res.statusCode === 200 && res.data.errcode === 0) {
                 app.p('支付请求')
                 //零元请求
-                if(classgoods.money==0){
+                if(true){
                   wx.request({
                     url: app.globalData.URL_BASE + app.globalData.CHANGE_PAY_STATUS + res.data.data.order_id,
                     method: "PUT",

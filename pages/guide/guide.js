@@ -6,9 +6,9 @@ Page({
     isUser:null,
     isDeliverer: null,
     imgUrls: [
-      'https://api.zhaiji.xyz/storage/images/ads/banner1.png',
-      'https://api.zhaiji.xyz/storage/images/ads/banner2.png',
-      'https://api.zhaiji.xyz/storage/images/ads/banner3.png'
+      'https://zhaiji.0bug.xyz/storage/images/ads/banner1.png',
+      'https://zhaiji.0bug.xyz/storage/images/ads/banner2.png',
+      'https://zhaiji.0bug.xyz/storage/images/ads/banner3.png'
     ],
     indicatorDots: true,
     autoplay: true,

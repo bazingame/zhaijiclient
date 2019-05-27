@@ -110,8 +110,8 @@ App({
       notice:["asds"],
       award_index:0},
     // api_url
-    //URL_BASE:"https://zhaiji.hammerfood.cn",
-    URL_BASE: "https://api.zhaiji.xyz",
+    URL_BASE:"https://zhaiji.0bug.xyz",
+    //URL_BASE: "https://api.zhaiji.xyz",
     GET_OPEN_ID: "/code",//POST
     LOGIN: "/login",//POST
     GET_CAPTCHA: "/msg/send",//POST 
